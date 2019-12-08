@@ -5,18 +5,21 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
 const Home = ({ posts }) => (
-  <div className="html">
+
   <div className="container">
     <Head>
       <title>Home</title>
       <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" rel="stylesheet"></link>
       <link rel="icon" href="/favicon.ico" />
+      <button id="theme-changer"></button>
+      
     </Head>
 
     <div className="hero">
       <h1 className="hero-title">Selman Kahya</h1>
       <div className="hero-social-links">
         <Link href="https://medium.com/@selmankahya">
+        
           <a className="social-link">Medium</a>
         </Link>
         <Link href="https://www.twitter.com/selmankahyax">
@@ -47,6 +50,12 @@ const Home = ({ posts }) => (
         <div className="blog-date">{post.date}</div>
       </div>
     ))}
+    <style jsx global>{`
+      body { 
+        //background-color: #030013;
+        transition:background-color 1s;
+      }
+    `}</style>
 
     <style jsx>{`
       .container {
@@ -55,19 +64,9 @@ const Home = ({ posts }) => (
         margin: 0 auto;
         font-family: 'Quicksand', sans-serif;
         //background-color: #030013;
+        transform: translateY(-5em);
         
       }
-
-      .html {
-        padding: 4em 0 0;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        position: absolute;
-        transition: background-color 1s;
-        background-color: #030013;
-        width: 100%;
-    }
 
       .hero {
         text-align: center;
@@ -118,12 +117,15 @@ const Home = ({ posts }) => (
         text-decoration: none;
       }
 
+      .blog{
+        border-bottom: 1px #70707047 solid;
+      }
+
       a {
         color: #707070;
         text-decoration: none;
       }
     `}</style>
-  </div>
   </div>
 );
 
