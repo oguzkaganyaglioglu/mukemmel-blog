@@ -3,20 +3,28 @@ import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import PageNav from "../components/pageNav";
+import about from "../components/about";
 
+
+const isDark = true;
 const Home = ({ posts }) => (
-
+    
   <div className="container">
     <Head>
       <title>Home</title>
       <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" rel="stylesheet"></link>
       <link rel="icon" href="/favicon.ico" />
-      <button id="theme-changer"></button>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
+      <button className="button" className="btn btn-outline-dark" onClick="{this.onThemeChange}">Dark</button>
+      <button className="button" className="btn btn-outline-light" onClick="{this.onThemeChange}">Light</button>
       
-    </Head>
 
+    </Head>
+    
+    
     <div className="hero">
-      <h1 className="hero-title">Selman Kahya</h1>
+      <h1 className="display-4">Selman Kahya</h1>
       <div className="hero-social-links">
         <Link href="https://medium.com/@selmankahya">
         
@@ -41,37 +49,43 @@ const Home = ({ posts }) => (
             <a className="blog-title-link">{post.title}</a>
           </Link>
         </h2>
-        <div className="blog-text">
+        <div className="lead">
           
           <Link href={post.slug}>
             <a className="blog-text-link"><ReactMarkdown source={post.details} /></a>
           </Link>
         </div>
         <div className="blog-date">{post.date}</div>
+        <hr/>
       </div>
     ))}
-    <style jsx global>{`
-      body { 
+    
+    <div className="footer">
+    <PageNav />
+    </div>
+    
+
+
+    <style jsx>{`
+      :global(body){
         //background-color: #030013;
         transition:background-color 1s;
       }
-    `}</style>
-
-    <style jsx>{`
       .container {
         max-width: 650px;
         width: 100%;
         margin: 0 auto;
-        font-family: 'Quicksand', sans-serif;
+        //font-family: 'Quicksand', sans-serif;
         //background-color: #030013;
-        transform: translateY(-5em);
+        transform: translateY(-4em);
         
       }
 
       .hero {
         text-align: center;
-        margin: 96px 0;
-        color:#232526;
+         margin: 96px 0;
+      //   color:#232526;
+      
       }
       
 
@@ -82,26 +96,27 @@ const Home = ({ posts }) => (
       }
 
       .hero-title {
-        font-size: 48px;
-        margin: 0 auto;
-        font-weight: 400;
+        //font-size: 48px;
+        //margin: 0 auto;
+        //font-weight: 400;
       }
 
-      .blog-text{
+      .lead{
         position: relative;
-        height: 56px;
+        height: 90px;
         overflow:hidden;
-        line-height:19px;
+        line-height:30px;
       }
 
-      .blog-text:after{
+      .lead:after{
         content: "Devamını oku";
+        font-size:18px;
         text-align: right;
         position: absolute;
         bottom: 0;
         right: 0;
         width: 50%;
-        height: 1.3em;
+        height: 1.2em;
         background: linear-gradient(to right,rgba(53, 63, 64, 0),rgba(53, 63, 64,1) 50%);
       }
 
@@ -118,7 +133,7 @@ const Home = ({ posts }) => (
       }
 
       .blog{
-        border-bottom: 1px #70707047 solid;
+        //border-bottom: 1px #70707047 solid;
       }
 
       a {
