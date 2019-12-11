@@ -3,8 +3,9 @@ import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import PageNav from "../components/pageNav";
-import about from "../components/about";
+import PaginacionTabla from "../components/pageNav";
+import Slider from '../components/slider'
+import Slogan from '../components/slogan'
 
 
 const isDark = true;
@@ -12,37 +13,51 @@ const Home = ({ posts }) => (
     
   <div className="container">
     <Head>
-      <title>Home</title>
-      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" rel="stylesheet"></link>
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
-      <button className="button" className="btn btn-outline-dark" onClick="{this.onThemeChange}">Dark</button>
-      <button className="button" className="btn btn-outline-light" onClick="{this.onThemeChange}">Light</button>
       
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Home</title>
+      <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
+
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>      
 
     </Head>
     
     
     <div className="hero">
-      <h1 className="display-4">Selman Kahya</h1>
+      <h1 className="hero-title">Oguz Kagan Yaglıoglu</h1>
+      <hr style={{borderColor:"#707070", width:"550px"}} />
+      
+      <Slogan />
+
       <div className="hero-social-links">
-        <Link href="https://medium.com/@selmankahya">
-        
-          <a className="social-link">Medium</a>
-        </Link>
-        <Link href="https://www.twitter.com/selmankahyax">
+        <Link href="https://www.twitter.com/oguzkagan05">
           <a className="social-link">Twitter</a>
         </Link>
-        <Link href="https://www.linkedin.com/in/selmankahya">
-          <a className="social-link">LinkedIn</a>
-        </Link>
-        <Link href="https://www.instagram.com/selmankahyax/?hl=en">
+        <Link href="https://www.instagram.com/oguz_kagan05">
           <a className="social-link">Instagram</a>
         </Link>
       </div>
     </div>
+    
+
+    <Slider />
+
+    
+
+    <div className="cards">
+      <div className="card text-white bg-dark mb-3" style={{maxWidth:"18rem"}}>
+        <div className="card-header">Header</div>
+        <div className="card-body">
+          <h5 className="card-title">Dark card title</h5>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
 
     {posts.map(post => (
+
       <div className="blog">
         <h2 className="blog-title">
           <Link href={post.slug}>
@@ -61,18 +76,39 @@ const Home = ({ posts }) => (
     ))}
     
     <div className="footer">
-    <PageNav />
     </div>
+
+
+    <style jsx global>{`
     
+    body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #001517;
+    }
+      
+    body::-webkit-scrollbar {
+      width: 6px;
+      background-color: #F5F5F5;
+    }
+      
+    body::-webkit-scrollbar-thumb {
+      background-color: #000d0d;
+      
+    }
+    
+    `}</style>    
 
 
     <style jsx>{`
       :global(body){
-        //background-color: #030013;
+        background-color: #001517;
         transition:background-color 1s;
+        
       }
+
+
       .container {
-        max-width: 650px;
+        max-width: 800px;
         width: 100%;
         margin: 0 auto;
         //font-family: 'Quicksand', sans-serif;
@@ -96,9 +132,12 @@ const Home = ({ posts }) => (
       }
 
       .hero-title {
-        //font-size: 48px;
-        //margin: 0 auto;
-        //font-weight: 400;
+        font-size: 48px;
+        margin: 0 auto;
+        font-weight: 400;
+        color:#707070;
+        font-family: 'Megrim', cursive;
+        
       }
 
       .lead{
