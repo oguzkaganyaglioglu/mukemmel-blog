@@ -17,6 +17,7 @@
     "react-dom": "^16.12.0",
     "react-js-pagination": "^3.0.2",
     "react-markdown": "^4.2.2",
-    "react-next-paging": "^7.0.7"
+    "react-next-paging": "^7.0.7",
+    "react-typical": "^0.1.3"
   }
 }

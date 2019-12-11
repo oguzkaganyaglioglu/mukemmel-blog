@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import PaginacionTabla from "../components/pageNav";
 import Slider from '../components/slider'
 import Slogan from '../components/slogan'
+import Typical from "react-typical"
 
 
 const isDark = true;
@@ -26,7 +27,25 @@ const Home = ({ posts }) => (
     
     
     <div className="hero">
-      <h1 className="hero-title">Oguz Kagan Yaglıoglu</h1>
+      <h1 className="hero-title">
+      <Typical
+            steps={['Hello',
+                    1000,
+                    "I'm a designer.",
+                    1000,
+                    "I'm a developer.",
+                    1000,
+                    "Who am I?",
+                    1000,
+                    "I am",
+                    1000,
+                    'Oguz Kagan Yaglıoglu',
+                    1500
+            ]}
+            
+            wrapper="p"
+            />
+        </h1>
       <hr style={{borderColor:"#707070", width:"550px"}} />
       
       <Slogan />
