@@ -1,20 +1,34 @@
 import React from 'react';
 import Typical from "react-typical"
 
-const Slogan = () => (
+function Slogan(){
+   
     <div>
-        <h4 className="lead">
+        <h4 className="lead" style={{fontSize:"20px"}}>
+            
             <Typical
-            steps={['Think it better',
+            steps={[
+                    
+                    'Think it better',
                     1000,
                     'Make it better!',
-                    1500
+                    1500,
+                    
             ]}
             loop={Infinity}
             wrapper="p"
             />
         </h4>
-</div>
-)
+        </div>
+         function sayHello() {
+            alert('Hello!');
+          }
+          
+          return (
+            <button onClick={sayHello}>
+              Click me!
+            </button>
+          );
+          }
 
 export default Slogan

@@ -13,4 +13,4 @@
 -Hazırlığı yapan özellikler kodlanacak
 
 ## Bulunan Hatalar
--Blog title
+-Blog title `Çözüldü`

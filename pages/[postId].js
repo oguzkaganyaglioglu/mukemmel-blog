@@ -3,6 +3,7 @@ import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import Typical from "react-typical";
 
 const BlogPost = ({ post }) => (
   <div className="container">
@@ -12,26 +13,34 @@ const BlogPost = ({ post }) => (
     </Head>
 
     <div className="hero">
-      <h1 className="hero-title">Selman Kahya</h1>
-      <div className="hero-social-links">
-        <Link href="https://medium.com/@selmankahya">
-          <a className="social-link">Medium</a>
-        </Link>
-        <Link href="https://www.twitter.com/selmankahyax">
-          <a className="social-link">Twitter</a>
-        </Link>
-        <Link href="https://www.linkedin.com/in/selmankahya">
-          <a className="social-link">LinkedIn</a>
-        </Link>
-        <Link href="https://www.instagram.com/selmankahyax/?hl=en">
-          <a className="social-link">Instagram</a>
-        </Link>
-      </div>
-    </div>
+      <Link href="/">
+      <a className="hero-title">
+      <Typical
+            steps={['Hello 👋🏽',
+                    1000,
+                    "I'm a designer 🖊️",
+                    1000,
+                    "I'm a developer 💻",
+                    1000,
+                    "Who am I?",
+                    1000,
+                    "I am",
+                    1000,
+                    'Oguz Kagan Yaglıoglu',
+                    1500
+                    
+            ]}
+            
+            wrapper="p"
+            />
 
+
+        </a>
+        </Link>
+        </div>
     <div className="blog">
       <h2 className="blog-title">
-        <Link href="/test">
+        <Link >
           <a className="blog-title-link">{post.title}</a>
         </Link>
       </h2>

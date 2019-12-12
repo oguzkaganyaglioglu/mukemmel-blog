@@ -4,9 +4,14 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import PaginacionTabla from "../components/pageNav";
-import Slider from '../components/slider'
+import Cards from "../components/cards"
 import Slogan from '../components/slogan'
 import Typical from "react-typical"
+
+import "../style/main.scss";
+
+
+import App from "../components/test"
 
 
 const isDark = true;
@@ -27,13 +32,14 @@ const Home = ({ posts }) => (
     
     
     <div className="hero">
-      <h1 className="hero-title">
+      <Link href="/">
+      <a className="hero-title">
       <Typical
-            steps={['Hello',
+            steps={['Hello 👋🏽',
                     1000,
-                    "I'm a designer.",
+                    "I'm a designer 🖊️",
                     1000,
-                    "I'm a developer.",
+                    "I'm a developer 💻",
                     1000,
                     "Who am I?",
                     1000,
@@ -41,11 +47,15 @@ const Home = ({ posts }) => (
                     1000,
                     'Oguz Kagan Yaglıoglu',
                     1500
+                    
             ]}
             
             wrapper="p"
             />
-        </h1>
+
+
+        </a>
+        </Link>
       <hr style={{borderColor:"#707070", width:"550px"}} />
       
       <Slogan />
@@ -61,7 +71,7 @@ const Home = ({ posts }) => (
     </div>
     
 
-    <Slider />
+
 
     
 
@@ -74,6 +84,9 @@ const Home = ({ posts }) => (
         </div>
       </div>
     </div>
+    <br/>
+
+    <Cards/>
 
     {posts.map(post => (
 
@@ -96,109 +109,6 @@ const Home = ({ posts }) => (
     
     <div className="footer">
     </div>
-
-
-    <style jsx global>{`
-    
-    body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-      background-color: #001517;
-    }
-      
-    body::-webkit-scrollbar {
-      width: 6px;
-      background-color: #F5F5F5;
-    }
-      
-    body::-webkit-scrollbar-thumb {
-      background-color: #000d0d;
-      
-    }
-    
-    `}</style>    
-
-
-    <style jsx>{`
-      :global(body){
-        background-color: #001517;
-        transition:background-color 1s;
-        
-      }
-
-
-      .container {
-        max-width: 800px;
-        width: 100%;
-        margin: 0 auto;
-        //font-family: 'Quicksand', sans-serif;
-        //background-color: #030013;
-        transform: translateY(-4em);
-        
-      }
-
-      .hero {
-        text-align: center;
-         margin: 96px 0;
-      //   color:#232526;
-      
-      }
-      
-
-      .social-link {
-        margin-right: 8px;
-        font-weight: 300;
-        color:#353F40;
-      }
-
-      .hero-title {
-        font-size: 48px;
-        margin: 0 auto;
-        font-weight: 400;
-        color:#707070;
-        font-family: 'Megrim', cursive;
-        
-      }
-
-      .lead{
-        position: relative;
-        height: 90px;
-        overflow:hidden;
-        line-height:30px;
-      }
-
-      .lead:after{
-        content: "Devamını oku";
-        font-size:18px;
-        text-align: right;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 50%;
-        height: 1.2em;
-        background: linear-gradient(to right,rgba(53, 63, 64, 0),rgba(53, 63, 64,1) 50%);
-      }
-
-      .blog-date {
-        text-align: right;
-        color: #232526;
-        
-        margin: 12px 0 48px 0;
-      }
-
-      .blog-text-link{
-        color:#9A9A9A;
-        text-decoration: none;
-      }
-
-      .blog{
-        //border-bottom: 1px #70707047 solid;
-      }
-
-      a {
-        color: #707070;
-        text-decoration: none;
-      }
-    `}</style>
   </div>
 );
 
