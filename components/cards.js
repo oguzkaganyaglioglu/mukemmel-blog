@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import fetch from "isomorphic-unfetch";
-import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import "../style/main.scss";
@@ -21,9 +19,9 @@ class Cards extends Component {
       {veri.slice(0,3).map(post => (
         
         
-        <div className="cards"style={{display:"inline-block", margin:"10px"}}>
+        <div className="cards" key={post.id} style={{display:"inline-block", margin:"10px 10px 0"}}>
         
-        <div className="card text-white bg-dark mb-3" style={{maxWidth:"15rem"}}>
+        <div className="card text-white bg-dark mb-3" style={{Width:"15rem"}}>
         <Link href={post.slug}>
         <a className="card text-white bg-dark">
         <div className="card-header">{post.title}</div>
@@ -45,6 +43,9 @@ class Cards extends Component {
       
       <style jsx>
         {`
+        a {
+            transition: 0.5s;
+        }
           .Kartlar{
             overflow: auto;
             white-space: nowrap;
@@ -61,18 +62,19 @@ class Cards extends Component {
             background-color: #F5F5F5;
           }
 
-          .Kartlar::-webkit-scrollbar::hover {
-            
-            
-            height: 20px;
-            background-color: #F5F5F5;
-          }
-
-            
           .Kartlar::-webkit-scrollbar-thumb {
-            background-color: #000d0d;
+            transition:background-color 1s;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #001517;
             
-          }        
+          }
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+        background: #000d0d; 
+        }
+        
+                  
         `}
       </style>
       </div>

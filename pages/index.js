@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import PaginacionTabla from "../components/pageNav";
+import Cards from "../components/cards"
 
 import Slogan from '../components/slogan'
 import Typical from "react-typical"
@@ -52,7 +53,7 @@ const Home = ({ posts }) => (
 
         </a>
         </Link>
-      <hr style={{borderColor:"#707070", width:"550px"}} />
+      <hr style={{borderColor:"#707070", maxWidth:"550px"}} />
       
       <Slogan />
 
@@ -71,19 +72,10 @@ const Home = ({ posts }) => (
 
     
 
-    <div className="cards">
-      <div className="card text-white bg-dark mb-3" style={{maxWidth:"18rem"}}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Dark card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
+    <Cards veri={posts}/>
     <br/>
 
-
-
+    
     {posts.map(post => (
 
       <div className="blog">
