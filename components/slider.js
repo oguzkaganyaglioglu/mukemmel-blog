@@ -1,4 +1,5 @@
 import React from "react"
+import "reactstrap"
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(null);
@@ -51,4 +52,4 @@ function ControlledCarousel() {
   );
 }
 
-render(<ControlledCarousel />);
+render(<ControlledCarousel />)

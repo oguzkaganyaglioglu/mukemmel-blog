@@ -4,17 +4,12 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import PaginacionTabla from "../components/pageNav";
-import Cards from "../components/cards"
+
 import Slogan from '../components/slogan'
 import Typical from "react-typical"
 
 import "../style/main.scss";
 
-
-import App from "../components/test"
-
-
-const isDark = true;
 const Home = ({ posts }) => (
     
   <div className="container">
@@ -24,10 +19,11 @@ const Home = ({ posts }) => (
       <title>Home</title>
       <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
       <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
-
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+        crossorigin="anonymous"></link>
       <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>      
-
+      
     </Head>
     
     
@@ -86,7 +82,7 @@ const Home = ({ posts }) => (
     </div>
     <br/>
 
-    <Cards/>
+
 
     {posts.map(post => (
 
