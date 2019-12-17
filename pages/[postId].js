@@ -4,15 +4,25 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import Typical from "react-typical";
+import Slogan from '../components/slogan'
+import "../style/main.scss";
 
 const BlogPost = ({ post }) => (
   <div className="container">
     <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+      
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Home</title>
+        <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
+        <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+          crossorigin="anonymous"></link>
+        <link rel="icon" href="/favicon.ico" />
+        
+      </Head>
 
-    <div className="hero">
+      <div className="hero">
       <Link href="/">
       <a className="hero-title">
       <Typical
@@ -37,7 +47,20 @@ const BlogPost = ({ post }) => (
 
         </a>
         </Link>
-        </div>
+      <hr style={{borderColor:"#707070", maxWidth:"550px"}} />
+      
+      <Slogan />
+
+      <div className="hero-social-links">
+        <Link href="https://www.twitter.com/oguzkagan05">
+          <a className="social-link">Twitter</a>
+        </Link>
+        <Link href="https://www.instagram.com/oguz_kagan05">
+          <a className="social-link">Instagram</a>
+        </Link>
+      </div>
+    </div>
+
     <div className="blog">
       <h2 className="blog-title">
         <Link >
@@ -49,37 +72,7 @@ const BlogPost = ({ post }) => (
       </div>
       <div className="blog-date">{post.date}</div>
     </div>
-    <style jsx>{`
-      .container {
-        max-width: 650px;
-        width: 100%;
-        margin: 0 auto;
-      }
 
-      .hero {
-        text-align: center;
-        margin: 96px 0;
-      }
-
-      .social-link {
-        margin-right: 8px;
-      }
-
-      .hero-title {
-        font-size: 48px;
-      }
-
-      .blog-date {
-        text-align: right;
-        color: #cccccc;
-        margin: 12px 0 48px 0;
-      }
-
-      a {
-        color: #35459e;
-        text-decoration: none;
-      }
-    `}</style>
   </div>
 );
 

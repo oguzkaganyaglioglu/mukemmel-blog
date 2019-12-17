@@ -1,4 +1,3 @@
-## Yapılanlar
 -Tasarım güzelleştirme `bitmedi`
 
 -Linkler güncellendi
@@ -14,3 +13,4 @@
 
 ## Bulunan Hatalar
 -Blog title `Çözüldü`
+-Kartlarda taşma

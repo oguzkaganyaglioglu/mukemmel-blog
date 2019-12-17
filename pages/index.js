@@ -84,7 +84,7 @@ const Home = ({ posts }) => (
             <a className="blog-title-link">{post.title}</a>
           </Link>
         </h2>
-        <div className="lead">
+        <div className="lead blog-detail">
           
           <Link href={post.slug}>
             <a className="blog-text-link"><ReactMarkdown source={post.details} /></a>

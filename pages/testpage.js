@@ -5,6 +5,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import "../style/main.scss";
 import Cards from "../components/cards"
+import "../style/main.scss";
 
 
 
