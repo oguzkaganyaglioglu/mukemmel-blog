@@ -1,0 +1,43 @@
+.type1{
+    background-color: white;
+    width: 30em;
+    height: 13em;
+}
+
+.type1-img{
+    background-color: gray;
+    width: 11em;
+    height: 11em;
+    position: absolute;
+    margin: 1em;
+}
+
+.smalltext{
+    width: 16em;
+    height: 15em;
+    margin-left: 12.5em;
+    //position: absolute;
+    //margin-top: 2.9em;
+}
+
+.smallp{
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical; 
+    overflow:hidden;
+    font-size: 1rem;
+}
+
+.title{
+    margin-left: 12.5em;
+    
+}
+.type1-text{
+    margin-top: 0.95em;
+    position: absolute;
+}
+.type1-date{
+    float: right;
+    margin: 0.2em 0.8em 0 0 ;
+    opacity: 0.5;
+}

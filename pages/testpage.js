@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import "../style/main.scss";
-import Cards from "../components/cards"
+import StyleCards from "../components/newstylecards"
 import "../style/main.scss";
 
 
@@ -29,7 +29,7 @@ const Home = ({ posts }) => (
    
       
         
-        <Cards veri={posts}/>
+        <StyleCards veri={posts}/>
       
 
         
