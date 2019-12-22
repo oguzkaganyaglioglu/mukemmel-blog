@@ -3,7 +3,10 @@ import Typical from "react-typical"
 
 function Slogan(){
    
-    <div>
+    
+         
+          return (
+<div>
         <h4 className="lead" style={{fontSize:"20px"}}>
             
             <Typical
@@ -20,14 +23,6 @@ function Slogan(){
             />
         </h4>
         </div>
-         function sayHello() {
-            alert('Hello!');
-          }
-          
-          return (
-            <button onClick={sayHello}>
-              Click me!
-            </button>
           );
           }
 

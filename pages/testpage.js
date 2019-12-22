@@ -4,7 +4,8 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import "../style/main.scss";
-import StyleCards from "../components/newstylecards"
+import StyleCards from "../components/newstylecards";
+import PostList from "../components/postslist";
 import "../style/main.scss";
 
 
@@ -19,9 +20,7 @@ const Home = ({ posts }) => (
         <title>Home</title>
         <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
-          crossorigin="anonymous"></link>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
         <link rel="icon" href="/favicon.ico" />
         
       </Head>
@@ -29,7 +28,11 @@ const Home = ({ posts }) => (
    
       
         
-        <StyleCards veri={posts}/>
+        {/*<StyleCards veri={posts}/>*/}
+
+        <PostList veri={posts}/>
+
+        
       
 
         

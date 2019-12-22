@@ -10,8 +10,17 @@ import Slogan from '../components/slogan'
 import Typical from "react-typical"
 
 import "../style/main.scss";
+import PostsList from "../components/postslist";
+
+import { Search } from 'react-feather';
+
+
 
 const Home = ({ posts }) => (
+
+  
+  
+
     
   <div className="container">
     <Head>
@@ -20,9 +29,7 @@ const Home = ({ posts }) => (
       <title>Home</title>
       <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
       <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
-        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
-        crossorigin="anonymous"></link>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
       <link rel="icon" href="/favicon.ico" />
       
     </Head>
@@ -55,7 +62,7 @@ const Home = ({ posts }) => (
         </Link>
       <hr style={{borderColor:"#707070", maxWidth:"550px"}} />
       
-      <Slogan />
+      {/*<Slogan />*/}
 
       <div className="hero-social-links">
         <Link href="https://www.twitter.com/oguzkagan05">
@@ -64,40 +71,29 @@ const Home = ({ posts }) => (
         <Link href="https://www.instagram.com/oguz_kagan05">
           <a className="social-link">Instagram</a>
         </Link>
+        <Search/>
+        
+        
       </div>
+      <hr style={{borderColor:"#707070", maxWidth:"600px"}} />
     </div>
     
+    
 
 
 
     
 
-    <Cards veri={posts}/>
-    <br/>
+    {/*<Cards veri={posts}/>
+    <br/>*/}
 
+    <PostsList veri={posts}/>
     
-    {posts.map(post => (
-
-      <div className="blog">
-        <h2 className="blog-title">
-          <Link href={post.slug}>
-            <a className="blog-title-link">{post.title}</a>
-          </Link>
-        </h2>
-        <div className="lead blog-detail">
-          
-          <Link href={post.slug}>
-            <a className="blog-text-link"><ReactMarkdown source={post.details} /></a>
-          </Link>
-        </div>
-        <div className="blog-date">{post.date}</div>
-        <hr/>
-      </div>
-    ))}
     
     <div className="footer">
     </div>
   </div>
+  
 );
 
 Home.getInitialProps = async ({ req }) => {

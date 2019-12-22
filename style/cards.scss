@@ -2,6 +2,8 @@
     background-color: white;
     width: 30em;
     height: 13em;
+    margin: 1em;
+    margin-left: 15em;
 }
 
 .type1-img{
@@ -12,7 +14,7 @@
     margin: 1em;
 }
 
-.smalltext{
+.type1-smalltext{
     width: 16em;
     height: 15em;
     margin-left: 12.5em;
@@ -20,7 +22,7 @@
     //margin-top: 2.9em;
 }
 
-.smallp{
+.type1-smallp{
     display: -webkit-box;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical; 
@@ -28,7 +30,7 @@
     font-size: 1rem;
 }
 
-.title{
+.type1-title{
     margin-left: 12.5em;
     
 }
@@ -40,4 +42,50 @@
     float: right;
     margin: 0.2em 0.8em 0 0 ;
     opacity: 0.5;
+}
+
+.type2{
+    background-color: white;
+    width: 13em;
+    height: 28em;
+    margin: 1em;
+}
+
+.type2-img{
+    background-color: gray;
+    width: 11em;
+    height: 11em;
+    position: absolute;
+    margin: 1em;
+}
+
+.type2-date{
+    float: right;;
+    margin: 26.4em 0.8em 0 0 ;
+    opacity: 0.5;
+}
+.type2-text{
+    margin-top: 12em;
+    position: absolute;
+}
+
+.type2-smalltext{
+    width: 11em;
+    height: 15em;
+    margin-left: 1em;
+    //position: absolute;
+    //margin-top: 2.9em;
+}
+
+.type2-smallp{
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical; 
+    overflow:hidden;
+    font-size: 1rem;
+}
+
+.type2-title{
+    margin-left: 1em;
+    
 }
