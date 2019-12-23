@@ -13,14 +13,11 @@ import "../style/main.scss";
 import PostsList from "../components/postslist";
 
 import { Search } from 'react-feather';
+import Blog from "../components/blog";
 
 
 
 const Home = ({ posts }) => (
-
-  
-  
-
     
   <div className="container">
     <Head>
@@ -87,7 +84,7 @@ const Home = ({ posts }) => (
     {/*<Cards veri={posts}/>
     <br/>*/}
 
-    <PostsList veri={posts}/>
+    <Blog veri={posts}/>
     
     
     <div className="footer">

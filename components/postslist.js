@@ -28,7 +28,6 @@ class PostsList extends Component {
         AOS.init();
       }
     
-    
     render() {
         const {veri}= this.props;
         console.log(this.StyleSelect(veri.indexOf(veri[3])));
