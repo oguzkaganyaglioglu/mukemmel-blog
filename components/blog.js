@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import PostsList from './postslist';
 import Pagination from './pagination';
+import PropTypes from 'prop-types';
 
-const Blog = ({ veri }) => {
+const Blog = ({ veri, SetpPP }) => {
+    Blog.defaultProps = {
+        SetpPP: '5'
+      };
+
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [postsPerPage] = useState(SetpPP);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -17,12 +22,13 @@ const Blog = ({ veri }) => {
             postsPerPage={postsPerPage}
             totalPosts={veri.length}
             paginate={paginate}
+            currentPage={currentPage}
           />)
         }
     }
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
-
+    
     return (
         <div>
             <PostsList veri={currentPosts}/>
@@ -31,5 +37,10 @@ const Blog = ({ veri }) => {
         </div>
     )
 }
+
+Blog.PropTypes = {
+    veri:PropTypes.array,
+    SetpPP:PropTypes.number
+};
 
 export default Blog

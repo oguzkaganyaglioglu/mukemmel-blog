@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import ReactMarkdown from "react-markdown";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import Link from 'next/link';
+import {Button} from "reactstrap";
+import Swal from 'sweetalert2'
+import ReactResizeDetector from 'react-resize-detector';
 
 class PostsList extends Component {
 
 
+    
 
+    
 
     StyleSelect(index){
         if (index%2==0) {
@@ -24,28 +30,43 @@ class PostsList extends Component {
         }
     }
 
+    IsMobile(post,window){
+        if (window.innerWidth < 900) {
+            return post.yatay
+        }else{
+            return post.dikey
+        }
+    }
+    
     componentDidMount() {
         AOS.init();
       }
     
     render() {
+  
+        
         const {veri}= this.props;
-        console.log(this.StyleSelect(veri.indexOf(veri[3])));
+        //console.log(this.StyleSelect(veri.indexOf(veri[3])));
+        
         return (
+            
             <div className="ortala">
+            <ReactResizeDetector handleWidth handleHeight onResize={this.IsMobile} />
                 {veri.map(post => (
                     
                 <div data-aos={this.AOS(veri.indexOf(post))} className={this.StyleSelect(veri.indexOf(post))} style={{maxWidth: "540px"}}>
-                {console.log(this.StyleSelect(veri.indexOf(post)))}
+                {/*console.log(this.StyleSelect(veri.indexOf(post)))*/}
+
                 <div className="row no-gutters">
                 <div className="col-md-4">
-                <img src="..." className="card-img" alt="..."/>
+                <img src={this.IsMobile(post,window)} className="card-img" alt="..."/>
                 </div>
                 <div className="col-md-8">
                 <div className="card-body">
                 <h5 className="card-title">{post.title}</h5>
-                <p className="card-text" style={{fontSize:"1em"}}><ReactMarkdown source={post.details.slice(0,50)+"..."} /></p>
+                <p className="card-text" style={{fontSize:"1em"}}><ReactMarkdown source={post.summary} /></p>
                 <p className="card-text"><small class="text-muted">{post.date}</small></p>
+                
                 </div>
                 </div>
                 </div>
@@ -67,6 +88,9 @@ class PostsList extends Component {
                 margin-left: 10%;
                 margin-right:10%;
                 
+            }
+            .link{
+                margin-left:11em;
             }
             `}</style>
             </div>

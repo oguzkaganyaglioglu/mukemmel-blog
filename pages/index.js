@@ -84,7 +84,7 @@ const Home = ({ posts }) => (
     {/*<Cards veri={posts}/>
     <br/>*/}
 
-    <Blog veri={posts}/>
+    <Blog veri={posts} SetpPP={2}/>
     
     
     <div className="footer">

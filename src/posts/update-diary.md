@@ -3,7 +3,9 @@
 -Linkler güncellendi
 
 -Özellik hazırlıkları
-> 2019-12-11 20:53:17 Çarşamba
+
+-Pagination eklendi
+> 2019-12-23 15:12:17 Pazartesi
 
 ------------
 ## Yapılacaklar
@@ -11,6 +13,13 @@
 
 -Hazırlığı yapan özellikler kodlanacak
 
+-yazılım sorusu yazılımdaki hatayı düzelt şeklinde
+
+-ingilizce kelime öğretici
+
 ## Bulunan Hatalar
 -Blog title `Çözüldü`
--Kartlarda taşma
+
+-Kartlarda taşma`yeni kartlar oluşturuldu`
+
+-``Kartlarda link yok``

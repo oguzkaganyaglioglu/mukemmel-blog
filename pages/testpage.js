@@ -7,6 +7,7 @@ import "../style/main.scss";
 import StyleCards from "../components/newstylecards";
 import PostList from "../components/postslist";
 import "../style/main.scss";
+import Cards from "../components/cards";
 
 
 
@@ -26,9 +27,9 @@ const Home = ({ posts }) => (
       </Head>
     
    
-      
+        <Cards veri={posts}/>
         
-        {/*<StyleCards veri={posts}/>*/}
+        <StyleCards veri={posts}/>
 
         <PostList veri={posts}/>
 
