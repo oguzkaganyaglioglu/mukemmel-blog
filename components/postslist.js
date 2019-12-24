@@ -6,9 +6,12 @@ import Link from 'next/link';
 import {Button} from "reactstrap";
 import Swal from 'sweetalert2'
 import ReactResizeDetector from 'react-resize-detector';
+import windowSize from 'react-window-size';
 
 class PostsList extends Component {
-
+    state = {
+        isMobile : false
+    }
 
     
 
@@ -30,19 +33,35 @@ class PostsList extends Component {
         }
     }
 
-    IsMobile(post,window){
-        if (window.innerWidth < 900) {
+    IsMobile = (post,isMobile) => {
+        //console.log(w)
+        if (isMobile == true) {
             return post.yatay
         }else{
             return post.dikey
+        }
+    }
+
+    GetWidth = () => {
+        var w = window.innerWidth;
+        if (w < 767) {
+            this.setState({
+                isMobile:true
+            })
+        } else {
+            this.setState({
+                isMobile:false
+            })
         }
     }
     
     componentDidMount() {
         AOS.init();
       }
+      
     
     render() {
+    
   
         
         const {veri}= this.props;
@@ -51,7 +70,7 @@ class PostsList extends Component {
         return (
             
             <div className="ortala">
-            <ReactResizeDetector handleWidth handleHeight onResize={this.IsMobile} />
+            <ReactResizeDetector handleWidth handleHeight onResize={this.GetWidth} />
                 {veri.map(post => (
                     
                 <div data-aos={this.AOS(veri.indexOf(post))} className={this.StyleSelect(veri.indexOf(post))} style={{maxWidth: "540px"}}>
@@ -59,7 +78,7 @@ class PostsList extends Component {
 
                 <div className="row no-gutters">
                 <div className="col-md-4">
-                <img src={this.IsMobile(post,window)} className="card-img" alt="..."/>
+                <img src={this.IsMobile(post,this.state.isMobile)} className="card-img" alt="..."/>
                 </div>
                 <div className="col-md-8">
                 <div className="card-body">

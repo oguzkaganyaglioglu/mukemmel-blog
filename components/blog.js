@@ -28,10 +28,11 @@ const Blog = ({ veri, SetpPP }) => {
     }
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
+
     
     return (
         <div>
-            <PostsList veri={currentPosts}/>
+            <PostsList veri={currentPosts} />
             {ShowHide()}
 
         </div>
