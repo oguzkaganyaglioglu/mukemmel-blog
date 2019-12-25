@@ -1,0 +1,34 @@
+$translateY:-1.6em;
+$translateX:10em;
+$translateXHover:11em;
+@import "main.scss";
+#search{
+    transition: transform 1s;
+    transform: translateY($translateY) translateX($translateX);
+    
+}
+#search:hover{
+    transform: translateX(($translateX)-($translateXHover)) translateY(-1.6em);
+}
+
+.hero-social-links {
+    height: 1.6em;
+}
+
+.block {
+    background: red;
+    height: 1.6em;
+    width: 11em;
+    transform: translateY(-1.6em) translateX(23em);
+    z-index: 2;
+}
+
+.searchbutton{
+    background-color: $background-color;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 10em;
+    padding-right: 8.5em;
+    border-bottom: $background-color 5px solid;
+    
+}

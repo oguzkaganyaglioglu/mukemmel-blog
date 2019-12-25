@@ -5,9 +5,9 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import PaginacionTabla from "../components/pageNav";
 import Cards from "../components/cards"
-
-import Slogan from '../components/slogan'
-import Typical from "react-typical"
+import HeadDesign from "../components/head";
+import Slogan from '../components/slogan';
+import Typical from "react-typical";
 
 import "../style/main.scss";
 import PostsList from "../components/postslist";
@@ -31,7 +31,7 @@ const Home = ({ posts }) => (
       
     </Head>
     
-    
+    {/*
     <div className="hero">
       <Link href="/">
       <a className="hero-title">
@@ -59,7 +59,8 @@ const Home = ({ posts }) => (
         </Link>
       <hr style={{borderColor:"#707070", maxWidth:"550px"}} />
       
-      {/*<Slogan />*/}
+      
+      //<Slogan />
 
       <div className="hero-social-links">
         <Link href="https://www.twitter.com/oguzkagan05">
@@ -74,7 +75,8 @@ const Home = ({ posts }) => (
       </div>
       <hr style={{borderColor:"#707070", maxWidth:"600px"}} />
     </div>
-    
+    */}
+    <HeadDesign/>
     
 
 

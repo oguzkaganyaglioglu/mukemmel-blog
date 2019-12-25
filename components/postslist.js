@@ -34,7 +34,6 @@ class PostsList extends Component {
     }
 
     IsMobile = (post,isMobile) => {
-        //console.log(w)
         if (isMobile == true) {
             return post.yatay
         }else{
