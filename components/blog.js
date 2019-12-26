@@ -1,47 +1,52 @@
-import React, { useState } from 'react'
-import PostsList from './postslist';
-import Pagination from './pagination';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PostsList from "./postslist";
+import Pagination from "./pagination";
+import PropTypes from "prop-types";
 
-const Blog = ({ veri, SetpPP }) => {
-    Blog.defaultProps = {
-        SetpPP: '5'
-      };
+const Blog = ({ veri, SetpPP, search }) => {
+  Blog.defaultProps = {
+    SetpPP: "5"
+  };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(SetpPP);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(SetpPP);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = veri.slice(indexOfFirstPost, indexOfLastPost);
-    
-    function ShowHide(){
-        if (postsPerPage<veri.length) {
-            return( <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={veri.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />)
-        }
+  const filteredveri = veri.filter(post => {
+    return post.summary.indexOf(search) >= 0;
+  });
+
+  const currentPosts = filteredveri.slice(indexOfFirstPost, indexOfLastPost);
+
+  function ShowHide() {
+    if (postsPerPage < filteredveri.length) {
+      return (
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={veri.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      );
     }
+  }
 
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
-    
-    return (
-        <div>
-            <PostsList veri={currentPosts} />
-            {ShowHide()}
-
-        </div>
-    )
-}
-
-Blog.PropTypes = {
-    veri:PropTypes.array,
-    SetpPP:PropTypes.number
+  return (
+    <div>
+      Hello {search} <br />
+      <PostsList search={search} veri={currentPosts} />
+      {ShowHide()}
+    </div>
+  );
 };
 
-export default Blog
+Blog.PropTypes = {
+  veri: PropTypes.array,
+  SetpPP: PropTypes.number
+};
+
+export default Blog;

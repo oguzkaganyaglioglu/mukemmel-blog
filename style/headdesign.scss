@@ -1,10 +1,12 @@
 $translateY:-1.6em;
-$translateX:10em;
+$translateX:20.5em;
 $translateXHover:11em;
+$blockwidth:12em;
 @import "main.scss";
+/*
 #search{
-    transition: transform 1s;
-    transform: translateY($translateY) translateX($translateX);
+    //transition: transform 1s;
+    //transform: translateY($translateY) translateX($translateX);
     
 }
 #search:hover{
@@ -15,20 +17,14 @@ $translateXHover:11em;
     height: 1.6em;
 }
 
-.block {
-    background: red;
-    height: 1.6em;
-    width: 11em;
-    transform: translateY(-1.6em) translateX(23em);
-    z-index: 2;
-}
-
 .searchbutton{
-    background-color: $background-color;
+    background-color: rgba(255, 255, 255, 0.486);
     overflow: hidden;
     vertical-align: middle;
-    width: 10em;
-    padding-right: 8.5em;
-    border-bottom: $background-color 5px solid;
+    width: $blockwidth;
+    padding-right: (($blockwidth)-(1em));
+    //border-bottom: $background-color 5px solid;
+    float: left;
     
 }
+*/

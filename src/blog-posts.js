@@ -15,7 +15,7 @@ export const getPosts = () => {
       slug: "diary",
       details: require("./posts/update-diary.md").default,
       date: "10 Aralık 2019",
-      summary: "  Bu yazı bir geliştirme günlüğüdür. Eklemeyi düşündüğüm özellikler, bulduğum hataları not alıyorum.",
+      summary: "  Test",
       dikey:"https://cdn.pixabay.com/photo/2019/05/22/17/01/desk-4222025_960_720.jpg",
       yatay:"https://cdn.pixabay.com/photo/2014/05/02/21/50/home-office-336377_960_720.jpg"
     },
@@ -24,7 +24,7 @@ export const getPosts = () => {
       slug: "diary",
       details: require("./posts/update-diary.md").default,
       date: "10 Aralık 2019",
-      summary: "  Bu yazı bir geliştirme günlüğüdür. Eklemeyi düşündüğüm özellikler, bulduğum hataları not alıyorum.",
+      summary: "  Deneme",
       dikey:"https://cdn.pixabay.com/photo/2019/05/22/17/01/desk-4222025_960_720.jpg",
       yatay:"https://cdn.pixabay.com/photo/2014/05/02/21/50/home-office-336377_960_720.jpg"
     },
