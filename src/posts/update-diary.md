@@ -29,3 +29,5 @@
 -`Aramada çıkan sonuçların sayısından yüksek sayıda bir sayfadaysan sonuçlar görünmüyor`
 
 Örneğin 3. sayfada iken bir arama yaptın ve 2 sayfa sonuç çıktı ise pageination barı hidden olacak ve sen sonuçları göremeyeceksin.
+
+-`Arama ekranına basılan her tuşta animasyon yeniden oynatılıyor`
