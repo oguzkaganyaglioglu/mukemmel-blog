@@ -98,7 +98,7 @@ class PostsList extends Component {
                     <ReactMarkdown source={post.summary} />
                   </p>
                   <p className="card-text">
-                    <small class="text-muted">{post.date}</small>
+                    <small className="text-muted">{post.date}</small>
                   </p>
                 </div>
               </div>

@@ -44,7 +44,7 @@ const Blog = ({ veri, SetpPP, search }) => {
   );
 };
 
-Blog.PropTypes = {
+Blog.propTypes = {
   veri: PropTypes.array,
   SetpPP: PropTypes.number
 };

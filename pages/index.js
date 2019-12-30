@@ -51,7 +51,7 @@ export class Home extends Component {
     <HeadDesign handleChange={this.handleChange} search={this.state.search}/>
     <h1>{this.state.search}</h1>
 
-    <Blog search={this.state.search} veri={posts} search={this.state.search} SetpPP={2}/>
+    <Blog search={this.state.search} veri={posts} search={this.state.search} SetpPP={5}/>
     
     
     <div className="footer">

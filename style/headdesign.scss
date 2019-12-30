@@ -1,30 +1,72 @@
 $translateY:-1.6em;
 $translateX:20.5em;
 $translateXHover:11em;
-$blockwidth:12em;
+$blockwidth:10em;
 @import "main.scss";
-/*
+
+
+.search-icon{
+    float: left;
+    background: #050014;
+}
+.search-input {
+    background: #050014;
+    border: 0;
+    border-bottom: 1px #707070 solid;
+    border-top: 1px #707070 solid;
+    transition: 1s;
+    margin-right: 150px;
+    width: 0px;
+    float: left;
+    color: white;
+}
+
+
+.test{
+    position: absolute;
+    left:50%;
+    position: absolute;
+    margin-left: -80px;
+}
+.hero-social-links{
+    transform: translateY(-0.25em);
+    position: fixed;
+  //  left: 37%;
+    width: fit-content;
+
+
+}
 #search{
-    //transition: transform 1s;
-    //transform: translateY($translateY) translateX($translateX);
-    
+    transition: 1s;
 }
 #search:hover{
-    transform: translateX(($translateX)-($translateXHover)) translateY(-1.6em);
+    transform: translateX(-$blockwidth);
+    .search-input{
+        width: $blockwidth;
+        float: left;
+
+    }
+
+}
+#search:active{
+    transform: translateX(-$blockwidth);
+    .search-input{
+        width: $blockwidth;
+        float: left;
+        //
+    }
+
 }
 
-.hero-social-links {
-    height: 1.6em;
-}
 
-.searchbutton{
-    background-color: rgba(255, 255, 255, 0.486);
-    overflow: hidden;
-    vertical-align: middle;
-    width: $blockwidth;
-    padding-right: (($blockwidth)-(1em));
-    //border-bottom: $background-color 5px solid;
+.link {
     float: left;
     
 }
-*/
+
+.social-link {
+    margin-right: 8px;
+    font-weight: 300;
+    color:#353F40;
+      
+}
