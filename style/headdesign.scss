@@ -1,72 +1,65 @@
-$translateY:-1.6em;
-$translateX:20.5em;
-$translateXHover:11em;
-$blockwidth:10em;
+$translateY: -1.6em;
+$translateX: 20.5em;
+$translateXHover: 11em;
+$blockwidth: 10em;
 @import "main.scss";
 
-
-.search-icon{
-    float: left;
-    background: #050014;
+.search-icon {
+  float: left;
+  background: #050014;
 }
 .search-input {
-    background: #050014;
-    border: 0;
-    border-bottom: 1px #707070 solid;
-    border-top: 1px #707070 solid;
-    transition: 1s;
-    margin-right: 150px;
-    width: 0px;
-    float: left;
-    color: white;
+  background: #050014;
+  border: 0;
+  border-bottom: 1px #707070 solid;
+  border-top: 1px #707070 solid;
+  transition: 1s;
+  margin-right: 150px;
+  width: 0px;
+  float: left;
+  color: white;
 }
 
-
-.test{
-    position: absolute;
-    left:50%;
-    position: absolute;
-    margin-left: -80px;
+.link.input-div {
+  width: 0px;
 }
-.hero-social-links{
-    transform: translateY(-0.25em);
-    position: fixed;
+.center {
+  position: absolute;
+  left: 50%;
+  position: absolute;
+  margin-left: -80px;
+}
+.hero-social-links {
+  transform: translateY(-0.25em);
+  position: fixed;
   //  left: 37%;
-    width: fit-content;
-
-
+  width: fit-content;
 }
-#search{
-    transition: 1s;
+#search {
+  transition: 1s;
 }
-#search:hover{
-    transform: translateX(-$blockwidth);
-    .search-input{
-        width: $blockwidth;
-        float: left;
-
-    }
-
+#search:hover {
+  transform: translateX(-$blockwidth);
+  .search-input {
+    width: $blockwidth;
+    float: left;
+  }
 }
-#search:active{
-    transform: translateX(-$blockwidth);
-    .search-input{
-        width: $blockwidth;
-        float: left;
-        //
-    }
-
+#search:active {
+  transform: translateX(-$blockwidth);
+  .search-input {
+    width: $blockwidth;
+    float: left;
+    //
+  }
 }
-
 
 .link {
-    float: left;
-    
+  float: left;
 }
 
 .social-link {
-    margin-right: 8px;
-    font-weight: 300;
-    color:#353F40;
-      
+  margin-right: 8px;
+  font-weight: 300;
+  color: #353f40;
 }

@@ -37,8 +37,8 @@ const Blog = ({ veri, SetpPP, search }) => {
 
   return (
     <div>
-      Hello {search} <br />
       <PostsList search={search} veri={currentPosts} />
+      //ToDo: üstteki satır silinecek
       {ShowHide()}
     </div>
   );

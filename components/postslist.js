@@ -65,9 +65,6 @@ class PostsList extends Component {
 
   render() {
     const { veri, search } = this.props;
-
-    console.log(veri[0]);
-
     return (
       <div className="ortala">
         <ReactResizeDetector
@@ -75,14 +72,13 @@ class PostsList extends Component {
           handleHeight
           onResize={this.GetWidth}
         />
-        {veri.map(post => (
+        {veri.map((post, index) => (
           <div
+            key={index}
             data-aos={this.AOS(veri.indexOf(post))}
             className={this.StyleSelect(veri.indexOf(post))}
             style={{ maxWidth: "540px" }}
           >
-            {/*console.log(this.StyleSelect(veri.indexOf(post)))*/}
-
             <div className="row no-gutters">
               <div className="col-md-4">
                 <img

@@ -36,29 +36,42 @@ export class HeadDesign extends Component {
           <hr style={{ borderColor: "#707070", maxWidth: "550px" }} />
 
           {/*<Slogan />*/}
-          <div className="test">
-          <div className="hero-social-links">
-          <div className="link">
-            <Link href="https://www.twitter.com/oguzkagan05">
-              <a className="social-link">Twitter</a>
-            </Link>
+          <div className="center">
+            <div className="hero-social-links">
+              <div className="link">
+                <Link href="https://www.twitter.com/oguzkagan05">
+                  <a className="social-link">Twitter</a>
+                </Link>
+              </div>
+              <div className="link">
+                <Link href="https://www.instagram.com/oguz_kagan05">
+                  <a className="social-link">Instagram</a>
+                </Link>
+              </div>
+              <div className="link">
+                <div id="search">
+                  <div className="link search-icon">
+                    <Search />
+                  </div>
+                  <div className="link input-div">
+                    <input
+                      className="search-input"
+                      type="text"
+                      value={search}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="link">
-            <Link href="https://www.instagram.com/oguz_kagan05">
-              <a className="social-link">Instagram</a>
-            </Link>
-            </div>
-            <div className="link">
-            <div id="search">
-            <div className="link search-icon"><Search /></div>
-            <div className="link input-div"><input className="search-input" type="text" value={search} onChange={handleChange} />
-            </div>
-            </div>
-            </div>
-            </div>
-            
           </div>
-          <hr style={{ borderColor: "#707070", maxWidth: "600px", transform: "translateY(2em)" }} />
+          <hr
+            style={{
+              borderColor: "#707070",
+              maxWidth: "600px",
+              transform: "translateY(2em)"
+            }}
+          />
         </div>
       </div>
     );
