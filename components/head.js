@@ -14,7 +14,8 @@ export class HeadDesign extends Component {
         <div className="hero">
           <Link href="/">
             <a className="hero-title">
-              <Typical
+            Oguz Kagan Yaglıoglu
+              {/*<Typical
                 steps={[
                   "Hello 👋🏽",
                   1000,
@@ -28,9 +29,11 @@ export class HeadDesign extends Component {
                   1000,
                   "Oguz Kagan Yaglıoglu",
                   1500
-                ]}
+                ]
                 wrapper="p"
-              />
+              />*/
+              //TODO:Bu kod yeni sayfaya geçirilecek
+              }
             </a>
           </Link>
           <hr style={{ borderColor: "#707070", maxWidth: "550px" }} />
@@ -39,13 +42,23 @@ export class HeadDesign extends Component {
           <div className="center">
             <div className="hero-social-links">
               <div className="link">
-                <Link href="https://www.twitter.com/oguzkagan05">
-                  <a className="social-link">Twitter</a>
+                <Link href="/signup">
+                  <a className="social-link">Üye Ol</a>
                 </Link>
               </div>
               <div className="link">
-                <Link href="https://www.instagram.com/oguz_kagan05">
-                  <a className="social-link">Instagram</a>
+                <Link href="/about">
+                  <a className="social-link">Hakkımda</a>
+                </Link>
+              </div>
+              <div className="link">
+                <Link href="/blog">
+                  <a className="social-link">Blog</a>
+                </Link>
+              </div>
+              <div className="link">
+                <Link href="/login">
+                  <a className="social-link">Üye Girişi</a>
                 </Link>
               </div>
               <div className="link">

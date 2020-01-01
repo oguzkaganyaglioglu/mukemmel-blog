@@ -7,7 +7,6 @@ import { Button } from "reactstrap";
 import Swal from "sweetalert2";
 import ReactResizeDetector from "react-resize-detector";
 import windowSize from "react-window-size";
-import "../style/postlist.scss";
 
 class PostsList extends Component {
   state = {
@@ -73,31 +72,52 @@ class PostsList extends Component {
           handleHeight
           onResize={this.GetWidth}
         />
-
-            <div className="main-block left-design">
-            <div className="textarea">
-            <div className="header">
-                <h3>Akıllı Lamba</h3>
-              </div>
-              <div className="text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et nulla eu velit tempor faucibus. Duis ipsum nunc, hendrerit sit amet tristique tempor, malesuada et ipsum. Vestibulum porta elementum turpis nec pellentesque. Cras egestas vitae nulla quis euismod. Etiam id nisi at sapien cursus tempor at convallis erat. Proin a ornare magna. Morbi aliquam elementum odio quis bibendum. Mauris nec vestibulum enim. Maecenas sed nunc at nisl sodales lacinia. Nam lobortis rhoncus aliquet. Suspendisse potenti. Donec efficitur placerat lacus vitae rutrum. Sed arcu dui, sodales accumsan imperdiet non, semper ac diam. Donec a sem a erat tincidunt gravida. Phasellus condimentum nunc sit amet velit pellentesque, vitae imperdiet nisi pharetra.</p>
-              </div>
-            </div>    
-            <div className="image">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyN1hJHoxAEd00irAw_mtBvBfS5WI-TnwIDibPtTGuzkNxFX8U" alt=""/>
-            </div>       
-              <div className="background">
-              </div>
-              
-            </div>
         {veri.map((post, index) => (
           <div
             key={index}
             data-aos={this.AOS(veri.indexOf(post))}
+            className={this.StyleSelect(veri.indexOf(post))}
+            style={{ maxWidth: "540px" }}
           >
-            
+            <div className="row no-gutters">
+              <div className="col-md-4">
+                <img
+                  src={this.IsMobile(post, this.state.isMobile)}
+                  className="card-img"
+                  alt="..."
+                />
+              </div>
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h5 className="card-title">{post.title}</h5>
+                  <p className="card-text" style={{ fontSize: "1em" }}>
+                    <ReactMarkdown source={post.summary} />
+                  </p>
+                  <p className="card-text">
+                    <small className="text-muted">{post.date}</small>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
+        <style jsx>{`
+          .right {
+            margin-left: 5em !important;
+            background: #2b1738 !important;
+          }
+          .left {
+            margin-right: 5em !important;
+            background: #1f1738 !important;
+          }
+          .ortala {
+            margin-left: 10%;
+            margin-right: 10%;
+          }
+          .link {
+            margin-left: 11em;
+          }
+        `}</style>
       </div>
     );
   }
