@@ -25,9 +25,20 @@ $blockwidth: 18em;
 .center {
   position: absolute;
   left: 50%;
-  position: absolute;
   margin-left: -150px;
 }
+.slogan {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.sloganhover {
+  transition: 0.25s;
+}
+.sloganhover:hover {
+  text-shadow: 0 0 8px #707070;
+}
+
 .hero-social-links {
   transform: translateY(-0.25em);
   position: fixed;

@@ -15,7 +15,10 @@ const Blog = ({ veri, SetpPP, search }) => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   const filteredveri = veri.filter(post => {
-    return post.summary.indexOf(search) >= 0;
+    return (post.tag.indexOf(search) >= 0 ||
+    post.date.indexOf(search) >= 0 ||
+    post.details.indexOf(search) >= 0 ||
+    post.title.indexOf(search) >= 0);
   });
 
   const currentPosts = filteredveri.slice(indexOfFirstPost, indexOfLastPost);

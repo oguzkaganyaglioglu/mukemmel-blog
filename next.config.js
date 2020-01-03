@@ -12,6 +12,6 @@ module.exports = withCSS(withSass({
     return config;
   },
   env: {
-    DOMAIN: process.env.DOMAIN
+    DOMAIN: "http://localhost:3000/"
   }
 }));

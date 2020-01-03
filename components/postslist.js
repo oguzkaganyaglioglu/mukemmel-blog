@@ -17,7 +17,7 @@ class PostsList extends Component {
     isMobile: false
   };
 
-  StyleSelect(index, which) {
+  StyleSelect(index, which, img) {
     if (which == "main") {
       if (index % 2 == 0) {
         return "main-block left-design";
@@ -34,10 +34,7 @@ class PostsList extends Component {
       if (index % 2 == 0) {
         return (
           <div className="image">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyN1hJHoxAEd00irAw_mtBvBfS5WI-TnwIDibPtTGuzkNxFX8U"
-              alt=""
-            />
+            <img src={img} alt="" />
           </div>
         );
       }
@@ -45,10 +42,7 @@ class PostsList extends Component {
       if (index % 2 != 0) {
         return (
           <div className="image">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyN1hJHoxAEd00irAw_mtBvBfS5WI-TnwIDibPtTGuzkNxFX8U"
-              alt=""
-            />
+            <img src={img} alt="" />
           </div>
         );
       }
@@ -88,15 +82,6 @@ class PostsList extends Component {
     AOS.init();
   }
 
-  makeSearch(filtveri) {
-    if (
-      filtveri.title.indexOf(this.props.search) >= 0 &&
-      filtveri.summary.indexOf(this.props.search) >= 0
-    ) {
-      return filtveri;
-    }
-  }
-
   render() {
     const { veri, search } = this.props;
     return (
@@ -111,7 +96,7 @@ class PostsList extends Component {
           <div key={index} data-aos={this.AOS(veri.indexOf(post))}>
             <div className={this.StyleSelect(veri.indexOf(post), "main")}>
               <div className="front">
-                {this.StyleSelect(veri.indexOf(post), "right")}
+                {this.StyleSelect(veri.indexOf(post), "right", post.img)}
                 <div className="textarea">
                   <div className="icons">
                     <div className="highlight clock">
@@ -124,18 +109,18 @@ class PostsList extends Component {
                     </div>
                   </div>
                   <div className="header">
-                    <h3>Akıllı Lamba</h3>
+                    <h3>{post.title}</h3>
                   </div>
                   <div className="text">
                     <p>{textElipsis(removeMd(post.details), 180)}</p>
                   </div>
-                  <Link href={post.slug}>
+                  <Link href={"blog/" + post.slug}>
                     <a>
                       <div className="readmore">Devamını Oku</div>
                     </a>
                   </Link>
                 </div>
-                {this.StyleSelect(veri.indexOf(post), "left")}
+                {this.StyleSelect(veri.indexOf(post), "left", post.img)}
               </div>
               <div
                 className={this.StyleSelect(veri.indexOf(post), "background")}
