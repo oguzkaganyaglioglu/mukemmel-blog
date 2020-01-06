@@ -1,0 +1,14 @@
+.blog-post {
+    filter: drop-shadow(0px 0px 6px #050014);
+  }
+  .blog {
+    background: white;
+    padding: 50px;
+  }
+  .post-background {
+    background: linear-gradient(90deg, #ff4600 0%, #ff1e83 100%);
+    position: relative;
+    padding: 6px;
+    height: fit-content;
+    width: fit-content;
+  }

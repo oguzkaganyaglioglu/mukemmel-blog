@@ -4,6 +4,7 @@ import Head from "next/head";
 import ReactMarkdown from "react-markdown";
 import "../../style/main.scss";
 import HeadDesign from "../../components/head";
+import "../../style/blog-post.scss"
 
 const BlogPost = ({ post }) => (
   <div className="container">
@@ -23,8 +24,10 @@ const BlogPost = ({ post }) => (
       <HeadDesign
           type="slogan"
         />
-
-    <div className="blog">
+<div className="postcontainer">
+<div className="post-background">
+    <div className="blog blog-post">
+    
       <h2 className="blog-title">    
           <div className="blog-title-link">{post.title}</div>
       </h2>
@@ -33,8 +36,10 @@ const BlogPost = ({ post }) => (
       </div>
       <div className="blog-date">{post.date}</div>
     </div>
-
+    </div>
+    </div>
   </div>
+  
 );
 
 BlogPost.getInitialProps = async ({ req, query }) => {

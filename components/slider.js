@@ -1,55 +1,55 @@
-import React from "react"
-import "reactstrap"
-function ControlledCarousel() {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(null);
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import "../style/slider.scss";
+import { Link } from "react-feather";
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-    setDirection(e.direction);
-  };
+export class LikeSlider extends Component {
+  static propTypes = {};
 
-  return (
-    <Carousel activeIndex={index} direction={direction} onSelect={handleSelect}>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=First slide&bg=373940"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
-          alt="Second slide"
-        />
+  render() {
+    const { veri } = this.props;
 
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
+    return (
+      <div className="slider-ortala">
+        <div className="slider-background ">
+          <div className="small slider-float">
+            <div className="small-box box">
+              <div className="slider-image-yatay">
+                <a href={"blog/" + veri[0].slug}>
+                  <img src={veri[0].img} alt="" />
+                  <h3 className="box-header" align="left">
+                    {veri[0].title}
+                  </h3>
+                </a>
+              </div>
+            </div>
+            <div className="small-box box">
+              <div className="slider-image-yatay">
+                <a href={"blog/" + veri[1].slug}>
+                  <img src={veri[1].img} alt="" />
+                  <h3 className="box-header" align="left">
+                    {veri[0].title}
+                  </h3>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="big slider-float">
+            <div className="big-box box">
+              <div className="slider-image-dikey">
+                <a href={"blog/" + veri[2].slug}>
+                  <img src={veri[2].img} alt="" />
+                  <h3 className="box-header-dikey" align="left">
+                    {veri[0].title}
+                  </h3>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-render(<ControlledCarousel />)
+export default LikeSlider;

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import PostsList from "./postslist";
 import Pagination from "./pagination";
 import PropTypes from "prop-types";
+import Button from "reactstrap/lib/Button";
+import "../style/showmorebutton.scss";
+import AOS from "aos";
 
-const Blog = ({ veri, SetpPP, search }) => {
+const Blog = ({ veri, SetpPP, search, Paginate, showMore }) => {
   Blog.defaultProps = {
     SetpPP: "5"
   };
@@ -15,16 +18,18 @@ const Blog = ({ veri, SetpPP, search }) => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   const filteredveri = veri.filter(post => {
-    return (post.tag.indexOf(search) >= 0 ||
-    post.date.indexOf(search) >= 0 ||
-    post.details.indexOf(search) >= 0 ||
-    post.title.indexOf(search) >= 0);
+    return (
+      post.tag.toLowerCase().indexOf(search.toLowerCase()) >= 0 ||
+      post.date.toLowerCase().indexOf(search.toLowerCase()) >= 0 ||
+      post.details.toLowerCase().indexOf(search.toLowerCase()) >= 0 ||
+      post.title.toLowerCase().indexOf(search.toLowerCase()) >= 0
+    );
   });
 
   const currentPosts = filteredveri.slice(indexOfFirstPost, indexOfLastPost);
 
   function ShowHide() {
-    if (postsPerPage < filteredveri.length) {
+    if (postsPerPage < filteredveri.length && Paginate != "OFF") {
       return (
         <Pagination
           postsPerPage={postsPerPage}
@@ -32,6 +37,17 @@ const Blog = ({ veri, SetpPP, search }) => {
           paginate={paginate}
           currentPage={currentPage}
         />
+      );
+    } else if (showMore == "ON" && Paginate == "OFF") {
+      console.log("ShowMore");
+      return (
+        <div>
+          <a href="/blog">
+            <div className="show-more-button">
+              <div className="show-more-text">Show More</div>
+            </div>
+          </a>
+        </div>
       );
     }
   }
@@ -42,7 +58,9 @@ const Blog = ({ veri, SetpPP, search }) => {
     <div>
       <PostsList search={search} veri={currentPosts} />
       {/*TODO: üstteki satır silinecek*/}
-      {ShowHide()}
+      <div data-aos="zoom-out" data-aos-offset="0">
+        {ShowHide()}
+      </div>
     </div>
   );
 };
