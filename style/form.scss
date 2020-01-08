@@ -1,0 +1,35 @@
+$textbox-padding: 10px;
+$textbox-margin: 8px;
+$textbox-width: 200px;
+$middle-button-width: $textbox-width / 2;
+$textbox-border-radius: 30px;
+
+.textbox {
+  background: transparent;
+  border-radius: $textbox-border-radius;
+  width: $textbox-width;
+  padding: $textbox-padding;
+  margin: $textbox-margin;
+}
+
+.middle-button {
+  background: transparent;
+  border-radius: $textbox-border-radius;
+  width: $middle-button-width;
+  padding: $textbox-padding;
+  margin: $textbox-margin;
+}
+
+.orange {
+  color: #ff4600;
+  border: 1px solid #ff3732;
+  box-shadow: 0px 0px 6px #ff4400, inset 0px 0px 0px #ff4400;
+
+  transition: 0.3s;
+  &::placeholder {
+    color: #ff440049;
+  }
+  &:hover {
+    box-shadow: 0px 0px 0px #ff4400, inset 0px 0px 6px #ff4400 !important;
+  }
+}
