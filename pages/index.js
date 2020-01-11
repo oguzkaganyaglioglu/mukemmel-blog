@@ -76,7 +76,8 @@ export class Home extends Component {
 
 Home.getInitialProps = async ({ req }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch(`http://perfectwithme.herokuapp.com/api/posts`);
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+  const res = await fetch(`${protocol}://${req.headers.host}/api/posts`);
   const json = await res.json();
   return { posts: json.posts };
 };
