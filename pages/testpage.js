@@ -1,4 +1,4 @@
-import React from "react";
+
 import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import Link from "next/link";
@@ -9,51 +9,36 @@ import PostList from "../components/postslist";
 import "../style/main.scss";
 import Cards from "../components/cards";
 
+import React, { Component } from 'react'
 
+export class Home extends Component {
 
-const Home = ({ posts }) => (
-      
-  <div className="container">
-
-<Head>
-      
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Home</title>
-        <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
-        <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
-        <link rel="icon" href="/favicon.ico" />
-        
-      </Head>
-    
-   
-        <Cards veri={posts}/>
-        
-        <StyleCards veri={posts}/>
-
-        <PostList veri={posts}/>
-
-        
-      
-
-        
-
-    
-      
-
+  testwindow(){
+    console.log(window.location.host)
+    console.log("a")
+    console.log(req.headers.host)
+  }
+  
+  render() {
+    function test(){
+      const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+      const apiUrl = process.browser
+        ? `${protocol}://${window.location.host}/api/login.js`
+        : `${protocol}://${req.headers.host}/api/login.js`
+      return { apiUrl }
+    }
 
     
 
-    <style jsx>
-      {`
-      .container{
-        transform: translateY(0em);
-      }
-      `}
-    </style>
+    return (
+      <div>
+        <button onClick={this.testwindow}></button>
+      </div>
+    )
+  }
+}
 
-  </div>
-);
+
 
 Home.getInitialProps = async ({ req }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin

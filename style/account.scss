@@ -1,9 +1,15 @@
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
+$oran: 90 / 100;
+
+body{
+  font-family: "Quicksand", sans-serif;
+}
 .login-text {
   h3 {
     font-family: "Maven Pro", sans-serif;
     font-weight: 300;
-    margin: 0 0 10px 0;
-    font-size: 30px;
+    margin: 0 0 20px 0;
+    font-size: 39px * $oran;
     background: linear-gradient(#ff3a26 0%, #ff4600 100%);
     text-shadow: (0px 0px 50px #ff4600);
     -webkit-background-clip: text;
@@ -16,17 +22,18 @@
   margin-right: 10%;
 }
 .ortala-test {
-    margin:0 10%; 
-  }
+  margin: auto;
+  width: fit-content;
+}
 
 .login-container {
-  background-color: white;
-  width: 400px;
-  height: 500px;
+  width: 540px * $oran;
+  height: 590px * $oran;
   display: table;
   background: #050014;
-  //filter: drop-shadow(0px 0px 6px #050014);
-  filter: drop-shadow(0px 0px 6px #ff0000);
+  filter: drop-shadow(0px 0px 6px #050014);
+  //filter: drop-shadow(0px 0px 6px #ff0000);
+  margin: 8px;
 }
 
 .login-content {
@@ -38,17 +45,43 @@
 .login-checkbox {
   background: transparent;
   border-radius: 30px;
-  width: 110px;
-  padding: 8px 10px;
+  padding: (42px * $oran - 18px) / 2 0px (42px * $oran - 18px) / 2 11px;
+  //max-height: (42px * $oran - 14px) / 2;
   margin: 8px;
   width: fit-content;
+}
+.test-align {
+  float: left;
+}
+
+#pretty-scale-test {
+  font-size: 13px;
   label {
     color: #ff4600;
     font-family: "Maven Pro", sans-serif;
     font-weight: 300;
-    font-size: 13.3px;
   }
 }
-.test-align{
-    float: left;
+
+.log-reg {
+  /*background: linear-gradient(
+    90deg,
+    rgba(255, 70, 0, 1) 0%,
+    rgba(255, 30, 131, 1) 100%
+  );*/
+  float: left;
+  padding: 4px;
+  
+}
+.log-reg-background{
+  background: linear-gradient(
+    90deg,
+    rgba(255, 70, 0, 1) 0%,
+    rgba(255, 30, 131, 1) 100%
+  );
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  padding: 2px;
+  margin: auto;
 }
