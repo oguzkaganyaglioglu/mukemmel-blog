@@ -1,20 +1,27 @@
-const withSass = require('@zeit/next-sass');
+const withSass = require("@zeit/next-sass");
 const withCSS = require("@zeit/next-css");
-require('dotenv').config();
+require("dotenv").config();
 
-  
+module.exports = withCSS(
+  withSass({
+    webpack: (config, { isServer }) => {
+      config.module.rules.push({
+        test: /\.md$/,
+        use: "raw-loader"
+      });
+      if (!isServer) {
+        config.node = {
+          fs: "empty",
+          net: "empty",
+          tls: "empty",
+          dns: "empty"
+        };
+      }
 
-module.exports = withCSS(withSass({
-  webpack: config => {
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader"
-    });
-    
-    return config;
-  },
-  env: {
-    DOMAIN: "http://localhost:3000/"
-    
-  }
-}));
+      return config;
+    },
+    env: {
+      DOMAIN: "http://localhost:3000/"
+    }
+  })
+);

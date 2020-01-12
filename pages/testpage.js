@@ -1,50 +1,45 @@
 
-import fetch from "isomorphic-unfetch";
-import Head from "next/head";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import "../style/main.scss";
-import StyleCards from "../components/newstylecards";
-import PostList from "../components/postslist";
-import "../style/main.scss";
-import Cards from "../components/cards";
+const express = require('express');
+const next = require('next');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-import React, { Component } from 'react'
 
-export class Home extends Component {
+mongoose.connect('mongodb+srv://dbUser:opIwDkg6fjyWY9e4@mukemmelblog-cewxh.gcp.mongodb.net/users?retryWrites=true&w=majority', {useNewUrlParser: true});
 
-  testwindow(){
-    console.log(window.location.host)
-    console.log("a")
-    console.log(req.headers.host)
-  }
+
+
+
+const app = express()
+const port = 3000
+
+app.use(bodyParser.urlencoded({ extended: false }) )
+app.use(bodyParser.json())
+
+const Cat = mongoose.model('Cat', { name: String });
+
+
+
+app.get('/testpage', (req, res) => res.send('Merhaba Dünya!'))
+
+app.post('/testpage', (req, res) => {
+  const kitty = new Cat({ name: 'Zildjian' });
+  kitty.save().then((data) => res.send(data));
+})
+
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+
+// var newUser = new User(
+//   email = "test@test.com",
+//   firstName = "Oğuz Kağan",
+//   lastName = "Yağlıoğlu",
+//   password = "123456",
+//   dateCreated = new Date(),
+//   dateModified = newUser.dateCreated
+// );
+// newUser.save().then((data) => {
   
-  render() {
-    function test(){
-      const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-      const apiUrl = process.browser
-        ? `${protocol}://${window.location.host}/api/login.js`
-        : `${protocol}://${req.headers.host}/api/login.js`
-      return { apiUrl }
-    }
-
-    
-
-    return (
-      <div>
-        <button onClick={this.testwindow}></button>
-      </div>
-    )
-  }
-}
-
-
-
-Home.getInitialProps = async ({ req }) => {
-  // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch("http://localhost:3000/api/posts");
-  const json = await res.json();
-  return { posts: json.posts };
-};
-
-export default Home;
+//   res.send(data);
+// )}
