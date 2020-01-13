@@ -1,42 +1,110 @@
+import React from "react";
+import fetch from "isomorphic-unfetch";
+import Head from "next/head";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import PaginacionTabla from "../components/pageNav";
+import Cards from "../components/cards"
 
-const express = require('express');
-const next = require('next');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+import Slogan from '../components/slogan'
+import Typical from "react-typical"
+
+import "../style/main.scss";
+
+const Home = ({ posts }) => (
+    
+  <div className="container">
+    <Head>
+      
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Home</title>
+      <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+        crossorigin="anonymous"></link>
+      <link rel="icon" href="/favicon.ico" />
+      
+    </Head>
+    
+    
+    <div className="hero">
+      <Link href="/">
+      <a className="hero-title">
+      <Typical
+            steps={['Hello 👋🏽',
+                    1000,
+                    "I'm a designer 🖊️",
+                    1000,
+                    "I'm a developer 💻",
+                    1000,
+                    "Who am I?",
+                    1000,
+                    "I am",
+                    1000,
+                    'Oguz Kagan Yaglıoglu',
+                    1500
+                    
+            ]}
+            
+            wrapper="p"
+            />
 
 
-mongoose.connect('mongodb+srv://dbUser:opIwDkg6fjyWY9e4@mukemmelblog-cewxh.gcp.mongodb.net/users?retryWrites=true&w=majority', {useNewUrlParser: true});
+        </a>
+        </Link>
+      <hr style={{borderColor:"#707070", maxWidth:"550px"}} />
+      
+      <Slogan />
+
+      <div className="hero-social-links">
+        <Link href="https://www.twitter.com/oguzkagan05">
+          <a className="social-link">Twitter</a>
+        </Link>
+        <Link href="https://www.instagram.com/oguz_kagan05">
+          <a className="social-link">Instagram</a>
+        </Link>
+      </div>
+    </div>
+    
 
 
 
-const PORT = process.env.PORT || 3000;
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
+    
 
-app
-  .prepare()
-  .then(() => {
-    const server = express();
+    <Cards veri={posts}/>
+    <br/>
 
-    server.use(bodyParser.urlencoded({ extended: false }) )
-    server.use(bodyParser.json())
+    
+    {posts.map(post => (
 
-    const Cat = mongoose.model('Cat', { name: String });
+      <div className="blog">
+        <h2 className="blog-title">
+          <Link href={post.slug}>
+            <a className="blog-title-link">{post.title}</a>
+          </Link>
+        </h2>
+        <div className="lead blog-detail">
+          
+          <Link href={post.slug}>
+            <a className="blog-text-link"><ReactMarkdown source={post.details} /></a>
+          </Link>
+        </div>
+        <div className="blog-date">{post.date}</div>
+        <hr/>
+      </div>
+    ))}
+    
+    <div className="footer">
+    </div>
+  </div>
+);
 
-    server.get('/testpage', (req, res) => res.send('Merhaba Dünya!'))
+Home.getInitialProps = async ({ req }) => {
+  // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
+  const res = await fetch("http://localhost:3000/api/posts");
+  const json = await res.json();
+  return { posts: json.posts };
+};
 
-    server.post('/testpage', (req, res) => {
-        const kitty = new Cat({ name: 'Zildjian' });
-        kitty.save().then((data) => res.send(data));
-      })
-
-    server.listen(PORT, err => {
-      if (err) throw err;
-      console.log(`> Ready on ${PORT}`);
-    });
-  })
-  .catch(ex => {
-    console.error(ex.stack);
-    process.exit(1);
-  });
+export default Home;

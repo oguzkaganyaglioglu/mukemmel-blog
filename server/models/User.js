@@ -3,14 +3,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userShema = new Schema({
-  firstName: String,
-  lastName: String,
+  firstName: {
+    type :String,
+    required: [true, "Lütfen bir isim giriniz"]
+  },
+  lastName: {
+    type :String,
+    required: [true, "Lütfen soyisim giriniz"]
+  },
   email: {
     type: String,
     unique: true,
-    required: [true, "Lüten bir e-mail adresi giriniz"]
+    required: [true, "Lütfen bir e-mail adresi giriniz"]
   },
-  password: String,
+  password: {
+    type :String,
+    required: [true, "Lütfen bir şifre giriniz"]
+  },
   dateCreated: Date,
   dateModified: Date,
   lastlogin: Date

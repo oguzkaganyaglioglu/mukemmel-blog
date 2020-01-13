@@ -8,12 +8,14 @@ import Register from "../components/register";
 import Swal from "sweetalert2";
 import md5 from "md5";
 import validate from "validate.js";
+import axios from "axios";
+import * as Http from "../utils/http.helper";
 
 class Account extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   state = {
@@ -38,7 +40,8 @@ class Account extends Component {
     }
   }
 
-  handleSubmit(e) {
+  handleLogin(e) {
+    e.preventDefault();
     var constraints = {
       from: {
         email: true
@@ -60,27 +63,49 @@ class Account extends Component {
 
     if (validation == undefined) {
       if (this.state.password.length > 6) {
-        Toast.fire({
-          icon: "info",
-          title: "Bilgilerini kontrol ediyoruz"
-        });
+        Toast.queue([
+          {
+            icon: "info",
+            timer: 1000,
+            title: "Bilgilerini kontrol ediyoruz",
+            showLoaderOnConfirm: true,
+            onClose: () => {
+              return Http.post("auth/login", {
+                email: this.state.email,
+                password: this.state.password
+              }).then(res => {
+                if (res.status) {
+                  //localStorage.setItem("userToken", res.token);//Artık session a kullanıyorum buna gerek yok
+                  Toast.fire({
+                    icon: "success",
+                    title: "Başarıyla giriş yaptınız"
+                  });
+                } else {
+                  Toast.fire({
+                    icon: "error",
+                    title: "Yanlış veri girdiniz"
+                  });
+                }
+              });
+            }
+          }
+        ]);
 
-        if ("a" == "a") {//TODO:database kontrolü olacak
-          this.setState({
-            login: true
-          });
+        }else{
           Toast.fire({
-            icon: "success",
-            title: "Signed in successfully"
+            icon: "warning",
+            title: "Eksik şifre girdiniz"
           });
-        }
       }
     } else {
-      console.log("geçersiz");
+      Toast.fire({
+        icon: "warning",
+        title: "Geçersiz bir e-posta adresi girdiniz"
+      });
     }
 
     this.setState({
-      password: md5(this.state.password)
+      password: this.state.password
     });
   }
   render() {
@@ -102,7 +127,7 @@ class Account extends Component {
         <div className="ortala">
           <div className="log-reg-background">
             <Login
-              handleSubmit={this.handleSubmit}
+              handleSubmit={this.handleLogin}
               password={this.state.password}
               email={this.state.email}
               handleChange={this.handleChange}

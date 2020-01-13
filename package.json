@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server/index.js",
+    "dev": "nodemon",
     "build": "next build",
     "start": "next start -p $PORT"
   },
@@ -14,6 +14,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "aos": "^2.3.4",
+    "axios": "^0.19.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "concurrently": "^5.0.2",

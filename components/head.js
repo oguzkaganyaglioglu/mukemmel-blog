@@ -20,7 +20,7 @@ export class HeadDesign extends Component {
         <div className="center">
           <div className="hero-social-links">
             <div className="link">
-              <Link href="/signup">
+              <Link href="/account">
                 <a className="social-link">Üye Ol</a>
               </Link>
             </div>
@@ -35,7 +35,7 @@ export class HeadDesign extends Component {
               </Link>
             </div>
             <div className="link">
-              <Link href="/login">
+              <Link href="/account">
                 <a className="social-link">Üye Girişi</a>
               </Link>
             </div>

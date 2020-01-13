@@ -39,7 +39,7 @@ const Blog = ({ veri, SetpPP, search, Paginate, showMore }) => {
         />
       );
     } else if (showMore == "ON" && Paginate == "OFF") {
-      console.log("ShowMore");
+      // console.log("ShowMore");
       return (
         <div>
           <a href="/blog">

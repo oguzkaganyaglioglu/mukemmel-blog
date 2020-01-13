@@ -23,6 +23,10 @@ const route = () => {
       } else {
         if (user.password === passwordHashed) {
           const token = jwt.sign({ userId: user._id }, config.jwtSecret);
+          req.session.userToken = token;
+          req.session.useremail = email;
+          // req.session.user.lastName = user.lastName;
+          // req.session.user.firstName = user.firstName;
           res.send({
             status: true,
             token: token

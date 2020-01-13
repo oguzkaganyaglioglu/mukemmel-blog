@@ -22,6 +22,9 @@ module.exports = withCSS(
     },
     env: {
       DOMAIN: "http://localhost:3000/"
+    },
+    devIndicators: {
+      autoPrerender: false,
     }
   })
 );
