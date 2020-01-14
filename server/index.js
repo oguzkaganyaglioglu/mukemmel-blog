@@ -2,10 +2,13 @@ const express = require("express");
 const next = require("next");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const AuthRouter = require("./routes");
+//const AuthRouter = require("./routes");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const User = require("./models/User");
 
 const PORT = process.env.PORT;
 const dev = process.env.NODE_ENV !== "production";
@@ -69,7 +72,65 @@ app
 
     server.use(bodyParser.json());
 
-    AuthRouter(server);
+    //AuthRouter(server);
+
+    server.post(`/auth/login`, (req, res) => {
+      const { email, password } = req.body;
+      const passwordHashed = crypto
+        .createHmac("sha512", process.env.PASS_SECRET)
+        .update(password)
+        .digest("hex");
+  
+      User.findOne({ email: email }).then(user => {
+        if (!user) {
+          res.send({
+            status: false,
+            message: "kullanıcı bulunamadı"
+          });
+        } else {
+          if (user.password === passwordHashed) {
+            const token = jwt.sign({ userId: user._id, admin: user.admin }, process.env.JWT_SECRET);
+            req.session.userToken = token;
+            req.session.useremail = email;
+            // req.session.user.lastName = user.lastName;
+            // req.session.user.firstName = user.firstName;
+            res.send({
+              status: true,
+              token: token
+            });
+          } else {
+            res.send({
+              status: false,
+              message: "kullanıcı bulunamadı"
+            });
+          }
+        }
+      });
+    })
+
+    server.post(`/auth/register`, (req, res) => {
+      const { email, password, firstName, lastName, repassword } = req.body;
+      const passwordHashed = crypto
+        .createHmac("sha512", process.env.PASS_SECRET)
+        .update(password)
+        .digest("hex");
+      const newUser = new User({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: passwordHashed,
+        admin: false,
+        dateCreated: new Date(),
+        dateModified: new Date()
+      });
+      newUser.save().then(
+        data => {
+          res.send({ status: true, user: data });
+        },
+        err => {
+          res.send({ status: false, error: err });
+        }
+      );
 
     server.get("/api/test", (req, res) => {
         res.send(process.env.DOMAIN);
