@@ -13,7 +13,7 @@ module.exports = withCSS(
       return config;
     },
     env: {
-      DOMAIN: "http://localhost:3000/",
+      DOMAIN: "http://perfectwithmedev.herokuapp.com/",
       JWT_SECURE: "@n3f4*74GKxJ"
     },
     devIndicators: {
