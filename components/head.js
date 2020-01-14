@@ -64,7 +64,7 @@ export class HeadDesign extends Component {
     return (
       <div>
         <div className="hero">
-          <Link href="/">
+          <Link href="/?">
             <a className="hero-title">
               Oguz Kagan Yaglıoglu
               {

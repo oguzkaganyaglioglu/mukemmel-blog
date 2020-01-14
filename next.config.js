@@ -12,10 +12,15 @@ module.exports = withCSS(
 
       return config;
     },
-    env: {
-      DOMAIN: "http://perfectwithmedev.herokuapp.com",
-      JWT_SECURE: "@n3f4*74GKxJ"
-    },
+    // env: {
+    //   DOMAIN: process.env.DOMAIN,
+    //   JWT_SECRET: process.env.JWT_SECRET,
+    //   API_VERSION: process.env.API_VERSION,
+    //   MONGO_URL: process.env.MONGO_URL,
+    //   PASS_SECRET: process.env.PASS_SECRET,
+    //   PORT: process.env.PORT,
+    //   PASS_SECRET: process.env.PASS_SECRET
+    // },
     devIndicators: {
       autoPrerender: false,
     }
