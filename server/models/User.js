@@ -20,6 +20,7 @@ const userShema = new Schema({
     type :String,
     required: [true, "Lütfen bir şifre giriniz"]
   },
+  admin: String,
   dateCreated: Date,
   dateModified: Date,
   lastlogin: Date

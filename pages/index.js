@@ -5,6 +5,7 @@ import HeadDesign from "../components/head";
 import Blog from "../components/blog";
 import "../style/main.scss";
 import LikeSlider from "../components/slider";
+import Notifications from "../components/notifications";
 
 export class Home extends Component {
   constructor(props) {
@@ -26,6 +27,8 @@ export class Home extends Component {
 
     return (
       <div className="container">
+      <Notifications events={this.props.events}/>
+
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>
@@ -116,14 +119,19 @@ export class Home extends Component {
   }
 }
 
-Home.getInitialProps = async ({ req }) => {
+Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   //const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
   const dev = process.env.NODE_ENV !== 'production';
   const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
   const res = await fetch(`${server}/api/posts`);
   const json = await res.json();
-  return { posts: json.posts };
+  return { posts: json.posts,
+  events:{
+    unauthorized: query.unauthorized,
+    refresh: query.refresh
+  }
+  };
 };
 
 export default Home;

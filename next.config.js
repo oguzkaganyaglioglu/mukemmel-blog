@@ -4,24 +4,17 @@ require("dotenv").config();
 
 module.exports = withCSS(
   withSass({
-    webpack: (config, { isServer }) => {
+    webpack: (config) => {
       config.module.rules.push({
         test: /\.md$/,
         use: "raw-loader"
       });
-      if (!isServer) {
-        config.node = {
-          fs: "empty",
-          net: "empty",
-          tls: "empty",
-          dns: "empty"
-        };
-      }
 
       return config;
     },
     env: {
-      DOMAIN: "http://localhost:3000/"
+      DOMAIN: "http://localhost:3000/",
+      JWT_SECURE: "@n3f4*74GKxJ"
     },
     devIndicators: {
       autoPrerender: false,

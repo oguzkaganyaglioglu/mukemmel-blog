@@ -22,7 +22,7 @@ const route = () => {
         });
       } else {
         if (user.password === passwordHashed) {
-          const token = jwt.sign({ userId: user._id }, config.jwtSecret);
+          const token = jwt.sign({ userId: user._id, admin: user.admin }, config.jwtSecret);
           req.session.userToken = token;
           req.session.useremail = email;
           // req.session.user.lastName = user.lastName;
@@ -52,6 +52,7 @@ const route = () => {
       lastName: lastName,
       email: email,
       password: passwordHashed,
+      admin: false,
       dateCreated: new Date(),
       dateModified: new Date()
     });

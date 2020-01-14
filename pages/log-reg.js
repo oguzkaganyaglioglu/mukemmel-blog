@@ -90,12 +90,11 @@ class Account extends Component {
             }
           }
         ]);
-
-        }else{
-          Toast.fire({
-            icon: "warning",
-            title: "Eksik şifre girdiniz"
-          });
+      } else {
+        Toast.fire({
+          icon: "warning",
+          title: "Eksik şifre girdiniz"
+        });
       }
     } else {
       Toast.fire({
@@ -110,10 +109,18 @@ class Account extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>
+          <link
+            href="https://fonts.googleapis.com/css?family=Orbitron&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=Megrim&display=swap"
+            rel="stylesheet"
+          ></link>
           <link
             href="https://fonts.googleapis.com/css?family=Quicksand&display=swap&subset=latin-ext"
             rel="stylesheet"
@@ -122,8 +129,20 @@ class Account extends Component {
             href="https://fonts.googleapis.com/css?family=Maven+Pro&display=swap&subset=latin-ext"
             rel="stylesheet"
           ></link>
+          <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+          ></link>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
 
+        <HeadDesign
+          handleChange={this.handleChange}
+          search={this.state.search}
+          type="main"
+        />
         <div className="ortala">
           <div className="log-reg-background">
             <Login

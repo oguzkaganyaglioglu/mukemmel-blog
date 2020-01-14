@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const AuthRouter = require("./routes");
 const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const config = require("./config");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -14,17 +17,54 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    //TODO: env url kontrol et
+    server.use(cors());
 
-    server.use(session({
-      secret: "my-key",
-      resave: false,
-      saveUninitialized: true
-    }));
+    function isEmpty(obj) {
+      return Object.keys(obj).length === 0;
+    }
 
+    const isAuth = (req, res, next) => {
+      jwt.verify(req.session.userToken, config.jwtSecret, (err, decoded) => {
+        if (err) {
+          //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+          res.redirect("/log-reg");
+        } else {
+          req.tokenData = decoded;
+          next();
+        }
+      });
+    };
+
+    const isAdmin = (req, res, next) => {
+      jwt.verify(req.session.userToken, config.jwtSecret, (err, decoded) => {
+        if (err) {
+          //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+          res.redirect("/?unauthorized=true");
+        } else {
+          req.tokenData = decoded;
+
+          if (req.tokenData.admin) {
+          next();
+            
+          }else{
+            res.redirect("/?unauthorized=true");
+          }
+        }
+      });
+    };
+
+    server.use(
+      session({
+        secret: config.sessionSecret,
+        resave: false,
+        saveUninitialized: true
+      })
+    );
 
     mongoose.Promise = global.Promise;
     mongoose.connect(
-      "mongodb+srv://dbUser:opIwDkg6fjyWY9e4@mukemmelblog-cewxh.gcp.mongodb.net/users?retryWrites=true&w=majority",
+      config.dbURL,
       { useNewUrlParser: true }
     );
 
@@ -36,23 +76,30 @@ app
       res.send(req.body);
     });
 
-    server.get("/api/test/write", (req, res) => {
-      req.session.userToken = "testtoken";
-      res.send("session created");
+    server.get("/api/test", (req, res) => {
+        res.send(process.env.DOMAIN);
     });
 
-    // server.get("/account", (req, res) => {
-    //   req.session.userToken = "testtoken";
-    //   res.send("session created");
-    // });
-
-    server.get("/api/test/read", (req, res) => {
-      if (req.session.userToken) {
-        return res.send('readed: '+ req.session.useremail);
-      }else{
-        res.send("session not found");
+    server.get("/api/test/read", isAdmin, (req, res) => {
+      if (req.tokenData.admin) {
+        return res.send("readed: You're admin " + req.tokenData.admin);
+      } else {
+        res.send("session not found" + req.tokenData.admin);
       }
     });
+
+    server.get("/logout", isAuth, (req, res) => {
+        req.session.destroy;
+        res.redirect("/");
+    });
+
+    server.get("/", (req, res) =>{
+      if (req.query.refresh) {
+        return handle(req, res);
+      }else{
+        res.redirect("/?refresh=true");
+      }
+    })
 
     server.get("*", (req, res) => {
       return handle(req, res);
@@ -62,8 +109,4 @@ app
       if (err) throw err;
       console.log(`> Ready on ${PORT}`);
     });
-  })
-  .catch(ex => {
-    console.error(ex.stack);
-    process.exit(1);
   });
