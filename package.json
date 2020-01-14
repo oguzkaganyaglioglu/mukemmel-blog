@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
