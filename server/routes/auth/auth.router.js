@@ -7,6 +7,10 @@ const User = require("../../models/User");
 const route = () => {
   const router = new express.Router();
 
+  router.route("login").get((req, res) => {
+    res.send("you are in login api");
+  })
+
   router.route("/login").post((req, res) => {
     const { email, password } = req.body;
     const passwordHashed = crypto
