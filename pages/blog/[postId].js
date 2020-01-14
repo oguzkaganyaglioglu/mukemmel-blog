@@ -44,7 +44,7 @@ const BlogPost = ({ post }) => (
 
 BlogPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch(`${process.env.DOMAIN}api/post/${query.postId}`);
+  const res = await fetch(`${process.env.DOMAIN}/api/post/${query.postId}`);
   const json = await res.json();
   return { post: json.post };
 };
