@@ -75,5 +75,6 @@ const route = () => {
 
 module.exports = {
   route,
-  routePrefix: `/${process.env.API_VERSION}/auth`
+  routePrefix: `/v1/auth`
+  //routePrefix: `/${process.env.API_VERSION}/auth`
 };
