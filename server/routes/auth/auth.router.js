@@ -7,11 +7,11 @@ const User = require("../../models/User");
 const route = () => {
   const router = new express.Router();
 
-  router.route("login").get((req, res) => {
+  router.route(`login`).get((req, res) => {
     res.send("you are in login api");
   })
 
-  router.route("/login").post((req, res) => {
+  router.route(`/login`).post((req, res) => {
     const { email, password } = req.body;
     const passwordHashed = crypto
       .createHmac("sha512", process.env.PASS_SECRET)
@@ -45,7 +45,7 @@ const route = () => {
     });
   });
 
-  router.route("/register").post((req, res) => {
+  router.route(`/register`).post((req, res) => {
     const { email, password, firstName, lastName, repassword } = req.body;
     const passwordHashed = crypto
       .createHmac("sha512", process.env.PASS_SECRET)
