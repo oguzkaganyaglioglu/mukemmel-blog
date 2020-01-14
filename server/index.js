@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const User = require("./models/User");
 
@@ -106,7 +105,7 @@ app
           }
         }
       });
-    })
+    });
 
     server.post(`/auth/register`, (req, res) => {
       const { email, password, firstName, lastName, repassword } = req.body;
@@ -131,6 +130,7 @@ app
           res.send({ status: false, error: err });
         }
       );
+    });
 
     server.get("/api/test", (req, res) => {
         res.send(process.env.DOMAIN);
