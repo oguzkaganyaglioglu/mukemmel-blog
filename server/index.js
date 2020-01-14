@@ -17,7 +17,7 @@ app
   .then(() => {
     const server = express();
     //TODO: env url kontrol et
-    server.use(cors());
+    server.use(cors({ origin: process.env.DOMAIN, credentials: true }));
 
     // function isEmpty(obj) {
     //   return Object.keys(obj).length === 0;
@@ -70,10 +70,6 @@ app
     server.use(bodyParser.json());
 
     AuthRouter(server);
-
-    server.post("/", (req, res) => {
-      res.send(req.body);
-    });
 
     server.get("/api/test", (req, res) => {
         res.send(process.env.DOMAIN);
