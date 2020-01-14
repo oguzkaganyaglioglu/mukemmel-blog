@@ -122,8 +122,7 @@ export class Home extends Component {
 Home.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
   //const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-  const res = await fetch(`${protocol}://${req.headers.host}/api/posts`);
+  const res = await fetch(`${process.env.DOMAIN}/api/posts`);
   const json = await res.json();
   return { posts: json.posts,
   events:{

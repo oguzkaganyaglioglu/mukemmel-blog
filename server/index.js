@@ -5,10 +5,9 @@ const bodyParser = require("body-parser");
 const AuthRouter = require("./routes");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
-const config = require("./config");
 const cors = require("cors");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -20,12 +19,12 @@ app
     //TODO: env url kontrol et
     server.use(cors());
 
-    function isEmpty(obj) {
-      return Object.keys(obj).length === 0;
-    }
+    // function isEmpty(obj) {
+    //   return Object.keys(obj).length === 0;
+    // }
 
     const isAuth = (req, res, next) => {
-      jwt.verify(req.session.userToken, config.jwtSecret, (err, decoded) => {
+      jwt.verify(req.session.userToken, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
           res.redirect("/log-reg");
@@ -37,7 +36,7 @@ app
     };
 
     const isAdmin = (req, res, next) => {
-      jwt.verify(req.session.userToken, config.jwtSecret, (err, decoded) => {
+      jwt.verify(req.session.userToken, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
           res.redirect("/?unauthorized=true");
@@ -56,7 +55,7 @@ app
 
     server.use(
       session({
-        secret: config.sessionSecret,
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true
       })
@@ -64,7 +63,7 @@ app
 
     mongoose.Promise = global.Promise;
     mongoose.connect(
-      config.dbURL,
+      process.env.MONGO_URL,
       { useNewUrlParser: true }
     );
 
@@ -92,14 +91,6 @@ app
         req.session.destroy;
         res.redirect("/");
     });
-
-    server.get("/", (req, res) =>{
-      if (req.query.refresh) {
-        return handle(req, res);
-      }else{
-        res.redirect("/?refresh=true");
-      }
-    })
 
     server.get("*", (req, res) => {
       return handle(req, res);

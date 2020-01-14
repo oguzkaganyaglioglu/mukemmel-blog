@@ -10,7 +10,7 @@ const route = () => {
   router.route("/login").post((req, res) => {
     const { email, password } = req.body;
     const passwordHashed = crypto
-      .createHmac("sha512", config.passSecret)
+      .createHmac("sha512", process.env.PASS_SECRET)
       .update(password)
       .digest("hex");
 
@@ -22,7 +22,7 @@ const route = () => {
         });
       } else {
         if (user.password === passwordHashed) {
-          const token = jwt.sign({ userId: user._id, admin: user.admin }, config.jwtSecret);
+          const token = jwt.sign({ userId: user._id, admin: user.admin }, process.env.JWT_SECRET);
           req.session.userToken = token;
           req.session.useremail = email;
           // req.session.user.lastName = user.lastName;
@@ -44,7 +44,7 @@ const route = () => {
   router.route("/register").post((req, res) => {
     const { email, password, firstName, lastName, repassword } = req.body;
     const passwordHashed = crypto
-      .createHmac("sha512", config.passSecret)
+      .createHmac("sha512", process.env.PASS_SECRET)
       .update(password)
       .digest("hex");
     const newUser = new User({
@@ -71,5 +71,5 @@ const route = () => {
 
 module.exports = {
   route,
-  routePrefix: `/${config.version}/auth`
+  routePrefix: `/${process.env.API_VERSION}/auth`
 };
