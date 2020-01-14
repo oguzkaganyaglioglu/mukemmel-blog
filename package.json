@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server/index.js"
+    "start": "cross-env NODE_ENV=production nodemon server/index.js"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
