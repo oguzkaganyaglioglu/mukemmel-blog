@@ -61,14 +61,15 @@ const route = () => {
       dateCreated: new Date(),
       dateModified: new Date()
     });
-    newUser.save().then(
-      data => {
-        res.send({ status: true, user: data });
-      },
-      err => {
-        res.send({ status: false, error: err });
-      }
-    );
+    // newUser.save().then(
+    //   data => {
+    //     res.send({ status: true, user: data });
+    //   },
+    //   err => {
+    //     res.send({ status: false, error: err });
+    //   }
+    // );
+    res.send(passwordHashed);
   });
 
   return router;
