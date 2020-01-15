@@ -86,7 +86,7 @@ app
 
     server.get("/logout", isAuth, (req, res) => {
         req.session.destroy;
-        req.cookies.destroy;
+        res.clearCookie('userToken');
         res.redirect("/");
     });
 
