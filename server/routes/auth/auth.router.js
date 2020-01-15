@@ -7,42 +7,43 @@ const User = require("../../models/User");
 const route = () => {
   const router = new express.Router();
 
-  router.route(`login`).get((req, res) => {
-    res.send("you are in login api");
-  })
+
+  // router.route(`/login`).post((req, res) => {
+  //   const { email, password } = req.body;
+  //   const passwordHashed = crypto
+  //     .createHmac("sha512", process.env.PASS_SECRET)
+  //     .update(password)
+  //     .digest("hex");
+
+  //   User.findOne({ email: email }).then(user => {
+  //     if (!user) {
+  //       res.send({
+  //         status: false,
+  //         message: "kullanıcı bulunamadı"
+  //       });
+  //     } else {
+  //       if (user.password === passwordHashed) {
+  //         const token = jwt.sign({ userId: user._id, admin: user.admin }, process.env.JWT_SECRET);
+  //         req.session.userToken = token;
+  //         req.session.useremail = email;
+  //         // req.session.user.lastName = user.lastName;
+  //         // req.session.user.firstName = user.firstName;
+  //         res.send({
+  //           status: true,
+  //           token: token
+  //         });
+  //       } else {
+  //         res.send({
+  //           status: false,
+  //           message: "kullanıcı bulunamadı"
+  //         });
+  //       }
+  //     }
+  //   });
+  // });
 
   router.route(`/login`).post((req, res) => {
-    const { email, password } = req.body;
-    const passwordHashed = crypto
-      .createHmac("sha512", process.env.PASS_SECRET)
-      .update(password)
-      .digest("hex");
-
-    User.findOne({ email: email }).then(user => {
-      if (!user) {
-        res.send({
-          status: false,
-          message: "kullanıcı bulunamadı"
-        });
-      } else {
-        if (user.password === passwordHashed) {
-          const token = jwt.sign({ userId: user._id, admin: user.admin }, process.env.JWT_SECRET);
-          req.session.userToken = token;
-          req.session.useremail = email;
-          // req.session.user.lastName = user.lastName;
-          // req.session.user.firstName = user.firstName;
-          res.send({
-            status: true,
-            token: token
-          });
-        } else {
-          res.send({
-            status: false,
-            message: "kullanıcı bulunamadı"
-          });
-        }
-      }
-    });
+    res.send("Hiiiiiii");
   });
 
   router.route(`/register`).post((req, res) => {
