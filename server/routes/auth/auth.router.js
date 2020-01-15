@@ -65,7 +65,6 @@ const route = () => {
         res.send({ status: false, error: err });
       }
     );
-    res.send(passwordHashed);
   });
 
   return router;
@@ -73,6 +72,5 @@ const route = () => {
 
 module.exports = {
   route,
-  routePrefix: `/v1/auth`
-  //routePrefix: `/${process.env.API_VERSION}/auth`
+  routePrefix: `/${process.env.API_VERSION}/auth`
 };
