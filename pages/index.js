@@ -127,7 +127,8 @@ Home.getInitialProps = async ({ req, query }) => {
   return { posts: json.posts,
   events:{
     unauthorized: query.unauthorized,
-    refresh: query.refresh
+    refresh: query.refresh,
+    unexpected:query.unexpected_error
   }
   };
 };

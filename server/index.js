@@ -6,26 +6,27 @@ const AuthRouter = require("./routes");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-
+require("dotenv").config();
 
 const PORT = process.env.PORT;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app
-  .prepare()
-  .then(() => {
-    const server = express();
-    //TODO: env url kontrol et
-    server.use(cors({ origin: process.env.DOMAIN, credentials: true }));
+app.prepare().then(() => {
+  const server = express();
+  //TODO: env url kontrol et
+  server.use(cors({ origin: process.env.DOMAIN, credentials: true }));
 
-    // function isEmpty(obj) {
-    //   return Object.keys(obj).length === 0;
-    // }
+  // function isEmpty(obj) {
+  //   return Object.keys(obj).length === 0;
+  // }
 
-    const isAuth = (req, res, next) => {
-      jwt.verify(req.session.userToken, process.env.JWT_SECRET, (err, decoded) => {
+  const isAuth = (req, res, next) => {
+    jwt.verify(
+      req.session.userToken,
+      process.env.JWT_SECRET,
+      (err, decoded) => {
         if (err) {
           //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
           res.redirect("/log-reg");
@@ -33,11 +34,15 @@ app
           req.tokenData = decoded;
           next();
         }
-      });
-    };
+      }
+    );
+  };
 
-    const isAdmin = (req, res, next) => {
-      jwt.verify(req.session.userToken, process.env.JWT_SECRET, (err, decoded) => {
+  const isAdmin = (req, res, next) => {
+    jwt.verify(
+      req.session.userToken,
+      process.env.JWT_SECRET,
+      (err, decoded) => {
         if (err) {
           //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
           res.redirect("/?unauthorized=true");
@@ -45,57 +50,55 @@ app
           req.tokenData = decoded;
 
           if (req.tokenData.admin) {
-          next();
-            
-          }else{
+            next();
+          } else {
             res.redirect("/?unauthorized=true");
           }
         }
-      });
-    };
-
-    server.use(
-      session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true
-      })
-    );
-
-    mongoose.Promise = global.Promise;
-    mongoose.connect(
-      process.env.MONGO_URL,
-      { useNewUrlParser: true }
-    );
-
-    server.use(bodyParser.json());
-
-    AuthRouter(server);
-
-    server.get("/api/test", (req, res) => {
-        res.send(process.env.DOMAIN);
-    });
-
-    server.get("/api/test/read", isAdmin, (req, res) => {
-      if (req.tokenData.admin) {
-        return res.send("readed: You're admin " + req.tokenData.admin);
-      } else {
-        res.send("session not found" + req.tokenData.admin);
       }
-    });
+    );
+  };
 
-    server.get("/logout", isAuth, (req, res) => {
-        req.session.destroy;
-        res.clearCookie('userToken');
-        res.redirect("/");
-    });
+  server.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true
+    })
+  );
 
-    server.get("*", (req, res) => {
-      return handle(req, res);
-    });
+  mongoose.Promise = global.Promise;
+  mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 
-    server.listen(PORT, err => {
-      if (err) throw err;
-      console.log(`> Ready on ${PORT}`);
-    });
+  server.use(bodyParser.json());
+
+  AuthRouter(server);
+
+  server.get("/api/test", (req, res) => {
+    res.send(process.env.DOMAIN);
   });
+
+  server.get("/api/test/read", isAdmin, (req, res) => {
+    if (req.tokenData.admin) {
+      return res.send("readed: You're admin " + req.tokenData.admin);
+    } else {
+      res.send("session not found" + req.tokenData.admin);
+    }
+  });
+
+  server.get("/logout", isAuth, (req, res) => {
+    req.session.destroy(function(err) {
+      res.redirect("/?unexpected_error=true");
+    });
+    res.redirect("/");
+  });
+
+  server.get("*", (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(PORT, err => {
+    if (err) throw err;
+    console.log(`> Ready on ${PORT}`);
+  });
+});

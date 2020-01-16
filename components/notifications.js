@@ -22,6 +22,10 @@ const EVENTS = {
     icon: "warning",
     text: 'Bu sorun üzerinde çalışıyoruz',
     title: "Sayfa tam yüklenmez ise lütfen sayfayı yenileyiniz"
+  },
+  unexpected: {
+    icon: "error",
+    title: "Beklenmeyen bir hata oluştu :("
   }
 };
 

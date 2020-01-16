@@ -10,6 +10,7 @@ import md5 from "md5";
 import validate from "validate.js";
 import axios from "axios";
 import * as Http from "../utils/http.helper";
+import LogReg from "../components/log-reg";
 
 class Account extends Component {
   constructor(props) {
@@ -143,7 +144,7 @@ class Account extends Component {
           search={this.state.search}
           type="main"
         />
-        <div className="ortala">
+        {/* <div className="ortala">
           <div className="log-reg-background">
             <Login
               handleSubmit={this.handleLogin}
@@ -153,11 +154,30 @@ class Account extends Component {
             />
             <Register />
           </div>
+        </div> */}
+        <div>
+          <LogReg
+            register={this.props.events.register}
+            handleSubmit={this.handleLogin}
+            password={this.state.password}
+            email={this.state.email}
+            handleChange={this.handleChange}
+          />
         </div>
         <div className="footer"></div>
       </div>
     );
   }
 }
+
+Account.getInitialProps = async ({ req, query }) => {
+  // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
+  //const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+  return {
+    events: {
+      register: query.register
+    }
+  };
+};
 
 export default Account;

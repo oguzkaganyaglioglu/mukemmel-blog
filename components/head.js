@@ -3,6 +3,7 @@ import { Search } from "react-feather";
 import Link from "next/link";
 import "../style/main.scss";
 import "../style/headdesign.scss";
+import "../style/remove.scss";
 import Slogan from "./slogan";
 
 export class HeadDesign extends Component {
@@ -20,7 +21,7 @@ export class HeadDesign extends Component {
         <div className="center">
           <div className="hero-social-links">
             <div className="link">
-              <Link href="/log-reg">
+              <Link href="/log-reg?register=true">
                 <a className="social-link">Üye Ol</a>
               </Link>
             </div>
@@ -46,7 +47,7 @@ export class HeadDesign extends Component {
                 </div>
                 <div className="link input-div">
                   <input
-                    className="search-input"
+                    className="remove-border search-input"
                     type="text"
                     value={search}
                     onChange={handleChange}

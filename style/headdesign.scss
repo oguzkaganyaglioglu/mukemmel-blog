@@ -18,6 +18,7 @@ $searchopentime:0.6s ease;
   width: 0px;
   float: left;
   color: white;
+  border-color: transparent;;
 }
 
 .link.input-div {
@@ -52,6 +53,8 @@ $searchopentime:0.6s ease;
 #search:hover {
   transform: translateX(-$blockwidth);
   .search-input {
+    opacity: 1;
+    border-color: #707070;
     width: $blockwidth;
     float: left;
   }
@@ -59,6 +62,8 @@ $searchopentime:0.6s ease;
 #search:active {
   transform: translateX(-$blockwidth);
   .search-input {
+    border-color: #707070;
+    opacity: 1;
     width: $blockwidth;
     float: left;
     //
