@@ -110,7 +110,7 @@ class Account extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="container editted-container">
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>

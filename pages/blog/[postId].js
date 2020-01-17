@@ -5,9 +5,11 @@ import ReactMarkdown from "react-markdown";
 import "../../style/main.scss";
 import HeadDesign from "../../components/head";
 import "../../style/blog-post.scss"
+import FooterCopyright from "../../components/footer";
+
 
 const BlogPost = ({ post }) => (
-  <div className="container">
+  <div className="container editted-container">
     <Head>
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -38,6 +40,7 @@ const BlogPost = ({ post }) => (
     </div>
     </div>
     </div>
+    <FooterCopyright/>
   </div>
   
 );
