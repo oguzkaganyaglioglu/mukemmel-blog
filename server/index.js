@@ -88,7 +88,7 @@ app.prepare().then(() => {
 
   server.get("/logout", isAuth, (req, res) => {
     req.session.destroy(function(err) {
-      res.redirect("/?unexpected_error=true");
+      res.redirect("/?unknown_error=true");
     });
     res.redirect("/");
   });

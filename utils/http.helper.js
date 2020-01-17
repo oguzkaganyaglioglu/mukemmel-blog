@@ -1,8 +1,8 @@
 import axios from "axios";
-import config from "../config";
+require("dotenv").config();
 
 const url = (endPoint) => {
-  return `/${config.apiVersion}/${endPoint}`;
+  return `/${process.env.API_VERSION}/${endPoint}`;
 };
 
 const post = (endPoint, data = {}) => {
