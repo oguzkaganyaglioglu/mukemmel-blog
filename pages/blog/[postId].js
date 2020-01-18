@@ -6,6 +6,7 @@ import "../../style/main.scss";
 import HeadDesign from "../../components/head";
 import "../../style/blog-post.scss"
 import FooterCopyright from "../../components/footer";
+import CommentSystem from "../../components/comment";
 
 
 const BlogPost = ({ post }) => (
@@ -15,6 +16,7 @@ const BlogPost = ({ post }) => (
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Home</title>
         <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
@@ -29,8 +31,8 @@ const BlogPost = ({ post }) => (
 <div className="postcontainer">
 <div className="post-background">
     <div className="blog blog-post">
-    
       <h2 className="blog-title">    
+      
           <div className="blog-title-link">{post.title}</div>
       </h2>
       <div className="blog-text">
@@ -40,6 +42,8 @@ const BlogPost = ({ post }) => (
     </div>
     </div>
     </div>
+    <h3>Yorumlar</h3>
+    <CommentSystem/>
     <FooterCopyright/>
   </div>
   

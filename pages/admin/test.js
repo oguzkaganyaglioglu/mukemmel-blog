@@ -119,7 +119,7 @@ export class test extends Component {
                     <span className="input-group-text">Img</span>
                   </div>
                   <input
-                    type="text"
+                    type="url"
                     className="form-control"
                     name="img"
                     onChange={e => {
