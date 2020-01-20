@@ -17,25 +17,34 @@ const route = () => {
   });
 
   router.route(`/setComments`).post((req, res) => {
-      const { operation, commentId} = req.body;
-    if (operation != undefined) {
-      switch (operation) {
-        case "delete":
-          Comment.findByIdAndUpdate(
-            commentId,
-            { isDeleted: true },
-            (err, comment) => {
-              if (err) {
-                res.send({ status: false });
-              } else {
-                res.send({ status: true });
-              }
+    const { operation, commentId, newComment } = req.body;
+    Comment.findById(commentId).then(veri => {
+      if (operation != undefined) {
+        switch (operation) {
+          case "delete":
+            if (
+              req.tokenData.admin == "true" ||
+              (req.tokenData.userId === veri.userId)
+            ) {
+              Comment.findByIdAndUpdate(
+                commentId,
+                { isDeleted: true },
+                (err, comment) => {
+                  if (err) {
+                    res.send({ status: false });
+                  } else {
+                    res.send({ status: true });
+                  }
+                }
+              );
+            } else {
+              res.send({ status: false });
             }
-          );
-          break;
+            break;
 
-        case "ban":
-            Comment.findByIdAndUpdate(
+          case "ban":
+            if (req.tokenData.admin === true) {
+              Comment.findByIdAndUpdate(
                 commentId,
                 { isBanned: true },
                 (err, comment) => {
@@ -46,17 +55,42 @@ const route = () => {
                   }
                 }
               );
-          break;
+            } else {
+              res.send({ status: false });
+            }
 
-        case "edit":
-          break;
+            break;
 
-        default:
-          break;
-      }
-    } else {
+          case "edit":
+            if (
+              req.tokenData.admin ||
+              (req.tokenData.userId === veri.userId)
+            ) {
+              Comment.findByIdAndUpdate(
+                commentId,
+                { comment: newComment,
+                  dateModified: new Date()
+                },
+                (err, comment) => {
+                  if (err) {
+                    res.send({ status: false });
+                  } else {
+                    res.send({ status: true });
+                  }
+                }
+              );
+            } else {
+              res.send({ status: false });
+            }
+            break;
+
+          default:
+            break;
+        }
+      } else {
         res.send({ status: false });
-    }
+      }
+    });
   });
 
   router.route(`/addComment`).post((req, res) => {

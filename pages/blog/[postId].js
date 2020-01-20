@@ -8,7 +8,7 @@ import "../../style/blog-post.scss";
 import FooterCopyright from "../../components/footer";
 import CommentSystem from "../../components/comment";
 
-const BlogPost = ({ post, token, comments }) => (
+const BlogPost = ({ post, token, comments, slug }) => (
   <div className="container editted-container">
     <Head>
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,7 +48,7 @@ const BlogPost = ({ post, token, comments }) => (
         </div>
       </div>
     </div>
-    <CommentSystem token={token} comments={comments} />
+    <CommentSystem token={token} comments={comments} slug={slug} />
     <FooterCopyright />
   </div>
 );
@@ -60,7 +60,7 @@ BlogPost.getInitialProps = async ({ req, query }) => {
 
   const post_json = await post_res.json();
   const comment_json = await comment_res.json();
-  return { post: post_json.post, comments: comment_json.comments, token: req.session.userToken };
+  return { post: post_json.post, comments: comment_json.comments, token: req.session.userToken, slug: query.postId };
 };
 
 export default BlogPost;

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../style/comment.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 import * as Http from "../utils/http.helper";
 import {
   Slash,
@@ -50,7 +52,7 @@ export class CommentSystem extends Component {
       "comment/setComments",
       {
         commentId: id,
-        operation: type
+        operation: type,
       },
       {
         userToken: token
@@ -71,7 +73,230 @@ export class CommentSystem extends Component {
     });
   };
   render() {
-    const { token, comments } = this.props;
+    const { token, comments, slug } = this.props;
+    const handleSendComment = (text, modify) => {
+      if (!modify) {
+        text = "";
+      }
+      Swal.fire({
+        input: "textarea",
+        inputValue: text,
+        inputPlaceholder: "Lütfen yorumunuzu buraya yazınız...",
+        inputAttributes: {
+          "aria-label": "Lütfen yorumunuzu buraya yazınız"
+        },
+        showCancelButton: true,
+        confirmButtonText: "Gönder",
+        cancelButtonText: "İptal et"
+      }).then(result => {
+        if (result.value) {
+          const comment = result.value;
+          Swal.fire({
+            showCancelButton: true,
+            title: "Yorumunuzu onaylıyor musunuz?",
+            html: `
+                <pre><p>${comment}</p></pre>
+              `,
+            confirmButtonText: "Gönder",
+            cancelButtonText: "Düzenle"
+          }).then(result => {
+            if (result.value) {
+              //console.log("sended");
+              Http.post(
+                "comment/addComment",
+                {
+                  comment: comment,
+                  postSlug: slug
+                },
+                {
+                  userToken: token
+                }
+              ).then(res => {
+                //console.log(res.status);
+              });
+            } else {
+              handleSendComment(comment, true);
+            }
+          });
+        }
+      });
+    };
+
+    const verify = () => {
+      return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+          return false;
+        } else {
+          //return true;
+          return decoded;
+        }
+      });
+    };
+
+    const verifyRoute = comment => {
+      
+      if (verify() != false) {
+        if (verify().admin) {
+          return (
+            <h4
+              className="text-truncate"
+              style={{
+                color: "rgb(255,255,255)",
+                marginTop: "15px",
+                marginBottom: "13px",
+                marginBottom: "8px",
+                paddingBottom: "5px"
+              }}
+            >
+              <Edit
+                size={"20px"}
+                id="edit"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  this.operation("edit", comment._id, token);
+                }}
+              />
+              <Trash2
+                size={"20px"}
+                id="delete"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  this.operation("delete", comment._id, token);
+                }}
+              />
+              <Slash
+                size={"20px"}
+                id="ban"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  this.operation("ban", comment._id, token);
+                }}
+              />
+              {/* <CornerDownRight
+                size={"20px"}
+                id="reply"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+              /> */}
+              {comment.userName}
+            </h4>
+          );
+        } else if (verify().userId === comment.userId) {
+          return (
+            <h4
+              className="text-truncate"
+              style={{
+                color: "rgb(255,255,255)",
+                marginTop: "15px",
+                marginBottom: "13px",
+                marginBottom: "8px",
+                paddingBottom: "5px"
+              }}
+            >
+              <Edit
+                size={"20px"}
+                id="edit"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  this.operation("edit", comment._id, token);
+                }}
+              />
+              <Trash2
+                size={"20px"}
+                id="delete"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  this.operation("delete", comment._id, token);
+                }}
+              />
+              {/*
+                    <Slash
+                      size={"20px"}
+                      id="ban"
+                      className="float-right comment-icons"
+                      style={{ margin: "0 5px" }}
+                      onClick={() => {
+                        this.operation("ban", comment._id, token);
+                      }}
+                    /> 
+              <CornerDownRight
+                size={"20px"}
+                id="reply"
+                className="float-right comment-icons"
+                style={{ margin: "0 5px" }}
+              />
+              */}
+              {comment.userName}
+            </h4>
+          );
+        } else {
+        return (
+          <h4
+            className="text-truncate"
+            style={{
+              color: "rgb(255,255,255)",
+              marginTop: "15px",
+              marginBottom: "13px",
+              marginBottom: "8px",
+              paddingBottom: "5px"
+            }}
+          >
+            {comment.userName}
+          </h4>
+        );
+      }
+      } else {
+        return (
+          <h4
+            className="text-truncate"
+            style={{
+              color: "rgb(255,255,255)",
+              marginTop: "15px",
+              marginBottom: "13px",
+              marginBottom: "8px",
+              paddingBottom: "5px"
+            }}
+          >
+            {comment.userName}
+          </h4>
+        );
+      }
+    };
+
+    const commentTime = comment => {
+      if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30 * 12) > 1)) { // date / (1000 * 3600 * 24 * 30 * 12) ay cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30 * 12)) + " yıl önce");
+    
+      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30) > 1)) { // date / (1000 * 3600 * 24 * 30) ay cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30)) + " ay önce")
+        
+      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24) > 1)) { // date / (1000 * 3600 * 24) gün cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24)) + " gün önce")
+  
+      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600) > 1)) { // date / (1000 * 3600) saat cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600)) + " saat önce")
+
+      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 60) > 1)) { // date / (1000) dk cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 60)) + " dakika önce")
+
+      } else if (((new Date - new Date(comment.dateCreated)) / (1000) > 1)) { // date / (1000) sn cinsinden
+
+        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000)) + " saniye önce")
+
+      }
+    }
+
     return (
       <div>
         <h2
@@ -86,8 +311,9 @@ export class CommentSystem extends Component {
           }}
         >
           YORUMLAR
-          <PlusCircle id="addComment"/>
+          <PlusCircle id="addComment" onClick={handleSendComment} />
         </h2>
+
         {comments.map((comment, index) => (
           <div
             className="row"
@@ -108,51 +334,8 @@ export class CommentSystem extends Component {
                     </div>
                   </div>
                   <div style={{ color: "rgb(255,255,255)" }}>
-                    <h4
-                      className="text-truncate"
-                      style={{
-                        color: "rgb(255,255,255)",
-                        marginTop: "15px",
-                        marginBottom: "13px",
-                        marginBottom: "8px",
-                        paddingBottom: "5px"
-                      }}
-                    >
-                      <Edit
-                        size={"20px"}
-                        id="edit"
-                        className="float-right comment-icons"
-                        style={{ margin: "0 5px" }}
-                        onClick={() => {
-                          this.operation("edit", comment._id, token);
-                        }}
-                      />
-                      <Trash2
-                        size={"20px"}
-                        id="delete"
-                        className="float-right comment-icons"
-                        style={{ margin: "0 5px" }}
-                        onClick={() => {
-                          this.operation("delete", comment._id, token);
-                        }}
-                      />
-                      <Slash
-                        size={"20px"}
-                        id="ban"
-                        className="float-right comment-icons"
-                        style={{ margin: "0 5px" }}
-                        onClick={() => {
-                          this.operation("ban", comment._id, token);
-                        }}
-                      />
-                      <CornerDownRight
-                        size={"20px"}
-                        id="reply"
-                        className="float-right comment-icons"
-                        style={{ margin: "0 5px" }}
-                      />
-                      {comment.userName}
-                    </h4>
+                    {verifyRoute(comment)}
+
                     <p style={{ color: "rgb(169,169,169)" }}>
                       <ThumbsUp
                         className="comment-icons"
@@ -165,6 +348,7 @@ export class CommentSystem extends Component {
                         style={{ margin: "0 7px" }}
                       />
                       {/* 15dk önce  //TODO: zaman eklenecek */}
+                      {commentTime(comment)}
                     </p>
                     <p
                       className="text-justify comment-text"

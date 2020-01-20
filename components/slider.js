@@ -28,7 +28,7 @@ export class LikeSlider extends Component {
                 <a href={"blog/" + veri[1].slug}>
                   <img src={veri[1].img} alt="" />
                   <h3 className="box-header" align="left">
-                    {veri[0].title}
+                    {veri[1].title}
                   </h3>
                 </a>
               </div>
@@ -40,7 +40,7 @@ export class LikeSlider extends Component {
                 <a href={"blog/" + veri[2].slug}>
                   <img src={veri[2].img} alt="" />
                   <h3 className="box-header-dikey" align="left">
-                    {veri[0].title}
+                    {veri[2].title}
                   </h3>
                 </a>
               </div>
