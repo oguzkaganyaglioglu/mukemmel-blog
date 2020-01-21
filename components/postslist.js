@@ -78,9 +78,7 @@ class PostsList extends Component {
     }
   };
 
-  componentDidMount() {
-    AOS.init();
-  }
+  
 
   render() {
     const { veri, search } = this.props;

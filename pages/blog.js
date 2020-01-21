@@ -5,12 +5,17 @@ import HeadDesign from "../components/head";
 import Blog from "../components/blog";
 import "../style/main.scss";
 import FooterCopyright from "../components/footer";
+import AOS from "aos";
 
 export class Home extends Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    AOS.init();
   }
 
   state = {

@@ -7,12 +7,17 @@ import "../style/main.scss";
 import LikeSlider from "../components/slider";
 import Notifications from "../components/notifications";
 import FooterCopyright from "../components/footer";
+import AOS from "aos";
 
 export class Home extends Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    AOS.init();
   }
 
   state = {
