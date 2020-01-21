@@ -50,7 +50,6 @@ export class CommentSystem extends Component {
 
   onResize = () => {
     AOS.refresh();
-    console.log("çalıştı")
   }
 
   edit = (text, id, token) => {

@@ -31,7 +31,6 @@ export class Home extends Component {
   }
 
   onResize = () => {
-    console.log("changed")
     AOS.refresh();
   }
   render() {
