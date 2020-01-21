@@ -1,13 +1,56 @@
 import React, { Component } from "react";
 import { Search } from "react-feather";
 import Link from "next/link";
+const jwt = require("jsonwebtoken");
 import "../style/main.scss";
 import "../style/headdesign.scss";
 import "../style/remove.scss";
 import Slogan from "./slogan";
 
 export class HeadDesign extends Component {
-  selectLocation(type, search, handleChange) {
+  
+
+  verify = () => {
+    return jwt.verify(
+      this.props.token,
+      process.env.JWT_SECRET,
+      (err, decoded) => {
+        if (err) {
+          //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+          return false;
+        } else {
+          //return true;
+          return decoded;
+        }
+      }
+    );
+  };
+
+  route = (textd, linkd, textuser, linkuser, textadmin, linkadmin) => {
+    if (this.verify()) {
+      if (this.verify().admin) {
+        return (
+          <Link href={`/${linkadmin}`}>
+            <a className="social-link">{textadmin}</a>
+          </Link>
+        );
+      } else {
+        return (
+          <Link href={`/${linkuser}`}>
+            <a className="social-link">{textuser}</a>
+          </Link>
+        );
+      }
+    } else {
+      return (
+        <Link href={`/${linkd}`}>
+          <a className="social-link">{textd}</a>
+        </Link>
+      );
+    }
+  };
+
+  selectLocation(type, search, handleChange, token) {
     if (type == "slogan") {
       return (
         <div className="center">
@@ -21,9 +64,10 @@ export class HeadDesign extends Component {
         <div className="center">
           <div className="hero-social-links">
             <div className="link">
-              <Link href="/log-reg?register=true">
+            {this.route("Üye Ol", "log-reg?register=true", "Ana Sayfa", "", "Admin", "admin")}
+              {/* <Link href="/log-reg?register=true">
                 <a className="social-link">Üye Ol</a>
-              </Link>
+              </Link> */}
             </div>
             <div className="link">
               <Link href="/about">
@@ -36,9 +80,10 @@ export class HeadDesign extends Component {
               </Link>
             </div>
             <div className="link">
-              <Link href="/log-reg">
+            {this.route("Üye Girişi", "log-reg", "Çıkış", "logout", "Çıkış", "logout")}
+              {/* <Link href="/log-reg">
                 <a className="social-link">Üye Girişi</a>
-              </Link>
+              </Link> */}
             </div>
             <div className="link">
               <div id="search">
@@ -61,7 +106,10 @@ export class HeadDesign extends Component {
     }
   }
   render() {
-    const { search, handleChange, type } = this.props;
+    HeadDesign.defaultProps = {
+      token: "thereisnotoken"
+    };
+    const { search, handleChange, type, token } = this.props;
     return (
       <div>
         <div className="hero">

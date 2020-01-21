@@ -78,6 +78,7 @@ export class Home extends Component {
           <HeadDesign
             handleChange={this.handleChange}
             search={this.state.search}
+            token={this.props.token}
             type="main"
           />
 
@@ -151,6 +152,7 @@ Home.getInitialProps = async ({ req, query }) => {
   const res = await fetch(`${process.env.DOMAIN}/v1/blog/posts`);
   const json = await res.json();
   return {
+    token: req.session.userToken,
     posts: json.posts,
     events: {
       unauthorized: query.unauthorized,
