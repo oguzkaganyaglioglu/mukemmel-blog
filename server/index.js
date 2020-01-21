@@ -89,10 +89,33 @@ app.prepare().then(() => {
   server.get("/logout", isAuth, (req, res) => {
     req.session.destroy(function(err) {
       if (err) {
-      return res.redirect("/?unknown_error=true");
+        return res.redirect("/?unknown_error=true");
       }
     });
     res.redirect("/");
+  });
+
+  server.post("/v1/gettoken", (req, res) => {
+    res.send(req.session.userToken);
+  });
+
+  server.get("/log-reg", (req, res) => {
+    if (req.session.userToken != undefined) {
+      jwt.verify(
+        req.session.userToken,
+        process.env.JWT_SECRET,
+        (err, decoded) => {
+          if (err) {
+            //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+            return handle(req, res);
+          } else {
+            return res.redirect("/");
+          }
+        }
+      );
+    } else {
+      return handle(req, res);
+    }
   });
 
   server.get("*", (req, res) => {

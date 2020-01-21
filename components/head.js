@@ -1,18 +1,27 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import { Search } from "react-feather";
 import Link from "next/link";
 const jwt = require("jsonwebtoken");
+import * as http from "../utils/http.helper";
 import "../style/main.scss";
 import "../style/headdesign.scss";
 import "../style/remove.scss";
 import Slogan from "./slogan";
 
 export class HeadDesign extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      token: "thereisnotoken"
+    }
+  }
   
 
   verify = () => {
+    
     return jwt.verify(
-      this.props.token,
+      this.state.token,
       process.env.JWT_SECRET,
       (err, decoded) => {
         if (err) {
@@ -24,6 +33,8 @@ export class HeadDesign extends Component {
         }
       }
     );
+
+
   };
 
   route = (textd, linkd, textuser, linkuser, textadmin, linkadmin) => {
@@ -105,13 +116,23 @@ export class HeadDesign extends Component {
       );
     }
   }
+componentDidMount(){
+  http.post("gettoken").then(res=>{
+    this.setState({
+      token: res
+    })
+  })
+}
   render() {
     HeadDesign.defaultProps = {
       token: "thereisnotoken"
     };
+    
+    
     const { search, handleChange, type, token } = this.props;
     return (
       <div>
+      
         <div className="hero">
           <Link href="/">
             <a className="hero-title">

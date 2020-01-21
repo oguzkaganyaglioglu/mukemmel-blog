@@ -84,8 +84,20 @@ class Account extends Component {
                   //localStorage.setItem("userToken", res.token);//Artık session a kullanıyorum buna gerek yok
                   Toast.fire({
                     icon: "success",
-                    title: "Başarıyla giriş yaptınız"
+                    title: "Başarıyla giriş yaptınız",
+                    timer: 1000,
+                    onClose:() => {
+                      Toast.fire({
+                        icon: "info",
+                        title: "Ana sayfaya yönlendiriliyorsunuz",
+                        timer: 1000,
+                        onClose:() => {
+                          window.location.reload()
+                        }
+                      });
+                    }
                   });
+                  
                 } else {
                   Toast.fire({
                     icon: "error",
