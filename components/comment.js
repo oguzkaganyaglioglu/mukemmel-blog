@@ -3,6 +3,7 @@ import "../style/comment.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
 const jwt = require("jsonwebtoken");
+import ReactResizeDetector from "react-resize-detector";
 require("dotenv").config();
 import * as Http from "../utils/http.helper";
 import {
@@ -45,6 +46,11 @@ export class CommentSystem extends Component {
 
   componentDidMount() {
     AOS.init();
+  }
+
+  onResize = () => {
+    AOS.refresh();
+    console.log("çalıştı")
   }
 
   edit = (text, id, token) => {
@@ -355,6 +361,7 @@ export class CommentSystem extends Component {
 
     return (
       <div>
+      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <h2
           style={{
             margin: "50px 0 40px",
