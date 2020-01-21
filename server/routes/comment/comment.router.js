@@ -23,7 +23,7 @@ const route = () => {
         switch (operation) {
           case "delete":
             if (
-              req.tokenData.admin == "true" ||
+              (req.tokenData.admin) ||
               (req.tokenData.userId === veri.userId)
             ) {
               Comment.findByIdAndUpdate(
@@ -43,7 +43,7 @@ const route = () => {
             break;
 
           case "ban":
-            if (req.tokenData.admin === true) {
+            if (req.tokenData.admin) {
               Comment.findByIdAndUpdate(
                 commentId,
                 { isBanned: true },

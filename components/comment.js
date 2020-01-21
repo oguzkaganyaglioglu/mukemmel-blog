@@ -47,6 +47,62 @@ export class CommentSystem extends Component {
     AOS.init();
   }
 
+  edit = (text, id, token) => {
+    Swal.fire({
+      input: "textarea",
+      inputValue: text,
+      inputPlaceholder: "Lütfen yorumunuzu buraya yazınız...",
+      inputAttributes: {
+        "aria-label": "Lütfen yorumunuzu buraya yazınız"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Gönder",
+      cancelButtonText: "İptal et"
+    }).then(result => {
+      if (result.value) {
+        const comment = result.value;
+        Swal.fire({
+          showCancelButton: true,
+          title: "Yorumunuzu onaylıyor musunuz?",
+          html: `
+              <pre><p>${comment}</p></pre>
+            `,
+          confirmButtonText: "Gönder",
+          cancelButtonText: "Düzenle"
+        }).then(result => {
+          if (result.value) {
+            Http.post(
+              "comment/setComments",
+              {
+                commentId: id,
+                operation: "edit",
+                newComment: comment
+              },
+              {
+                userToken: token
+              }
+            ).then(res => {
+              console.log(res);
+              if (res.status) {
+                Toast.fire({
+                  icon: "success",
+                  title: "İşlem başarıyla gerçekleşti"
+                });
+              } else {
+                Toast.fire({
+                  icon: "error",
+                  title: "İşlem başarısız oldu"
+                });
+              }
+            });
+          } else {
+            this.edit(comment, id, token);
+          }
+        });
+      }
+    });
+  }
+
   operation = (type, id, token) => {
     Http.post(
       "comment/setComments",
@@ -155,7 +211,7 @@ export class CommentSystem extends Component {
                 className="float-right comment-icons"
                 style={{ margin: "0 5px" }}
                 onClick={() => {
-                  this.operation("edit", comment._id, token);
+                  this.edit(comment.comment, comment._id, token);
                 }}
               />
               <Trash2
@@ -203,7 +259,7 @@ export class CommentSystem extends Component {
                 className="float-right comment-icons"
                 style={{ margin: "0 5px" }}
                 onClick={() => {
-                  this.operation("edit", comment._id, token);
+                  this.edit(comment.comment, comment._id, token);
                 }}
               />
               <Trash2
