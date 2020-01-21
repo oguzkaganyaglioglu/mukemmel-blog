@@ -4,6 +4,7 @@ import Head from "next/head";
 import HeadDesign from "../components/head";
 import Blog from "../components/blog";
 import "../style/main.scss";
+import FooterCopyright from "../components/footer";
 
 export class Home extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export class Home extends Component {
           SetpPP={5}
         />
 
-        <div className="footer"></div>
+        <FooterCopyright/>
       </div>
     );
   }

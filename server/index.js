@@ -95,13 +95,6 @@ app.prepare().then(() => {
     res.redirect("/");
   });
 
-  server.get("/blog", (req, res) => {
-    if (req.query.i == undefined) {
-      return res.redirect("/blog?i");
-    }
-    return handle(req, res);
-  });
-
   server.get("*", (req, res) => {
     return handle(req, res);
   });
