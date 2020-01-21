@@ -16,6 +16,9 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
+    this.setState({
+      height: window.innerHeight
+    });
   }
 
   state = {
@@ -30,7 +33,7 @@ export class Home extends Component {
     const { posts } = this.props;
 
     return (
-      <div className="container editted-container">
+      <div className="container editted-container" style={{height: this.state.height}}>
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>

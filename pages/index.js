@@ -18,6 +18,9 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
+    this.setState({
+      height: window.innerHeight
+    });
   }
 
   state = {
@@ -32,7 +35,11 @@ export class Home extends Component {
     const { posts } = this.props;
 
     return (
-      <div>
+      
+      <div style={{height: this.state.height}}>
+      {
+        console.log( this.state.height )
+      }
         <div className="container editted-container">
           <Notifications events={this.props.events} />
 
