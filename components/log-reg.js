@@ -30,7 +30,7 @@ export class LogReg extends Component {
   }
 
   render() {
-    const { handleSubmit, password, email, handleChange } = this.props;
+    const { handleSubmitForLogin, handleSubmitForRegister, password, email, name, handleChange } = this.props;
     return (
       <div
         className={`log-reg-container ${this.state.register}`}
@@ -60,6 +60,8 @@ export class LogReg extends Component {
               className="remove-border log-reg-input"
               type="text"
               placeholder="İsim"
+              value={name}
+              onChange={handleChange}
             />
             <input
               className="remove-border log-reg-input"
@@ -75,7 +77,7 @@ export class LogReg extends Component {
               value={password}
               onChange={handleChange}
             />
-            <button>Üye Ol</button>
+            <button onClick={handleSubmitForRegister} >Üye Ol</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -113,7 +115,7 @@ export class LogReg extends Component {
               onChange={handleChange}
             />
             <a href="#">Şifremi unuttum</a>
-            <button onClick={handleSubmit}>Üye Girişi</button>
+            <button onClick={handleSubmitForLogin}>Üye Girişi</button>
           </form>
         </div>
         <div className="overlay-container">

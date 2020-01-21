@@ -8,8 +8,7 @@ const userShema = new Schema({
     required: [true, "Lütfen bir isim giriniz"]
   },
   lastName: {
-    type :String,
-    required: [true, "Lütfen soyisim giriniz"]
+    type :String
   },
   email: {
     type: String,

@@ -17,6 +17,7 @@ class Account extends Component {
     super(props);
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   state = {
@@ -38,7 +39,11 @@ class Account extends Component {
       this.setState({
         password: e.target.value
       });
-    }
+    } else if (e.target.type == "text") {
+      this.setState({
+        name: e.target.value
+      });
+    } 
   }
 
   handleLogin(e) {
@@ -63,7 +68,7 @@ class Account extends Component {
     const validation = validate({ from: this.state.email }, constraints);
 
     if (validation == undefined) {
-      if (this.state.password.length > 6) {
+      if (this.state.password.length > 5) {
         Toast.queue([
           {
             icon: "info",
@@ -95,6 +100,74 @@ class Account extends Component {
         Toast.fire({
           icon: "warning",
           title: "Eksik şifre girdiniz"
+        });
+      }
+    } else {
+      Toast.fire({
+        icon: "warning",
+        title: "Geçersiz bir e-posta adresi girdiniz"
+      });
+    }
+
+    this.setState({
+      password: this.state.password
+    });
+  }
+  handleRegister(e) {
+    e.preventDefault();
+    var constraints = {
+      from: {
+        email: true
+      }
+    };
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      onOpen: toast => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      }
+    });
+
+    const validation = validate({ from: this.state.email }, constraints);
+
+    if (validation == undefined) {
+      if (this.state.password.length > 5) {
+        Toast.queue([
+          {
+            icon: "info",
+            timer: 1000,
+            title: "Kayıt işlemi başlatılıyor",
+            showLoaderOnConfirm: true,
+            onClose: () => {
+              return Http.post("auth/register", {
+                firstName: this.state.name,
+                email: this.state.email,
+                password: this.state.password
+              }).then(res => {
+                if (res.status) {
+                  //localStorage.setItem("userToken", res.token);//Artık session a kullanıyorum buna gerek yok
+                  Toast.fire({
+                    icon: "success",
+                    title: "Başarıyla kayıt oldunuz"
+                  });
+                } else {
+                  Toast.fire({
+                    icon: "error",
+                    title: "Bir hata oluştu"
+                  });
+                }
+              });
+            }
+          }
+        ]);
+      } else {
+        Toast.fire({
+          icon: "warning",
+          title: "Şifreniz en az 6 karakter uzunluğunda olmalıdır"
         });
       }
     } else {
@@ -158,9 +231,11 @@ class Account extends Component {
         <div>
           <LogReg
             register={this.props.events.register}
-            handleSubmit={this.handleLogin}
+            handleSubmitForLogin={this.handleLogin}
+            handleSubmitForRegister={this.handleRegister}
             password={this.state.password}
             email={this.state.email}
+            name={this.state.name}
             handleChange={this.handleChange}
           />
         </div>
