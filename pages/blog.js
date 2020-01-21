@@ -4,6 +4,7 @@ import Head from "next/head";
 import HeadDesign from "../components/head";
 import Blog from "../components/blog";
 import "../style/main.scss";
+import ReactResizeDetector from "react-resize-detector";
 import FooterCopyright from "../components/footer";
 import AOS from "aos";
 
@@ -16,9 +17,11 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
-    this.setState({
-      height: window.innerHeight
-    });
+  }
+
+  onResize = () => {
+    console.log("changed")
+    AOS.refresh();
   }
 
   state = {
@@ -33,7 +36,8 @@ export class Home extends Component {
     const { posts } = this.props;
 
     return (
-      <div className="container editted-container" style={{height: this.state.height}}>
+      <div className="container editted-container" >
+      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>

@@ -7,6 +7,7 @@ import "../style/main.scss";
 import LikeSlider from "../components/slider";
 import Notifications from "../components/notifications";
 import FooterCopyright from "../components/footer";
+import ReactResizeDetector from "react-resize-detector";
 import AOS from "aos";
 
 export class Home extends Component {
@@ -18,9 +19,6 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
-    this.setState({
-      height: window.innerHeight
-    });
   }
 
   state = {
@@ -31,12 +29,18 @@ export class Home extends Component {
       search: e.target.value
     });
   }
+
+  onResize = () => {
+    console.log("changed")
+    AOS.refresh();
+  }
   render() {
     const { posts } = this.props;
 
     return (
       
       <div style={{height: this.state.height}}>
+      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
       {
         console.log( this.state.height )
       }
