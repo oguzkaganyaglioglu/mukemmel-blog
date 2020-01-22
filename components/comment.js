@@ -91,7 +91,11 @@ export class CommentSystem extends Component {
               if (res.status) {
                 Toast.fire({
                   icon: "success",
-                  title: "İşlem başarıyla gerçekleşti"
+                  title: "İşlem başarıyla gerçekleşti",
+                  timer: 1000,
+                  onClose:() => {
+                    window.location.reload()
+                  }
                 });
               } else {
                 Toast.fire({
@@ -123,7 +127,11 @@ export class CommentSystem extends Component {
       if (res.status) {
         Toast.fire({
           icon: "success",
-          title: "İşlem başarıyla gerçekleşti"
+          title: "İşlem başarıyla gerçekleşti",
+          timer: 1000,
+          onClose:() => {
+            window.location.reload()
+          }
         });
       } else {
         Toast.fire({
@@ -135,7 +143,9 @@ export class CommentSystem extends Component {
   };
   render() {
     const { token, comments, slug } = this.props;
+
     const handleSendComment = (text, modify) => {
+      if (verify()) {
       if (!modify) {
         text = "";
       }
@@ -173,7 +183,22 @@ export class CommentSystem extends Component {
                   userToken: token
                 }
               ).then(res => {
-                //console.log(res.status);
+                console.log(res.status);
+                if (res.status) {
+                  Toast.fire({
+                    icon: "success",
+                    title: "İşlem başarıyla gerçekleşti",
+                    timer: 1000,
+                    onClose:() => {
+                      window.location.reload()
+                    }
+                  });
+                } else {
+                  Toast.fire({
+                    icon: "error",
+                    title: "İşlem başarısız oldu"
+                  });
+                }
               });
             } else {
               handleSendComment(comment, true);
@@ -181,6 +206,12 @@ export class CommentSystem extends Component {
           });
         }
       });
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: "Yorum bırakmak için üye girişi yapmalısınız"
+      });
+    }
     };
 
     const verify = () => {
@@ -331,29 +362,29 @@ export class CommentSystem extends Component {
     };
 
     const commentTime = comment => {
-      if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30 * 12) > 1)) { // date / (1000 * 3600 * 24 * 30 * 12) ay cinsinden
+      if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30 * 12) > 1)) { // date / (1000 * 3600 * 24 * 30 * 12) ay cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30 * 12)) + " yıl önce");
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30 * 12)) + " yıl önce");
     
-      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30) > 1)) { // date / (1000 * 3600 * 24 * 30) ay cinsinden
+      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30) > 1)) { // date / (1000 * 3600 * 24 * 30) ay cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24 * 30)) + " ay önce")
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30)) + " ay önce")
         
-      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24) > 1)) { // date / (1000 * 3600 * 24) gün cinsinden
+      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24) > 1)) { // date / (1000 * 3600 * 24) gün cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600 * 24)) + " gün önce")
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24)) + " gün önce")
   
-      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 3600) > 1)) { // date / (1000 * 3600) saat cinsinden
+      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600) > 1)) { // date / (1000 * 3600) saat cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 3600)) + " saat önce")
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600)) + " saat önce")
 
-      } else if (((new Date - new Date(comment.dateCreated)) / (1000 * 60) > 1)) { // date / (1000) dk cinsinden
+      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 60) > 1)) { // date / (1000) dk cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000 * 60)) + " dakika önce")
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 60)) + " dakika önce")
 
       } else if (((new Date - new Date(comment.dateCreated)) / (1000) > 1)) { // date / (1000) sn cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateCreated)) / (1000)) + " saniye önce")
+        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000)) + " saniye önce")
 
       }
     }
@@ -391,7 +422,7 @@ export class CommentSystem extends Component {
                       <img
                         className="img-fluid profile-photo"
                         style={{ filter: "brightness(100%)" }}
-                        src="/butterfly.jpg"
+                        src="/box2.png"
                       />
                     </div>
                   </div>

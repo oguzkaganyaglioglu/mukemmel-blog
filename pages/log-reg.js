@@ -167,10 +167,17 @@ class Account extends Component {
                     title: "Başarıyla kayıt oldunuz"
                   });
                 } else {
-                  Toast.fire({
-                    icon: "error",
-                    title: "Bir hata oluştu"
-                  });
+                  if (res.error.code  == "11000") {
+                    Toast.fire({
+                      icon: "error",
+                      title: "Girdiğiniz e-mail adresi sistemde kayıtlı"
+                    });
+                  }else{
+                    Toast.fire({
+                      icon: "error",
+                      title: "Bir hata oluştu"
+                    });
+                  }
                 }
               });
             }

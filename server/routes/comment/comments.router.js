@@ -7,18 +7,16 @@ require("dotenv").config();
 const route = () => {
   const router = new express.Router();
 
-  
-
   router.route(`/comments`).get((req, res) => {
       if (req.query.post != undefined) {
-        Comment.find({ postSlug: req.query.post, isDeleted: false, isBanned: false }, (err, comments) => {
+        Comment.find({ postSlug: req.query.post, isDeleted: false, isBanned: false }, null, {sort: '-dateModified'}, (err, comments) => {
             if (err) {
               res.redirect("/?unknown_error=true");
             }
             res.send({ comments: comments });
           });
       } else {
-        Comment.find({}, (err, comments) => {
+        Comment.find({}, null, {sort: '-dateModified'}, (err, comments) => {
             if (err) throw err;
             res.send({ comments: comments });
           });
