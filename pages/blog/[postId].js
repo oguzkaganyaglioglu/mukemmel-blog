@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react'
 import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
@@ -7,9 +7,16 @@ import HeadDesign from "../../components/head";
 import "../../style/blog-post.scss";
 import FooterCopyright from "../../components/footer";
 import CommentSystem from "../../components/comment";
+import GoogleAnalytics from '../../components/googleanalytics';
 
-const BlogPost = ({ post, token, comments, slug }) => (
-  <div className="container editted-container">
+
+export class BlogPost extends Component {
+
+  render() {
+    const { post, token, comments, slug } = this.props;
+    return (
+      <div className="container editted-container">
+      <GoogleAnalytics/>
     <Head>
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <title>Home</title>
@@ -51,7 +58,9 @@ const BlogPost = ({ post, token, comments, slug }) => (
     <CommentSystem token={token} comments={comments} slug={slug} />
     <FooterCopyright />
   </div>
-);
+    )
+  }
+}
 
 BlogPost.getInitialProps = async ({ req, query }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin

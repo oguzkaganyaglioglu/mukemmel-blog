@@ -11,6 +11,7 @@ import validate from "validate.js";
 import axios from "axios";
 import * as Http from "../utils/http.helper";
 import LogReg from "../components/log-reg";
+import GoogleAnalytics from "../components/googleanalytics";
 
 class Account extends Component {
   constructor(props) {
@@ -203,6 +204,7 @@ class Account extends Component {
   render() {
     return (
       <div className="container editted-container">
+      <GoogleAnalytics/>
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>

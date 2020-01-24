@@ -7,6 +7,7 @@ import "../style/main.scss";
 import ReactResizeDetector from "react-resize-detector";
 import FooterCopyright from "../components/footer";
 import AOS from "aos";
+import GoogleAnalytics from "../components/googleanalytics";
 
 export class Home extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export class Home extends Component {
 
     return (
       <div className="container editted-container" >
+      <GoogleAnalytics/>
       <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

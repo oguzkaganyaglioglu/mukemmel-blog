@@ -23,7 +23,8 @@ module.exports = withCSS(
       MONGO_URL: process.env.MONGO_URL,
       PASS_SECRET: process.env.PASS_SECRET,
       PORT: process.env.PORT,
-      PASS_SECRET: process.env.PASS_SECRET
+      PASS_SECRET: process.env.PASS_SECRET,
+      GOOGLE_TRACKING_ID: process.env.GOOGLE_TRACKING_ID
     },
     devIndicators: {
       autoPrerender: false,

@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import MarkdownIt from "markdown-it";
 import React, { Component, useState } from "react";
+import GoogleAnalytics from "../../components/googleanalytics";
 const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   ssr: false
 });
@@ -28,6 +29,7 @@ export class index extends Component {
     const { title, details, slug, img, tag } = this.state;
     return (
       <div>
+      <GoogleAnalytics/>
         <input
           onChange={e => {
             this.setState({

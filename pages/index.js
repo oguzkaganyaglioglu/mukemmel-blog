@@ -8,8 +8,8 @@ import LikeSlider from "../components/slider";
 import Notifications from "../components/notifications";
 import FooterCopyright from "../components/footer";
 import ReactResizeDetector from "react-resize-detector";
-import {initGA, logPageView} from "../utils/googleanalytics";
 import AOS from "aos";
+import GoogleAnalytics from "../components/googleanalytics";
 
 export class Home extends Component {
   constructor(props) {
@@ -20,8 +20,6 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
-    initGA()
-    logPageView()
   }
 
   state = {
@@ -40,8 +38,8 @@ export class Home extends Component {
     const { posts } = this.props;
 
     return (
-      
       <div style={{height: this.state.height}}>
+      <GoogleAnalytics/>
       <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
       {
         console.log( this.state.height )

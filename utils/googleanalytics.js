@@ -2,8 +2,8 @@ import ReactGA from 'react-ga'
 require("dotenv").config();
 
 export const initGA = () => {
-  console.log('GA init')
-  ReactGA.initialize(process.env.GoogleTrackingID)
+  console.log("GA has been started");
+  ReactGA.initialize(process.env.GOOGLE_TRACKING_ID)
 }
 export const logPageView = () => {
   ReactGA.set({ page: window.location.pathname })
