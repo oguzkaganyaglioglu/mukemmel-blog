@@ -8,6 +8,7 @@ import LikeSlider from "../components/slider";
 import Notifications from "../components/notifications";
 import FooterCopyright from "../components/footer";
 import ReactResizeDetector from "react-resize-detector";
+import {initGA, logPageView} from "../utils/googleanalytics";
 import AOS from "aos";
 
 export class Home extends Component {
@@ -19,6 +20,8 @@ export class Home extends Component {
 
   componentDidMount() {
     AOS.init();
+    initGA()
+    logPageView()
   }
 
   state = {
