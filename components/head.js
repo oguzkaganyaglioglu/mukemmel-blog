@@ -55,7 +55,7 @@ export class HeadDesign extends Component {
     } else {
       return (
         <Link href={`/${linkd}`}>
-          <a className="social-link">{textd}</a>
+          <a className="social-link" onClick={()=>{window.location.assign(`/${linkd}`)}}>{textd}</a>
         </Link>
       );
     }
@@ -135,7 +135,7 @@ componentDidMount(){
       
         <div className="hero">
           <Link href="/">
-            <a className="hero-title">
+            <a className="hero-title" data-text="Oguz Kagan Yaglıoglu">
               Oguz Kagan Yaglıoglu
               {
                 /*<Typical

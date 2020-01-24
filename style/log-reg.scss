@@ -214,3 +214,16 @@ form {
   width: 40px;
 }
 
+@media screen and (max-width:600px){
+  .overlay-container{
+    width: 0;
+  }
+  .sign-in-container{
+    width: 100%;
+  }
+  .sign-up-container{
+    width: 100%;
+    transform: translateX(0%) !important;
+  }
+  
+}

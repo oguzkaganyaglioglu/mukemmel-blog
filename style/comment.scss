@@ -1,55 +1,74 @@
 .comment-backgroud {
-    width: auto;
-    min-width: 450px;
-    max-width: 750px;
-    border-radius: 61px 10px;
-    background: linear-gradient(to left, rgba(255,30,131,0.2), rgba(255,70,0,0.2));
-    //box-shadow: 0px 0px 10px #fff;
-    position: relative;
-    padding: 4px;
-    }
+  width: auto;
+  min-width: 450px;
+  max-width: 750px;
+  border-radius: 61px 10px;
+  background: linear-gradient(
+    to left,
+    rgba(255, 30, 131, 0.2),
+    rgba(255, 70, 0, 0.2)
+  );
+  //box-shadow: 0px 0px 10px #fff;
+  position: relative;
+  padding: 4px;
+}
 
-    .comment-front {
-    height: 100%;
-    border-radius: 58.5px 0px;
-    //background: #050014;
-    background: tranparent;
-    opacity: 1;
-    padding: 4px;
-    }
+.comment-front {
+  height: 100%;
+  border-radius: 58.5px 0px;
+  //background: #050014;
+  background: tranparent;
+  opacity: 1;
+  padding: 4px;
+}
 
-    .comment-icons {
-        transition: all 0.1s;
-        color:rgb(169, 169, 169);
-        &:hover{
-            cursor: pointer;
-            color:rgb(207, 207, 207);
-        }
-    }
+.comment-icons {
+  transition: all 0.1s;
+  color: rgb(169, 169, 169);
+  &:hover {
+    cursor: pointer;
+    color: rgb(207, 207, 207);
+  }
+}
 
-    #addComment{
-        margin: 0 10px;
-        transition: 0.2s;
-        &:hover{
-            color: #97231a;
-            cursor: pointer;
-        }
-    }
+#addComment {
+  margin: 0 10px;
+  transition: 0.2s;
+  &:hover {
+    color: #97231a;
+    cursor: pointer;
+  }
+}
 
-    .profile-photo-div {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    /* -webkit-box-shadow: 0px 0px 50px 0px rgba(4,201,221,1);
+.profile-photo-div {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  /* -webkit-box-shadow: 0px 0px 50px 0px rgba(4,201,221,1);
     -moz-box-shadow: 0px 0px 50px 0px rgba(4,201,221,1);
     box-shadow: 0px 0px 50px 0px rgba(4,201,221,1); */
-    overflow: hidden;
-    margin: 10px;
-    margin-right: 20px;
-    }
+  overflow: hidden;
+  margin: 10px;
+  margin-right: 20px;
+}
 
-    .profile-photo {
-    width: 90px;
-    height: 90px;
-    /*filter: drop-shadow(0px 0px 6px #04c9dd);*/
+.profile-photo {
+  width: 90px;
+  height: 90px;
+  /*filter: drop-shadow(0px 0px 6px #04c9dd);*/
+}
+
+@media screen and (max-width: 375px) {
+  .comment-backgroud {
+    min-width: 315px;
+    max-width: 370px;
+  }
+}
+
+@media screen and (min-width: 375px) {
+    .comment-backgroud {
+      min-width: 420px;
+      max-width: 600px;
+      width: 100%;
     }
+  }

@@ -95,3 +95,28 @@ color: black;
   color: black;
     top: $sheight * 2 + 4 - 50px;
   }
+
+  @media screen and (max-width:810px){
+    .small-box{
+      width: 0;
+      height: 0;
+    }
+
+    .big{ 
+      width: 100%;
+    }
+
+    .big-box{
+      width: 99%;
+    }
+    
+    .box{
+      background-color: transparent;
+    }
+
+    .slider-background{
+      width: 100%;
+    }
+  }
+  
+  
