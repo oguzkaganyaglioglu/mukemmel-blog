@@ -42,13 +42,13 @@ export class HeadDesign extends Component {
       if (this.verify().admin) {
         return (
           <Link href={`/${linkadmin}`}>
-            <a className="social-link">{textadmin}</a>
+            <a className="social-link" onClick={()=>{window.location.assign(`/${linkadmin}`)}}>{textadmin}</a>
           </Link>
         );
       } else {
         return (
           <Link href={`/${linkuser}`}>
-            <a className="social-link">{textuser}</a>
+            <a className="social-link" onClick={()=>{window.location.assign(`/${linkuser}`)}}>{textuser}</a>
           </Link>
         );
       }
@@ -82,12 +82,12 @@ export class HeadDesign extends Component {
             </div>
             <div className="link">
               <Link href="/about">
-                <a className="social-link">Hakkımda</a>
+                <a className="social-link" onClick={()=>{window.location.assign(`/about`)}}>Hakkımda</a>
               </Link>
             </div>
             <div className="link">
               <Link href="/blog">
-                <a className="social-link">Blog</a>
+                <a className="social-link" onClick={()=>{window.location.assign(`/blog`)}}>Blog</a>
               </Link>
             </div>
             <div className="link">
@@ -135,7 +135,7 @@ componentDidMount(){
       
         <div className="hero">
           <Link href="/">
-            <a className="hero-title" data-text="Oguz Kagan Yaglıoglu">
+            <a className="hero-title" data-text="Oguz Kagan Yaglıoglu" onClick={()=>{window.location.assign(`/`)}}>
               Oguz Kagan Yaglıoglu
               {
                 /*<Typical
