@@ -30,14 +30,16 @@ export class test extends Component {
 
   handleSendPost = () => {
     const { title, details, slug, img, tag } = this.state;
-    console.log("sended");
+    //console.log("sended");
       Http.post("blog/addPost", {
         title: title,
         slug: slug,
         details: details,
         tag: tag,
         img: img
-      }).then(res => {console.log(res.status)})
+      }).then(res => {
+        //console.log(res.status)
+      })
   };
   render() {
     const { title, details, slug, img, tag } = this.state;

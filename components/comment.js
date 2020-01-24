@@ -87,7 +87,7 @@ export class CommentSystem extends Component {
                 userToken: token
               }
             ).then(res => {
-              console.log(res);
+              //console.log(res);
               if (res.status) {
                 Toast.fire({
                   icon: "success",
@@ -183,7 +183,7 @@ export class CommentSystem extends Component {
                   userToken: token
                 }
               ).then(res => {
-                console.log(res.status);
+                //console.log(res.status);
                 if (res.status) {
                   Toast.fire({
                     icon: "success",

@@ -15,7 +15,7 @@ export class LogReg extends Component {
   setFormType(e) {
     if (e.target.id == "signUp") {
       this.setState({ register: "right-panel-active" });
-      console.log("signup");
+      //console.log("signup");
     } else {
       this.setState({ register: "" });
     }

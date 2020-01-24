@@ -31,7 +31,7 @@ class Account extends Component {
   };
 
   handleChange(e) {
-    console.log();
+    //console.log();
     if (e.target.type == "email") {
       this.setState({
         email: e.target.value

@@ -42,7 +42,7 @@ export class Home extends Component {
       <GoogleAnalytics/>
       <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
       {
-        console.log( this.state.height )
+        //console.log( this.state.height )
       }
         <div className="container editted-container">
           <Notifications events={this.props.events} />
