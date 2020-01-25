@@ -86,6 +86,10 @@ app.prepare().then(() => {
     }
   });
 
+  server.get("/admin", isAdmin, (req, res) => {
+      return handle(req, res);
+  });
+
   server.get("/logout", isAuth, (req, res) => {
     req.session.destroy(function(err) {
       if (err) {

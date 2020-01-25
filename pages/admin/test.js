@@ -22,6 +22,15 @@ export class test extends Component {
 
     this.mdParser = new MarkdownIt();
   }
+
+  componentDidMount(){
+    Http.post("gettoken").then(res=>{
+      this.setState({
+        token: res
+      })
+    })
+  }
+
   handleEditorChange = ({ text }) => {
     this.setState({
       details: text
@@ -29,16 +38,19 @@ export class test extends Component {
   };
 
   handleSendPost = () => {
-    const { title, details, slug, img, tag } = this.state;
+    const { title, details, slug, img, tag, token } = this.state;
     //console.log("sended");
-      Http.post("blog/addPost", {
+      Http.post("blog-operations/addPost", {
         title: title,
         slug: slug,
         details: details,
         tag: tag,
         img: img
+      },
+      {
+        userToken: token
       }).then(res => {
-        //console.log(res.status)
+        console.log(res.status)
       })
   };
   render() {
@@ -51,7 +63,7 @@ export class test extends Component {
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           ></link>
         </Head>
         <div

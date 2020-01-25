@@ -7,6 +7,10 @@ const PostSchema = new Schema({
     type: String,
     required: [true, "Lütfen başlık giriniz."]
   },
+  draft:{
+    type:Boolean,
+    default:false
+  },
   slug: {
     type: String,
     unique: true,

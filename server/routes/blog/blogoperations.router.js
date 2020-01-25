@@ -5,9 +5,9 @@ require("dotenv").config();
 const route = () => {
   const router = new express.Router();
 
-  router.route(`/posts`).get((req, res) => {
+  router.route(`/draftposts`).get((req, res) => {
     if (req.query.post != undefined) {
-      Post.find({ slug: req.query.post }, (err, post) => {
+      Post.find({ slug: req.query.post, draft: true }, (err, post) => {
         if (err) {
           res.redirect("/?unknown_error=true");
         }
@@ -22,13 +22,14 @@ const route = () => {
   });
 
   router.route(`/addPost`).post((req, res) => {
-    const { details, tag, title, slug, img } = req.body;
+    const { details, tag, title, slug, img, draft } = req.body;
     const newPost = new Post({
       title: title,
       slug: slug,
       details: details,
       tag: tag,
       img: img,
+      draft: draft,
       date: new Date().toISOString().split("T")[0]
     });
     newPost.save().then(
@@ -46,5 +47,5 @@ const route = () => {
 
 module.exports = {
   route,
-  routePrefix: `/${process.env.API_VERSION}/blog`
+  routePrefix: `/${process.env.API_VERSION}/blog-operations`
 };
