@@ -33,17 +33,21 @@ export class Home extends Component {
 
   onResize = () => {
     AOS.refresh();
-  }
+  };
   render() {
     const { posts } = this.props;
 
     return (
-      <div style={{height: this.state.height}}>
-      <GoogleAnalytics/>
-      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
-      {
-        //console.log( this.state.height )
-      }
+      <div style={{ height: this.state.height }}>
+        <GoogleAnalytics />
+        <ReactResizeDetector
+          handleWidth
+          handleHeight
+          onResize={this.onResize}
+        />
+        {
+          //console.log( this.state.height )
+        }
         <div className="container editted-container">
           <Notifications events={this.props.events} />
 
