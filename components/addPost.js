@@ -105,9 +105,9 @@ export class AddPost extends Component {
             inputValue: slug
           }).then(result => {
             if (result.value) {
-              setStates(type, result.value.replace(" ", "-"));
+              setStates(type, result.value.replace(/ /g,"-"));
               Swal.fire({
-                title: `${result.value.replace(" ", "-")}`,
+                title: `${result.value.replace(/ /g,"-")}`,
                 text: "Slug olarak seçilecek onaylıyor musunuz?",
                 showCancelButton: true
               }).then(result => {
