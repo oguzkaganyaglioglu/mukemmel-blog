@@ -4,11 +4,19 @@ const Schema = mongoose.Schema;
 
 const userShema = new Schema({
   firstName: {
-    type :String,
+    type: String,
     required: [true, "Lütfen bir isim giriniz"]
   },
   lastName: {
-    type :String
+    type: String
+  },
+  deleted: {
+    type: Boolean,
+    default: false
+  },
+  banned: {
+    type: Boolean,
+    default: false
   },
   email: {
     type: String,
@@ -16,10 +24,13 @@ const userShema = new Schema({
     required: [true, "Lütfen bir e-mail adresi giriniz"]
   },
   password: {
-    type :String,
+    type: String,
     required: [true, "Lütfen bir şifre giriniz"]
   },
-  admin: Boolean,
+  admin: {
+    type: Boolean,
+    default: false
+  },
   dateCreated: Date,
   dateModified: Date,
   lastlogin: Date

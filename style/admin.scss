@@ -53,6 +53,14 @@
   margin: 1px 3px;
 }
 
+.operationIcons:hover {
+  color: #777777;
+}
+.operationIcons {
+  margin: 0 4px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1250px) {
   .admin-container {
     width: 1212px !important;

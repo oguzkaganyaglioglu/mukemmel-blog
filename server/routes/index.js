@@ -3,6 +3,7 @@ const BlogOperationsRouter = require("./blog/blogoperations.router");
 const BlogRouter = require("./blog/blogposts.router");
 const CommentRouter = require("./comment/comment.router");
 const CommentsRouter = require("./comment/comments.router");
+const AdminUserRouter = require("./members/admin.router");
 const jwt = require("jsonwebtoken");
 
 const isAuth = (req, res, next) => {
@@ -48,6 +49,7 @@ const AppRoutes = server => {
   server.use(AuthRouter.routePrefix, AuthRouter.route());
   server.use(BlogOperationsRouter.routePrefix, isAdmin, BlogOperationsRouter.route());
   server.use(BlogRouter.routePrefix, BlogRouter.route());
+  server.use(AdminUserRouter.routePrefix, isAdmin, AdminUserRouter.route());
   server.use(CommentRouter.routePrefix, isAuth, CommentRouter.route());
   server.use(CommentsRouter.routePrefix, CommentsRouter.route());
 };
