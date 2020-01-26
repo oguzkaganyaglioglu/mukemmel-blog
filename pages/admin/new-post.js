@@ -8,7 +8,7 @@ import "../../style/main.scss";
 import AddPost from "../../components/addPost";
 import AdminLayout from "../../Layout/admin";
 
-export class index extends Component {
+export class NewPost extends Component {
   mdParser = null;
   constructor(props) {
     super(props);
@@ -28,6 +28,26 @@ export class index extends Component {
       this.setState({
         token: res
       });
+      if (this.props.datas.modify) {
+        Http.post(
+          `blog-operations/posts?post=${this.props.datas.slug}`,
+          { userToken: this.state.token },
+          { userToken: this.state.token }
+        ).then(res => {
+          if (Object.keys(res).length === 0 && res.constructor === Object) {
+            window.location.assign("/admin/new-post");
+          } else {
+            this.setState({
+              old_slug: this.props.datas.slug,
+              slug: res.post.slug,
+              title: res.post.title,
+              details: res.post.details,
+              img: res.post.img,
+              tag: res.post.tag
+            });
+          }
+        });
+      }
     });
   }
 
@@ -66,7 +86,7 @@ export class index extends Component {
   };
 
   render() {
-    const { title, details, slug, img, tag, token } = this.state;
+    const { title, details, slug, img, tag, token, old_slug } = this.state;
 
     return (
       <div>
@@ -95,11 +115,34 @@ export class index extends Component {
           ></link>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <AdminLayout>
 
+        <AdminLayout>
+          <AddPost
+            title={title}
+            details={details}
+            slug={slug}
+            img={img}
+            tag={tag}
+            handleEditorChange={this.handleEditorChange}
+            mdParser={this.mdParser}
+            setStates={this.setStates}
+            token={token}
+            old_slug={old_slug}
+            modify={this.props.datas.modify}
+          />
         </AdminLayout>
       </div>
     );
   }
 }
-export default index;
+
+NewPost.getInitialProps = async ({ req, query }) => {
+  return {
+    datas: {
+      modify: query.modify,
+      slug: query.slug
+    }
+  };
+};
+
+export default NewPost;

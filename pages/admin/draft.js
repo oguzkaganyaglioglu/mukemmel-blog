@@ -3,12 +3,14 @@ import React, { Component, useState } from "react";
 import GoogleAnalytics from "../../components/googleanalytics";
 import * as Http from "../../utils/http.helper";
 import Head from "next/head";
+import Blog from "../../components/blog";
 import "../../style/admin.scss";
 import "../../style/main.scss";
-import AddPost from "../../components/addPost";
+import AOS from "aos";
 import AdminLayout from "../../Layout/admin";
+import { Search } from "react-feather";
 
-export class index extends Component {
+export class Draft extends Component {
   mdParser = null;
   constructor(props) {
     super(props);
@@ -18,17 +20,41 @@ export class index extends Component {
       slug: "",
       img: "",
       tag: "",
-      token: "thereisnotoken"
+      token: "thereisnotoken",
+      search: ""
     };
     this.mdParser = new MarkdownIt();
   }
 
-  componentDidMount() {
-    Http.post("gettoken").then(res => {
-      this.setState({
-        token: res
-      });
+  onResize = () => {
+    AOS.refresh();
+  };
+
+  handleChange = e => {
+    this.setState({
+      search: e.target.value
     });
+  };
+
+  componentDidMount() {
+    AOS.init();
+    Http.post("gettoken")
+      .then(res => {
+        this.setState({
+          token: res
+        });
+      })
+      .then(() => {
+        Http.post(
+          "blog-operations/draftposts",
+          {},
+          { userToken: this.state.token }
+        ).then(res => {
+          this.setState({
+            draftposts: res.posts
+          });
+        });
+      });
   }
 
   handleEditorChange = ({ text }) => {
@@ -66,7 +92,7 @@ export class index extends Component {
   };
 
   render() {
-    const { title, details, slug, img, tag, token } = this.state;
+    const { title, details, slug, img, tag, token, draftposts } = this.state;
 
     return (
       <div>
@@ -96,10 +122,32 @@ export class index extends Component {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <AdminLayout>
-
+          <input
+            className="form-control-sm"
+            style={{ margin: "10px 10%", width: "81%" }}
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+            value={this.state.search}
+            onChange={this.handleChange}
+          ></input>
+          {draftposts == undefined ? (
+            ""
+          ) : (
+            <Blog
+              search={this.state.search}
+              veri={draftposts}
+              SetpPP={3}
+              isAdmin={true}
+              token={token}
+            />
+          )
+          /*  */
+          }
         </AdminLayout>
       </div>
     );
   }
 }
-export default index;
+
+export default Draft;

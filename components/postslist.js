@@ -2,6 +2,7 @@ import React, { Component } from "react";
 const removeMd = require("remove-markdown");
 import ReactMarkdown from "react-markdown";
 import textElipsis from "text-ellipsis";
+import * as Http from "../utils/http.helper";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
@@ -78,10 +79,41 @@ class PostsList extends Component {
     }
   };
 
-  
-
   render() {
-    const { veri, search } = this.props;
+    const { veri, searchi, isAdmin, token } = this.props;
+
+    const deletePost = (slug) => {
+      Swal.fire({
+        title: "Emin misiniz?",
+        text: "Bu işlem geri alınamaz!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          Http.post(
+            "blog-operations/delete-post",
+            { slug: slug },
+            { userToken: token }
+          ).then(res => {
+            if (res.status) {
+              Swal.fire("Silindi!", "İşlem başarıyla gerçekleşti", "success").then(()=>{window.location.reload()});
+            } else {
+              Swal.fire(
+                "Bir hata oluştu",
+                "Detaylar konsola yazdırılıyor",
+                "error"
+              );
+            }
+          });
+        } else {
+          Swal.fire("İptal Edildi", "Post hala güvende :)", "error");
+        }
+      });
+    };
+
     return (
       <div className="ortala">
         <ReactResizeDetector
@@ -91,7 +123,12 @@ class PostsList extends Component {
         />
 
         {veri.map((post, index) => (
-          <div key={index} data-aos={this.AOS(veri.indexOf(post))}>
+          <div
+            key={index}
+            className="post"
+            is-admin={isAdmin ? "true" : "false"}
+            data-aos={this.AOS(veri.indexOf(post))}
+          >
             <div className={this.StyleSelect(veri.indexOf(post), "main")}>
               <div className="front">
                 {this.StyleSelect(veri.indexOf(post), "right", post.img)}
@@ -112,11 +149,34 @@ class PostsList extends Component {
                   <div className="text">
                     <p>{textElipsis(removeMd(post.details), 180)}</p>
                   </div>
-                  <Link href={"blog/" + post.slug}>
+
+                  <Link
+                    href={
+                      isAdmin
+                        ? "/admin/new-post?modify=true&slug=" + post.slug
+                        : "blog/" + post.slug
+                    }
+                  >
                     <a>
-                      <div className="readmore">Devamını Oku</div>
+                      <div className="readmore">
+                        {isAdmin ? "Düzenle" : "Devamını Oku"}
+                      </div>
                     </a>
                   </Link>
+
+                  {isAdmin ? (
+                    <div
+                      style={{ cursor: "pointer" }}
+                      className="readmore"
+                      onClick={() => {
+                        deletePost(post.slug)
+                      }}
+                    >
+                      Sil
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 {this.StyleSelect(veri.indexOf(post), "left", post.img)}
               </div>

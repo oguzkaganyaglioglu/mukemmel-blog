@@ -6,9 +6,11 @@ import Button from "reactstrap/lib/Button";
 import "../style/showmorebutton.scss";
 import AOS from "aos";
 
-const Blog = ({ veri, SetpPP, search, Paginate, showMore }) => {
+const Blog = ({ veri, SetpPP, search, Paginate, showMore, isAdmin, token }) => {
   Blog.defaultProps = {
-    SetpPP: "5"
+    SetpPP: "5",
+    isAdmin: false,
+    token: "thereisnotoken"
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,8 +58,7 @@ const Blog = ({ veri, SetpPP, search, Paginate, showMore }) => {
 
   return (
     <div>
-      <PostsList search={search} veri={currentPosts} />
-      {/*TODO: üstteki satır silinecek*/}
+      <PostsList search={search} veri={currentPosts} isAdmin={isAdmin} token={token} />
       <div data-aos="zoom-out" data-aos-offset="0">
         {ShowHide()}
       </div>

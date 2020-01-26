@@ -39,7 +39,7 @@ export class Notifications extends Component {
     });
   }
   render() {
-    return <div>{this.props.children}</div>;
+    return <div></div>;
   }
 }
 

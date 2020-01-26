@@ -7,7 +7,6 @@ const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
 });
 
 export class AddPost extends Component {
-  
   render() {
     const {
       title,
@@ -33,8 +32,54 @@ export class AddPost extends Component {
     });
 
     const handleSendPost = draft => {
-        const { title, details, slug, img, tag, token } = this.props;
-        //console.log("sended");
+      const {
+        title,
+        details,
+        slug,
+        img,
+        tag,
+        token,
+        old_slug,
+        modify
+      } = this.props;
+      //console.log("sended");
+      if (modify) {
+        Http.post(
+          "blog-operations/modify-post",
+          {
+            old_slug: old_slug,
+            title: title,
+            slug: slug,
+            details: details,
+            tag: tag,
+            img: img,
+            draft: draft
+          },
+          {
+            userToken: token
+          }
+        ).then(res => {
+          if (res.status) {
+            Toast.fire({
+              icon: "success",
+              title: "İşlem başarıyla gerçekleştirildi"
+            }).then(()=>{
+              window.location.assign("/admin/new-post?modify=true&slug=" + slug);
+            })
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: "Bir hata oluştu",
+              timer: 1000
+            }).then(() => {
+              Toast.fire({
+                icon: "info",
+                title: "Sunucudan alınan yanıt konsola yazdırıldı"
+              });
+            });
+          }
+        });
+      } else {
         Http.post(
           "blog-operations/addPost",
           {
@@ -52,17 +97,26 @@ export class AddPost extends Component {
           if (res.status) {
             Toast.fire({
               icon: "success",
-              title: "İşlem başarıyla gerçekleştirildi"
-            });
+              title: "İşlem başarıyla gerçekleştirildi",
+              timer: 1000
+            }).then(()=>{
+              window.location.assign("/admin/new-post?modify=true&slug=" + slug);
+            })
           } else {
-            console.log(res);
             Toast.fire({
               icon: "error",
-              title: "Bir hata oluştu"
+              title: "Bir hata oluştu",
+              timer: 1000
+            }).then(() => {
+              Toast.fire({
+                icon: "info",
+                title: "Sunucudan alınan yanıt konsola yazdırıldı"
+              });
             });
           }
         });
-      };
+      }
+    };
     const setPostDetails = type => {
       switch (type) {
         case "img":
@@ -105,9 +159,9 @@ export class AddPost extends Component {
             inputValue: slug
           }).then(result => {
             if (result.value) {
-              setStates(type, result.value.replace(/ /g,"-"));
+              setStates(type, result.value.replace(/ /g, "-"));
               Swal.fire({
-                title: `${result.value.replace(/ /g,"-")}`,
+                title: `${result.value.replace(/ /g, "-")}`,
                 text: "Slug olarak seçilecek onaylıyor musunuz?",
                 showCancelButton: true
               }).then(result => {
@@ -264,7 +318,9 @@ export class AddPost extends Component {
               className="btn btn-secondary post-settings-buttons"
               id="draft"
               type="button"
-              onClick={()=>{handleSendPost(true)}}
+              onClick={() => {
+                handleSendPost(true);
+              }}
             >
               Taslağa Kaydet
             </button>
@@ -272,7 +328,9 @@ export class AddPost extends Component {
               className="btn btn-primary post-settings-buttons"
               id="submit"
               type="button"
-              onClick={()=>{handleSendPost(false)}}
+              onClick={() => {
+                handleSendPost(false);
+              }}
             >
               Yayınla
             </button>
@@ -280,7 +338,9 @@ export class AddPost extends Component {
               className="btn btn-danger post-settings-buttons"
               id="cancel"
               type="button"
-              onClick={()=>{window.location.reload()}}
+              onClick={() => {
+                window.location.assign("/admin/new-post");
+              }}
             >
               İptal Et
             </button>

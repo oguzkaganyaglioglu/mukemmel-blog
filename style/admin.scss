@@ -52,3 +52,10 @@
 .post-settings-buttons {
   margin: 1px 3px;
 }
+
+@media screen and (min-width: 1250px) {
+  .admin-container {
+    width: 1212px !important;
+    max-width: 1212px !important;
+  }
+}
