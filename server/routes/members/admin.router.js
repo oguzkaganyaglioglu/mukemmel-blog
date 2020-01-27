@@ -21,9 +21,9 @@ const route = () => {
     }
   });
 
-  router.route(`/delete-user`).post((req, res) => {
+  router.route(`/force-delete-user`).post((req, res) => {
     const { id } = req.body;
-    User.findByIdAndDelete({ id }, err => {
+    User.findByIdAndDelete(id, err => {
       if (err) {
         res.send({ status: false, error: err });
       } else {
@@ -35,11 +35,11 @@ const route = () => {
   router.route(`/modify-user`).post((req, res) => {
     const { id, admin, banned, deleted } = req.body;
     User.findByIdAndUpdate(
-      { id },
+      id,
       {
-        admin:admin,
-        banned:banned,
-        deleted:deleted,
+        admin: admin,
+        banned: banned,
+        deleted: deleted,
         dateModified: new Date()
       },
       (err, post) => {

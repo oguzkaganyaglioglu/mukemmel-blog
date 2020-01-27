@@ -38,8 +38,8 @@ export class LikeSlider extends Component {
             <div className="big-box box">
               <div className="slider-image-dikey">
                 <a href={"blog/" + veri[2].slug}>
-                  <img src={veri[2].img} alt="" />
-                  <h3 className="box-header-dikey" align="left">
+                  <img src={veri[2].img} alt="" style={{transform: "translate(-15%, -15%)"}}/>
+                  <h3 className="box-header-dikey" align="left" >
                     {veri[2].title}
                   </h3>
                 </a>

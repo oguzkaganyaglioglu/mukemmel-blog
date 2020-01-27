@@ -32,14 +32,14 @@ export class members extends Component {
       });
   }
   render() {
-    const { members } = this.state;
+    const { members, token } = this.state;
     return (
       <div>
         <AdminLayout>
           {members == undefined ? (
             ""
           ) : (
-            <Members members={members} SetpPP={10} />
+            <Members members={members} SetpPP={10} token={token} />
           )}
         </AdminLayout>
       </div>

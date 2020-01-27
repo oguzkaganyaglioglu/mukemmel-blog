@@ -94,7 +94,7 @@ export class AdminLayout extends Component {
                       </h4>
                     </a>
                     <hr />
-                    <a href="admin/members">
+                    <a href="/admin/members">
                       <h4
                         className="text-left admin-sidebar-menu-items"
                         style={{

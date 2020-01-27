@@ -53,7 +53,7 @@ const Members = ({ members, SetpPP, token }) => {
 
   return (
     <div>
-      <MembersList members={currentMembers} />
+      <MembersList members={currentMembers} token={token} />
       <div data-aos="zoom-out" data-aos-offset="0">
         {ShowHide()}
       </div>

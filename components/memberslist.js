@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Trash2, Slash, Award, Crosshair, Heart } from "react-feather";
+import * as Http from "../utils/http.helper";
+import Swal from "sweetalert2";
 
 export class MembersList extends Component {
   render() {
-    const { members } = this.props;
+    const { members, token } = this.props;
 
     const getStatus = (isBanned, isDeleted, isAdmin) => {
       if (isBanned) {
@@ -16,6 +18,18 @@ export class MembersList extends Component {
         return "Normal";
       }
     };
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      onOpen: toast => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      }
+    });
     return (
       <div>
         <div className="text-center create-new-post">
@@ -48,29 +62,216 @@ export class MembersList extends Component {
                     </td>
                     <td>
                       {member.banned || member.deleted ? (
-                        <Heart className="operationIcons" size="18px" />
+                        <Heart
+                          className="operationIcons"
+                          size="18px"
+                          onClick={() => {
+                            Http.post(
+                              "admin-user-operations/modify-user",
+                              {
+                                id: member._id,
+                                admin: member.admin,
+                                banned: false,
+                                deleted: false
+                              },
+                              { userToken: token }
+                            ).then(res => {
+                              if (res.status) {
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "İşlem başarıyla gerçekleştirildi",
+                                  timer: 1000
+                                }).then(() => {
+                                  window.location.reload();
+                                });
+                              } else {
+                                Toast.fire({
+                                  icon: "error",
+                                  title: "Bir hata oluştu",
+                                  timer: 1000
+                                }).then(() => {
+                                  Toast.fire({
+                                    icon: "info",
+                                    title:
+                                      "Sunucudan alınan yanıt konsola yazdırıldı"
+                                  });
+                                  console.log(res);
+                                });
+                              }
+                            });
+                          }}
+                        />
                       ) : (
                         ""
                       )}
                       {member.banned ? (
                         ""
                       ) : (
-                        <Slash className="operationIcons" size="18px" />
+                        <Slash
+                          className="operationIcons"
+                          size="18px"
+                          onClick={() => {
+                            Http.post(
+                              "admin-user-operations/modify-user",
+                              {
+                                id: member._id,
+                                admin: member.admin,
+                                banned: true,
+                                deleted: member.deleted
+                              },
+                              { userToken: token }
+                            ).then(res => {
+                              if (res.status) {
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "İşlem başarıyla gerçekleştirildi",
+                                  timer: 1000
+                                }).then(() => {
+                                  window.location.reload();
+                                });
+                              } else {
+                                Toast.fire({
+                                  icon: "error",
+                                  title: "Bir hata oluştu",
+                                  timer: 1000
+                                }).then(() => {
+                                  Toast.fire({
+                                    icon: "info",
+                                    title:
+                                      "Sunucudan alınan yanıt konsola yazdırıldı"
+                                  });
+                                  console.log(res);
+                                });
+                              }
+                            });
+                          }}
+                        />
                       )}
                       {member.deleted ? (
                         ""
                       ) : (
-                        <Trash2 className="operationIcons" size="18px" />
+                        <Trash2
+                          className="operationIcons"
+                          size="18px"
+                          onClick={() => {
+                            Http.post(
+                              "admin-user-operations/modify-user",
+                              {
+                                id: member._id,
+                                admin: member.admin,
+                                banned: member.banned,
+                                deleted: true
+                              },
+                              { userToken: token }
+                            ).then(res => {
+                              if (res.status) {
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "İşlem başarıyla gerçekleştirildi",
+                                  timer: 1000
+                                }).then(() => {
+                                  window.location.reload();
+                                });
+                              } else {
+                                Toast.fire({
+                                  icon: "error",
+                                  title: "Bir hata oluştu",
+                                  timer: 1000
+                                }).then(() => {
+                                  Toast.fire({
+                                    icon: "info",
+                                    title:
+                                      "Sunucudan alınan yanıt konsola yazdırıldı"
+                                  });
+                                  console.log(res);
+                                });
+                              }
+                            });
+                          }}
+                        />
                       )}
                       {member.deleted ? (
-                        <Crosshair className="operationIcons" size="18px" />
+                        <Crosshair
+                          className="operationIcons"
+                          size="18px"
+                          onClick={() => {
+                            Http.post(
+                              "admin-user-operations/force-delete-user",
+                              {
+                                id: member._id
+                              },
+                              { userToken: token }
+                            ).then(res => {
+                              if (res.status) {
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "İşlem başarıyla gerçekleştirildi",
+                                  timer: 1000
+                                }).then(() => {
+                                  window.location.reload();
+                                });
+                              } else {
+                                Toast.fire({
+                                  icon: "error",
+                                  title: "Bir hata oluştu",
+                                  timer: 1000
+                                }).then(() => {
+                                  Toast.fire({
+                                    icon: "info",
+                                    title:
+                                      "Sunucudan alınan yanıt konsola yazdırıldı"
+                                  });
+                                  console.log(res);
+                                });
+                              }
+                            });
+                          }}
+                        />
                       ) : (
                         ""
                       )}
                       {member.banned || member.deleted ? (
                         ""
                       ) : (
-                        <Award className="operationIcons" size="18px" />
+                        <Award
+                          className="operationIcons"
+                          size="18px"
+                          onClick={() => {
+                            Http.post(
+                              "admin-user-operations/modify-user",
+                              {
+                                id: member._id,
+                                admin: !member.admin,
+                                banned: member.banned,
+                                deleted: member.deleted
+                              },
+                              { userToken: token }
+                            ).then(res => {
+                              if (res.status) {
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "İşlem başarıyla gerçekleştirildi",
+                                  timer: 1000
+                                }).then(() => {
+                                  window.location.reload();
+                                });
+                              } else {
+                                Toast.fire({
+                                  icon: "error",
+                                  title: "Bir hata oluştu",
+                                  timer: 1000
+                                }).then(() => {
+                                  Toast.fire({
+                                    icon: "info",
+                                    title:
+                                      "Sunucudan alınan yanıt konsola yazdırıldı"
+                                  });
+                                  console.log(res);
+                                });
+                              }
+                            });
+                          }}
+                        />
                       )}
                     </td>
                   </tr>
