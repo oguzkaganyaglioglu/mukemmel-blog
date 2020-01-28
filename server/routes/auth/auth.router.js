@@ -4,10 +4,8 @@ const crypto = require("crypto");
 const User = require("../../models/User");
 require("dotenv").config();
 
-
 const route = () => {
   const router = new express.Router();
-
 
   router.route(`/login`).post((req, res) => {
     const { email, password } = req.body;
@@ -24,15 +22,33 @@ const route = () => {
         });
       } else {
         if (user.password === passwordHashed) {
-          const token = jwt.sign({ userId: user._id, admin: user.admin }, process.env.JWT_SECRET);
-          req.session.userToken = token;
-          req.session.useremail = email;
+          const token = jwt.sign(
+            { userId: user._id, admin: user.admin },
+            process.env.JWT_SECRET
+          );
+
           // req.session.user.lastName = user.lastName;
           // req.session.user.firstName = user.firstName;
-          res.send({
-            status: true,
-            token: token
-          });
+
+          if (user.banned) {
+            res.send({
+              status: "banned"
+            });
+          } else {
+            req.session.userToken = token;
+            req.session.useremail = email;
+            if (user.deleted) {
+              res.send({
+                status: "deleted",
+                token: token
+              });
+            } else {
+              res.send({
+                status: true,
+                token: token
+              });
+            }
+          }
         } else {
           res.send({
             status: false,

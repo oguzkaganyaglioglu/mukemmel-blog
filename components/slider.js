@@ -15,32 +15,40 @@ export class LikeSlider extends Component {
           <div className="small slider-float">
             <div className="small-box box">
               <div className="slider-image-yatay">
-                <a href={"blog/" + veri[0].slug}>
-                  <img src={veri[0].img} alt="" />
-                  <h3 className="box-header" align="left">
-                    {veri[0].title}
-                  </h3>
-                </a>
+                {Object.keys(veri).length > 1 ? (
+                  <a href={"blog/" + veri[1].slug}>
+                    <img src={veri[1].img} alt="" />
+                    <h3 className="box-header" align="left">
+                      {veri[1].title}
+                    </h3>
+                  </a>
+                ) : (
+                  <img src="sorrypost.jpg" alt="" />
+                )}
               </div>
             </div>
             <div className="small-box box">
               <div className="slider-image-yatay">
-                <a href={"blog/" + veri[1].slug}>
-                  <img src={veri[1].img} alt="" />
-                  <h3 className="box-header" align="left">
-                    {veri[1].title}
-                  </h3>
-                </a>
+                {Object.keys(veri).length > 2 ? (
+                  <a href={"blog/" + veri[2].slug}>
+                    <img src={veri[2].img} alt="" />
+                    <h3 className="box-header" align="left">
+                      {veri[2].title}
+                    </h3>
+                  </a>
+                ) : (
+                  <img src="sorrypost.jpg" alt="" />
+                )}
               </div>
             </div>
           </div>
           <div className="big slider-float">
             <div className="big-box box">
               <div className="slider-image-dikey">
-                <a href={"blog/" + veri[2].slug}>
-                  <img src={veri[2].img} alt="" style={{transform: "translate(-15%, -15%)"}}/>
-                  <h3 className="box-header-dikey" align="left" >
-                    {veri[2].title}
+                <a href={"blog/" + veri[0].slug}>
+                  <img src={veri[0].img} alt="" />
+                  <h3 className="box-header-dikey" align="left">
+                    {veri[0].title}
                   </h3>
                 </a>
               </div>

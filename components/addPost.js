@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import dynamic from "next/dynamic";
 import Swal from "sweetalert2";
+var slugify = require('slugify')
 import * as Http from "../utils/http.helper";
 const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   ssr: false
@@ -159,9 +160,9 @@ export class AddPost extends Component {
             inputValue: slug
           }).then(result => {
             if (result.value) {
-              setStates(type, result.value.replace(/ /g, "-"));
+              setStates(type, slugify(result.value));
               Swal.fire({
-                title: `${result.value.replace(/ /g, "-")}`,
+                title: `${slugify(result.value)}`,
                 text: "Slug olarak seçilecek onaylıyor musunuz?",
                 showCancelButton: true
               }).then(result => {

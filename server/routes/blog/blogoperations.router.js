@@ -14,7 +14,7 @@ const route = () => {
         res.send({ post: post[0] });
       });
     } else {
-      Post.find({draft: true}, (err, posts) => {
+      Post.find({draft: true}, null, {sort: {'_id': -1}}, (err, posts) => {
         if (err) throw err;
         res.send({ posts: posts });
       });

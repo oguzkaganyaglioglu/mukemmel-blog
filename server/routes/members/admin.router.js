@@ -14,7 +14,7 @@ const route = () => {
         res.send({ member: member[0] });
       });
     } else {
-      User.find({}, (err, members) => {
+      User.find({}, null, {sort: {'_id': -1}}, (err, members) => {
         if (err) throw err;
         res.send({ members: members });
       });

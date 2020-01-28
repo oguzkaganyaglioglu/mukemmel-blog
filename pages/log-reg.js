@@ -44,7 +44,7 @@ class Account extends Component {
       this.setState({
         name: e.target.value
       });
-    } 
+    }
   }
 
   handleLogin(e) {
@@ -81,29 +81,59 @@ class Account extends Component {
                 email: this.state.email,
                 password: this.state.password
               }).then(res => {
-                if (res.status) {
+                if (res.status === true) {
                   //localStorage.setItem("userToken", res.token);//Artık session a kullanıyorum buna gerek yok
                   Toast.fire({
                     icon: "success",
                     title: "Başarıyla giriş yaptınız",
                     timer: 1000,
-                    onClose:() => {
+                    onClose: () => {
                       Toast.fire({
                         icon: "info",
                         title: "Ana sayfaya yönlendiriliyorsunuz",
                         timer: 1000,
-                        onClose:() => {
-                          window.location.reload()
+                        onClose: () => {
+                          window.location.reload();
                         }
                       });
                     }
                   });
-                  
                 } else {
-                  Toast.fire({
-                    icon: "error",
-                    title: "Yanlış veri girdiniz"
-                  });
+                  if (res.status == "banned") {
+                    Toast.fire({
+                      icon: "error",
+                      title: "Maalesef banlanmışsınız",
+                      timer: 3000
+                    });
+                  } else if (res.status == "deleted") {
+                    Toast.fire({
+                      icon: "success",
+                      title: "Başarıyla giriş yaptınız",
+                      timer: 1000,
+                      onClose: () => {
+                        Toast.fire({
+                          icon: "info",
+                          title: "Hesabınız silinmek üzere işaretlenmiş",
+                          timer: 2000,
+                          onClose: () => {
+                            Toast.fire({
+                              icon: "info",
+                              title: "Ana sayfaya yönlendiriliyorsunuz",
+                              timer: 1000,
+                              onClose: () => {
+                                window.location.reload();
+                              }
+                            });
+                          }
+                        });
+                      }
+                    });
+                  } else {
+                    Toast.fire({
+                      icon: "error",
+                      title: "Yanlış veri girdiniz"
+                    });
+                  }
                 }
               });
             }
@@ -168,12 +198,12 @@ class Account extends Component {
                     title: "Başarıyla kayıt oldunuz"
                   });
                 } else {
-                  if (res.error.code  == "11000") {
+                  if (res.error.code == "11000") {
                     Toast.fire({
                       icon: "error",
                       title: "Girdiğiniz e-mail adresi sistemde kayıtlı"
                     });
-                  }else{
+                  } else {
                     Toast.fire({
                       icon: "error",
                       title: "Bir hata oluştu"
@@ -204,7 +234,7 @@ class Account extends Component {
   render() {
     return (
       <div className="container editted-container">
-      <GoogleAnalytics/>
+        <GoogleAnalytics />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Home</title>
