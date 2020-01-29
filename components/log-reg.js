@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import Login from "./login";
 import Register from "./register";
 import { FaGoogle, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import * as Http from "../utils/http.helper";
 import "../style/remove.scss";
 import "../style/log-reg.scss";
+import Head from "next/head";
+import Swal from "sweetalert2";
 
 export class LogReg extends Component {
   constructor() {
@@ -29,13 +32,54 @@ export class LogReg extends Component {
     }
   }
 
+  sendMail = () => {
+    Swal.fire({
+      title: "Şifremi Sıfırla",
+      input: "email",
+      inputPlaceholder: "lütfen e-mail adresinizi giriniz",
+      showLoaderOnConfirm: true,
+      preConfirm: (email) => {
+        return Http.post("auth/forgot-pass", { email: email })
+        
+      }
+    }).then(res => {
+      if (res.value.status === true) {
+        Swal.fire({
+          title: "Mail adresinize şifre sıfırlama linki gönderdik",
+          text:"Spam kutunuzu kontrol etmeyi unutmayın",
+          icon: "success"
+        });
+      } else if (res.value.reason == "falseuser") {
+        Swal.fire({
+          title: "Hatalı mail adresi girdiniz",
+          icon: "error"
+        });
+      } else {
+        Swal.fire({
+          title: "Bir hata oluştu lütfen daha sonra tekrar deneyiniz",
+          icon: "error"
+        });
+      }
+    });
+  };
+
   render() {
-    const { handleSubmitForLogin, handleSubmitForRegister, password, email, name, handleChange } = this.props;
+    const {
+      handleSubmitForLogin,
+      handleSubmitForRegister,
+      password,
+      email,
+      name,
+      handleChange
+    } = this.props;
     return (
       <div
         className={`log-reg-container ${this.state.register}`}
         id="log-reg-container"
       >
+        <Head>
+          <script src="https://smtpjs.com/v3/smtp.js"></script>
+        </Head>
         <div className="form-container sign-up-container">
           <form action="#">
             <h1>Hesap Oluştur</h1>
@@ -77,7 +121,7 @@ export class LogReg extends Component {
               value={password}
               onChange={handleChange}
             />
-            <button onClick={handleSubmitForRegister} >Üye Ol</button>
+            <button onClick={handleSubmitForRegister}>Üye Ol</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -114,7 +158,9 @@ export class LogReg extends Component {
               value={password}
               onChange={handleChange}
             />
-            <a href="#">Şifremi unuttum</a>
+            <a href="#" onClick={this.sendMail}>
+              Şifremi unuttum
+            </a>
             <button onClick={handleSubmitForLogin}>Üye Girişi</button>
           </form>
         </div>

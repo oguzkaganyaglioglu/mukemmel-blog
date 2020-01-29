@@ -282,6 +282,7 @@ class Account extends Component {
         <div>
           <LogReg
             register={this.props.events.register}
+            resettoken={this.props.events.token}
             handleSubmitForLogin={this.handleLogin}
             handleSubmitForRegister={this.handleRegister}
             password={this.state.password}
@@ -301,7 +302,8 @@ Account.getInitialProps = async ({ req, query }) => {
   //const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
   return {
     events: {
-      register: query.register
+      register: query.register,
+      token: query.token
     }
   };
 };
