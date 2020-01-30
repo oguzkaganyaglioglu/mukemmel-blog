@@ -43,9 +43,9 @@ export class BlogPost extends Component {
         <div className="postcontainer">
           <div className="post-background">
             <div className="blog blog-post">
-              <h2 className="blog-title">
+              <h1 className="blog-title">
                 <div className="blog-title-link">{post.title}</div>
-              </h2>
+              </h1>
               <div className="blog-text">
                 <ReactMarkdown source={post.details} />
               </div>
