@@ -311,7 +311,7 @@ export class AddPost extends Component {
               value={details}
               renderHTML={text => mdParser.render(text)}
               onChange={handleEditorChange}
-              style={{ height: "500px" }}
+              style={{ height: "500px", textAlign: "initial" }}
             />
           </div>
           <div className="btn-group" style={{ margin: "10px" }}>
