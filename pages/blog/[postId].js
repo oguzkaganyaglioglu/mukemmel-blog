@@ -42,6 +42,7 @@ export class BlogPost extends Component {
         <HeadDesign type="slogan" />
         <div className="postcontainer">
           <div className="post-background">
+            <img src={post.img}></img>
             <div className="blog blog-post">
               <h1 className="blog-title">
                 <div className="blog-title-link">{post.title}</div>
