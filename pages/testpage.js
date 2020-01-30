@@ -1,65 +1,97 @@
-import React from "react";
+import React, { Component } from "react";
+import * as Http from "../utils/http.helper";
+import Swal from "sweetalert2";
+import axios from "axios";
+const jwt = require("jsonwebtoken");
 import fetch from "isomorphic-unfetch";
 import Head from "next/head";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import "../style/main.scss";
-import StyleCards from "../components/newstylecards";
-import PostList from "../components/postslist";
-import "../style/main.scss";
-import Cards from "../components/cards";
 
-
-
-const Home = ({ posts }) => (
-      
-  <div className="container">
-
-<Head>
-      
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Home</title>
-        <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"></link>
-        <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
-        <link rel="icon" href="/favicon.ico" />
-        
-      </Head>
-    
-   
-        <Cards veri={posts}/>
-        
-        <StyleCards veri={posts}/>
-
-        <PostList veri={posts}/>
-
-        
-      
-
-        
-
-    
-      
-
-
-    
-
-    <style jsx>
-      {`
-      .container{
-        transform: translateY(0em);
+export class Testpage extends Component {
+  handleSendPost = token => {
+    console.log("sended");
+    Http.post(
+      "comment/addComment",
+      {
+        title: "Başlık3",
+        comment: "Deneme yorumu3"
+      },
+      {
+        userToken: token
       }
-      `}
-    </style>
+    ).then(res => {
+      console.log(res.status);
+    });
+  };
 
-  </div>
-);
+  render() {
+    const { token } = this.props;
 
-Home.getInitialProps = async ({ req }) => {
-  // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch("http://localhost:3000/api/posts");
-  const json = await res.json();
-  return { posts: json.posts };
+    const handleSendComment = (text, modify) => {
+      if (!modify) {
+        text = "";
+      }
+      Swal.fire({
+        input: "textarea",
+        inputValue: text,
+        inputPlaceholder: "Type your message here...",
+        inputAttributes: {
+          "aria-label": "Type your message here"
+        },
+        showCancelButton: true,
+        confirmButtonText: "Gönder",
+        cancelButtonText: "İptal et"
+      }).then(result => {
+        if (result.value) {
+          const comment = result.value;
+          Swal.fire({
+            showCancelButton: true,
+            title: "Yorumunuzu onaylıyor musunuz?",
+            html: `
+              <pre><p>${comment}</p></pre>
+            `,
+            confirmButtonText: "Gönder",
+            cancelButtonText: "Düzenle"
+          }).then(result => {
+            if (result.value) {
+              console.log("sended");
+              Http.post(
+                "comment/addComment",
+                {
+                  comment: comment
+                },
+                {
+                  userToken: token
+                }
+              ).then(res => {
+                console.log(res.status);
+              });
+            } else {
+              handleSendComment(comment, true);
+            }
+          });
+        }
+      });
+    };
+
+    return (
+      <div>
+        <Head>
+          <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossOrigin="anonymous"
+          ></link>
+        </Head>
+        <button onClick={handleSendComment}>Selamm</button>
+      </div>
+    );
+  }
+}
+Testpage.getInitialProps = async ({ req }) => {
+  return {
+    token: req.session.userToken
+  };
 };
 
-export default Home;
+export default Testpage;

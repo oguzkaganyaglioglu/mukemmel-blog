@@ -13,7 +13,7 @@ import "../style/main.scss";
 
 const Home = ({ posts }) => (
     
-  <div className="container">
+  <div className="container editted-container">
     <Head>
       
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,7 +22,7 @@ const Home = ({ posts }) => (
       <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet"></link>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
-        crossorigin="anonymous"></link>
+        crossOrigin="anonymous"></link>
       <link rel="icon" href="/favicon.ico" />
       
     </Head>
@@ -102,7 +102,7 @@ const Home = ({ posts }) => (
 
 Home.getInitialProps = async ({ req }) => {
   // TODO: aşağıdaki satırda bulunan adresi kendi sunucu adresinle değiştirmelisin
-  const res = await fetch("http://localhost:3000/api/posts");
+  const res = await fetch(`${process.env.DOMAIN}/api/posts`);
   const json = await res.json();
   return { posts: json.posts };
 };

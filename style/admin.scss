@@ -1,0 +1,69 @@
+@import "customscrollbar.scss";
+
+#textarea {
+  @include simplescrollbar(rgba(250, 250, 250, 0.3), white, 6px);
+}
+
+.html-wrap {
+  @include simplescrollbar(rgba(250, 250, 250, 0.3), white, 6px);
+}
+.admin-welcome-text {
+  font-family: "Quicksand";
+  padding: 20px;
+  color: #bbbbbb;
+}
+
+.admin-sidebar {
+  background-color: #ffffff;
+  position: relative;
+  border-radius: 0 30px;
+}
+
+.admin-sidebar-menu-items {
+  font-weight: 300;
+  cursor: pointer;
+  color: #bbbbbb;
+}
+
+.admin-sidebar-menu-items:hover {
+  font-weight: 400;
+  color: #aaaaaa;
+}
+
+.admin-sidebar-menu {
+  padding-bottom: 20px;
+  padding-left: 50px;
+}
+
+.admin-sidebar-menu-dropdown {
+  padding-left: 10px;
+}
+
+.admin-menu-content {
+  border-radius: 27px;
+}
+
+.create-new-post-title-text {
+  font-family: "Quicksand";
+  padding-top: 10px;
+  color: #bbbbbb;
+}
+
+.post-settings-buttons {
+  margin: 1px 3px;
+}
+
+.operationIcons:hover {
+  color: #777777;
+}
+.operationIcons {
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1250px) {
+  .admin-container {
+    width: 1212px !important;
+    max-width: 1212px !important;
+  }
+}

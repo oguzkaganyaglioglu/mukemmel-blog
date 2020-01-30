@@ -1,0 +1,282 @@
+$height: 210px;
+$width: 600px;
+
+@mixin text-clamp($lines: 2, $line-height: false) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+
+  // Fallback for non-Webkit browsers
+  // (won't show `…` at the end of the block)
+  @if $line-height {
+    max-height: $line-height * $lines * 1px;
+  }
+}
+
+.background {
+  width: $width;
+  //width: 100%;
+  height: $height;
+  z-index: 1;
+  transition: 0.25s;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 70, 0, 1) 0%,
+    rgba(255, 30, 131, 1) 100%
+  );
+}
+
+.left {
+  margin-left: 20px - 4px;
+}
+.right {
+  margin-left: 30px - 4px;
+  //width: $width + 0px;
+}
+
+.icons {
+  width: fit-content;
+  float: right;
+  margin: 10px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.highlight {
+  background: #de8383;
+  width: fit-content;
+  margin-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  svg {
+    transform: translateY(-1.5px);
+    margin-right: 2px;
+  }
+}
+
+.readmore {
+  border: 2px solid #ff1e83;
+  border-left: 3px solid #ff1e83;
+  border-right: 3px solid #ff1e83;
+  transition: 0.25s;
+  background: #ff1e83;
+  width: fit-content;
+  float: right;
+  color: white;
+  margin-right: 20px;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: white;
+  }
+}
+
+.readmore:hover {
+  background-color: #ff4600;
+  border: 2px solid #ff4600;
+  border-left: 3px solid #ff4600;
+  border-right: 3px solid #ff4600;
+}
+
+.ortala {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.textarea {
+  float: right;
+  width: $width - 13px - $height;
+  height: $height - 4px;
+  background: #fff;
+  z-index: 2;
+}
+
+.image {
+  float: right;
+  max-width: $height - 5px;
+  height: $height - 5px;
+  background: #ccc;
+  z-index: 3;
+  margin-left: 4px;
+  margin-right: 4px;
+  overflow: hidden;
+}
+
+.image img {
+  display: block;
+  //max-width: $height - 5px;
+  height: 100%;
+}
+
+.main-block {
+  //position: relative;
+  //overflow: hidden;
+  height: $height;
+  margin-top: 20px;
+  //width: fit-content + 13px;
+}
+
+.header {
+  h3 {
+    font-weight: 400;
+    color: #333333;
+    font-size: 1.75rem;
+  }
+  padding: 10px;
+}
+
+.text {
+  padding-left: 10px;
+  padding-right: 10px;
+  /*padding-top: 5px;*/
+  p {
+    text-indent: 15px;
+    font-size: 15px;
+    color: #333333;
+  }
+}
+
+[is-admin="false"] {
+  @media screen and (max-width: 810px) {
+    .background {
+      max-width: $width;
+      width: 100%;
+    }
+    .image {
+      height: 0;
+    }
+    .big {
+      margin-top: -8px;
+    }
+
+    .textarea {
+      width: 100%;
+    }
+    .right {
+      margin-left: 20px - 4px;
+    }
+    .bettertext {
+      svg {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: 810px) {
+    .left-design:hover {
+      .background {
+        width: $width + 10px;
+        margin-left: 10px - 4px;
+      }
+    }
+
+    .right-design:hover {
+      .background {
+        width: $width + 10px;
+        //margin-left: 30px - 4px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    .icons {
+      float: left;
+    }
+    .header {
+      margin-top: 25px;
+    }
+    .text {
+      p {
+        @include text-clamp(4);
+      }
+    }
+    .highlight {
+      float: left;
+      margin: 2px;
+    }
+    .header {
+      h3 {
+        font-size: 1.5rem;
+      }
+      padding: 10px 10px 0 10px;
+    }
+  }
+}
+
+[is-admin="true"] {
+  @media screen and (max-width: 1250px) {
+    .background {
+      max-width: $width;
+      width: 100%;
+    }
+    .image {
+      height: 0;
+    }
+    .big {
+      margin-top: -8px;
+    }
+
+    .textarea {
+      width: 100%;
+    }
+    .right {
+      margin-left: 20px - 4px;
+    }
+    .bettertext {
+      svg {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1250px) {
+    .left {
+      margin-left: 20px - 4px - 8px;
+    }
+    .right {
+      margin-left: 30px - 4px - 8px;
+      //width: $width + 0px;
+    }
+
+    .left-design:hover {
+      .background {
+        width: $width + 10px;
+        margin-left: 10px - 4px - 8px;
+      }
+    }
+
+    .right-design:hover {
+      .background {
+        width: $width + 10px;
+        //margin-left: 30px - 4px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .icons {
+      float: left;
+    }
+    .header {
+      margin-top: 25px;
+    }
+    .text {
+      p {
+        @include text-clamp(4);
+      }
+    }
+    .highlight {
+      float: left;
+      margin: 2px;
+    }
+    .header {
+      h3 {
+        font-size: 1.5rem;
+      }
+      padding: 10px 10px 0 10px;
+    }
+  }
+}

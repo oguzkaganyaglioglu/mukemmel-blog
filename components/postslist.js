@@ -1,23 +1,52 @@
 import React, { Component } from "react";
+const removeMd = require("remove-markdown");
 import ReactMarkdown from "react-markdown";
+import textElipsis from "text-ellipsis";
+import * as Http from "../utils/http.helper";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
 import { Button } from "reactstrap";
+import { Clock, Tag } from "react-feather";
 import Swal from "sweetalert2";
 import ReactResizeDetector from "react-resize-detector";
 import windowSize from "react-window-size";
+import "../style/postlist.scss";
 
 class PostsList extends Component {
   state = {
     isMobile: false
   };
 
-  StyleSelect(index) {
-    if (index % 2 == 0) {
-      return "card mb-3 left";
-    } else {
-      return "card mb-3 right";
+  StyleSelect(index, which, img) {
+    if (which == "main") {
+      if (index % 2 == 0) {
+        return "main-block left-design";
+      } else {
+        return "main-block right-design";
+      }
+    } else if (which == "background") {
+      if (index % 2 == 0) {
+        return "background left";
+      } else {
+        return "background right";
+      }
+    } else if (which == "left") {
+      if (index % 2 == 0) {
+        return (
+          <div className="image">
+            <img src={img} alt="" />
+          </div>
+        );
+      }
+    } else if (which == "right") {
+      if (index % 2 != 0) {
+        return (
+          <div className="image">
+            <img src={img} alt="" />
+          </div>
+        );
+      }
     }
   }
 
@@ -50,21 +79,55 @@ class PostsList extends Component {
     }
   };
 
-  componentDidMount() {
-    AOS.init();
-  }
-
-  makeSearch(filtveri) {
-    if (
-      filtveri.title.indexOf(this.props.search) >= 0 &&
-      filtveri.summary.indexOf(this.props.search) >= 0
-    ) {
-      return filtveri;
-    }
-  }
-
   render() {
-    const { veri, search } = this.props;
+    const { veri, searchi, isAdmin, token } = this.props;
+
+    const deletePost = slug => {
+      Swal.fire({
+        title: "Emin misiniz?",
+        text: "Bu işlem geri alınamaz!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Evet sil!",
+        cancelButtonText: "İptal et"
+      }).then(result => {
+        if (result.value) {
+          Http.post(
+            "blog-operations/delete-post",
+            { slug: slug },
+            { userToken: token }
+          ).then(res => {
+            if (res.status) {
+              Swal.fire({
+                title:"Silindi!",
+                text:"İşlem başarıyla gerçekleşti",
+                icon:"success",
+                confirmButtonText:"Tamam"
+              }).then(() => {
+                window.location.reload();
+              });
+            } else {
+              Swal.fire({
+                title: "Bir hata oluştu",
+                text: "Detaylar konsola yazdırılıyor",
+                icon: "error",
+                confirmButtonText: "Tamam"
+              });
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "İptal Edildi",
+            text: "Post hala güvende :)",
+            icon: "error",
+            confirmButtonText: "Tamam"
+          });
+        }
+      });
+    };
+
     return (
       <div className="ortala">
         <ReactResizeDetector
@@ -72,52 +135,71 @@ class PostsList extends Component {
           handleHeight
           onResize={this.GetWidth}
         />
+
         {veri.map((post, index) => (
           <div
             key={index}
+            className="post"
+            is-admin={isAdmin ? "true" : "false"}
             data-aos={this.AOS(veri.indexOf(post))}
-            className={this.StyleSelect(veri.indexOf(post))}
-            style={{ maxWidth: "540px" }}
           >
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <img
-                  src={this.IsMobile(post, this.state.isMobile)}
-                  className="card-img"
-                  alt="..."
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h5 className="card-title">{post.title}</h5>
-                  <p className="card-text" style={{ fontSize: "1em" }}>
-                    <ReactMarkdown source={post.summary} />
-                  </p>
-                  <p className="card-text">
-                    <small className="text-muted">{post.date}</small>
-                  </p>
+            <div className={this.StyleSelect(veri.indexOf(post), "main")}>
+              <div className="front">
+                {this.StyleSelect(veri.indexOf(post), "right", post.img)}
+                <div className="textarea">
+                  <div className="icons">
+                    <div className="highlight clock">
+                      <Clock size="16" color="#000" />
+                      {post.date}
+                    </div>
+                    <div className="highlight tag">
+                      <Tag size="16" color="#000" />
+                      {post.tag}
+                    </div>
+                  </div>
+                  <div className="header">
+                    <h3>{post.title}</h3>
+                  </div>
+                  <div className="text">
+                    <p>{textElipsis(removeMd(post.details), 180)}</p>
+                  </div>
+
+                  <Link
+                    href={
+                      isAdmin
+                        ? "/admin/new-post?modify=true&slug=" + post.slug
+                        : "blog/" + post.slug
+                    }
+                  >
+                    <a>
+                      <div className="readmore">
+                        {isAdmin ? "Düzenle" : "Devamını Oku"}
+                      </div>
+                    </a>
+                  </Link>
+
+                  {isAdmin ? (
+                    <div
+                      style={{ cursor: "pointer" }}
+                      className="readmore"
+                      onClick={() => {
+                        deletePost(post.slug);
+                      }}
+                    >
+                      Sil
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
+                {this.StyleSelect(veri.indexOf(post), "left", post.img)}
               </div>
+              <div
+                className={this.StyleSelect(veri.indexOf(post), "background")}
+              ></div>
             </div>
           </div>
         ))}
-        <style jsx>{`
-          .right {
-            margin-left: 5em !important;
-            background: #2b1738 !important;
-          }
-          .left {
-            margin-right: 5em !important;
-            background: #1f1738 !important;
-          }
-          .ortala {
-            margin-left: 10%;
-            margin-right: 10%;
-          }
-          .link {
-            margin-left: 11em;
-          }
-        `}</style>
       </div>
     );
   }

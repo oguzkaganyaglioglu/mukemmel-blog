@@ -1,0 +1,58 @@
+$oran: 90 / 100;
+$textbox-padding: 0 12px; //12px;
+$textbox-margin: 8px;
+$textbox-width: 329px * $oran;
+$textbox-height: 42px * $oran;
+$middle-button-height: 42px * $oran;
+$middle-button-width: 137px * $oran;
+//$middle-button-width: $textbox-width / 2;
+$textbox-border-radius: 30px;
+
+.textbox {
+  background: transparent;
+  border-radius: $textbox-border-radius;
+  width: $textbox-width;
+  padding: $textbox-padding;
+  height: $textbox-height;
+  margin: $textbox-margin;
+}
+
+.middle-button {
+  background: transparent;
+  border-radius: $textbox-border-radius;
+  width: $middle-button-width;
+  padding: $textbox-padding;
+  margin: $textbox-margin;
+  height: $middle-button-height;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.orange {
+  color: #ff4600;
+  border: 1px solid #ff3732;
+  box-shadow: 0px 0px 6px #ff4400, inset 0px 0px 0px #ff4400;
+
+  transition: 0.3s;
+  &::placeholder {
+    color: #ff440049;
+  }
+  &:hover {
+    box-shadow: 0px 0px 0px #ff4400, inset 0px 0px 6px #ff4400 !important;
+  }
+}
+
+.purple {
+  color: #FF1E83;
+  border: 1px solid #FF1E83;
+  box-shadow: 0px 0px 6px #FF1E83, inset 0px 0px 0px #FF1E83;
+
+  transition: 0.3s;
+  &::placeholder {
+    color: #FF1E8349;
+  }
+  &:hover {
+    box-shadow: 0px 0px 0px #FF1E83, inset 0px 0px 6px #FF1E83 !important;
+  }
+}

@@ -1,0 +1,23 @@
+@mixin simplescrollbar($scrollbar-color:rgba(250, 250, 250, 0.3), $track-color:white, $width: 6px) {
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: $track-color;
+    }
+  
+    &::-webkit-scrollbar {
+      width: $width;
+      &:hover {
+        width: $width;
+      }
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollbar-color;
+      box-shadow: inset 0 0 20px 0px;
+  
+      &:hover {
+        box-shadow: inset 0 0 5px 0px;
+      }
+      border-radius: 10px;
+    }
+  }

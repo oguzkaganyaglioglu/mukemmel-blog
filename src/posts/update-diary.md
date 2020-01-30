@@ -5,10 +5,24 @@
 -Özellik hazırlıkları
 
 -Pagination eklendi `tasarım Güzelleştirmesi`
-> 2019-12-26 23:01:17 Perşembe
+
+-Yeni kart tasarlandı `responsive yapılacak`
+> 2020-01-03 23:58:17 Cuma
 
 ------------
 ## Yapılacaklar
+-Login Page
+
+-Sign Up Page
+
+-Hakkında sayfası
+
+-yorum bırakabilme
+
+-admin page
+
+-.env domain
+
 -Tasarım güzelleştirme
 
 -Hazırlığı yapan özellikler kodlanacak
