@@ -423,9 +423,45 @@ const route = () => {
 
         transporter.sendMail(mailOptions, (err, info) => {
           if (err) {
-            res.send({ status: false, reason: "err"});
+            res.send({ status: false, reason: "err" });
           }
-          res.send({status: true});
+          res.send({ status: true });
+        });
+      }
+    });
+  });
+
+  router.route(`/reset-pass`).post((req, res) => {
+    jwt.verify(req.body.userToken, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+        res.send({ status: false, message: "invalid token" });
+      } else {
+        //res.send(decoded.userId)
+        User.findById(decoded.userId).then(user => {
+          if (!user) {
+            res.send({ status: false, message: "user couldn't found" });
+          } else {
+            const passwordHashed = crypto
+              .createHmac("sha512", process.env.PASS_SECRET)
+              .update(req.body.newPass)
+              .digest("hex");
+              if (decoded.hashed === user.password) {
+              User.findByIdAndUpdate(
+                user._id,
+                { password: passwordHashed },
+                (err, comment) => {
+                  if (err) {
+                    res.send({ status: false });
+                  } else {
+                    res.send({ status: true });
+                  }
+                }
+              );
+            } else {
+                res.send({ status: false, message: "invalid link" })
+            }
+          }
         });
       }
     });

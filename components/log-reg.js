@@ -38,6 +38,7 @@ export class LogReg extends Component {
       input: "email",
       inputPlaceholder: "lütfen e-mail adresinizi giriniz",
       showLoaderOnConfirm: true,
+      confirmButtonText:"Tamam",
       preConfirm: (email) => {
         return Http.post("auth/forgot-pass", { email: email })
         
@@ -47,7 +48,8 @@ export class LogReg extends Component {
         Swal.fire({
           title: "Mail adresinize şifre sıfırlama linki gönderdik",
           text:"Spam kutunuzu kontrol etmeyi unutmayın",
-          icon: "success"
+          icon: "success",
+          confirmButtonText:"Tamam"
         });
       } else if (res.value.reason == "falseuser") {
         Swal.fire({
@@ -57,7 +59,8 @@ export class LogReg extends Component {
       } else {
         Swal.fire({
           title: "Bir hata oluştu lütfen daha sonra tekrar deneyiniz",
-          icon: "error"
+          icon: "error",
+          confirmButtonText:"Tamam"
         });
       }
     });

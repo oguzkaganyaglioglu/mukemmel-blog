@@ -26,6 +26,10 @@ const EVENTS = {
   unknown: {
     icon: "error",
     title: "Beklenmeyen bir hata oluştu :("
+  },
+  invalid_reset_link: {
+    icon: "error",
+    title: "Bu link daha önceden kullanılmış lütfen yeni bir şifre sıfırlama işlemi başlatın"
   }
 };
 

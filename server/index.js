@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const AuthRouter = require("./routes");
 const session = require("express-session");
+const User = require("./models/User");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 require("dotenv").config();
@@ -36,6 +37,28 @@ app.prepare().then(() => {
         }
       }
     );
+  };
+
+  const resetPass = (req, res, next) => {
+    jwt.verify(req.query.token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        //res.status(403).json(isEmpty(err) ? { message: 'Wrong token!' } : err);
+        res.redirect("/?unknown_error=true");
+      } else {
+        req.tokenData = decoded;
+        User.findById(decoded.userId).then(user => {
+          if (!user) {
+            res.redirect("/?unknown_error=true");
+          } else {
+            if (decoded.hashed === user.password) {
+              next();
+            } else {
+              res.redirect("/?invalid_reset_link=true");
+            }
+          }
+        });
+      }
+    });
   };
 
   const isAdmin = (req, res, next) => {
@@ -87,12 +110,12 @@ app.prepare().then(() => {
   });
 
   server.get("/admin", isAdmin, (req, res) => {
-      return handle(req, res);
+    return handle(req, res);
   });
 
   server.get("/admin/*", isAdmin, (req, res) => {
     return handle(req, res);
-});
+  });
 
   server.get("/logout", isAuth, (req, res) => {
     req.session.destroy(function(err) {
@@ -124,6 +147,10 @@ app.prepare().then(() => {
     } else {
       return handle(req, res);
     }
+  });
+
+  server.get("/reset-password", resetPass, (req, res) => {
+    return handle(req, res);
   });
 
   server.get("*", (req, res) => {

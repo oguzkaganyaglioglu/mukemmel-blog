@@ -82,7 +82,7 @@ class PostsList extends Component {
   render() {
     const { veri, searchi, isAdmin, token } = this.props;
 
-    const deletePost = (slug) => {
+    const deletePost = slug => {
       Swal.fire({
         title: "Emin misiniz?",
         text: "Bu işlem geri alınamaz!",
@@ -90,7 +90,8 @@ class PostsList extends Component {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Evet sil!",
+        cancelButtonText: "İptal et"
       }).then(result => {
         if (result.value) {
           Http.post(
@@ -99,17 +100,30 @@ class PostsList extends Component {
             { userToken: token }
           ).then(res => {
             if (res.status) {
-              Swal.fire("Silindi!", "İşlem başarıyla gerçekleşti", "success").then(()=>{window.location.reload()});
+              Swal.fire({
+                title:"Silindi!",
+                text:"İşlem başarıyla gerçekleşti",
+                icon:"success",
+                confirmButtonText:"Tamam"
+              }).then(() => {
+                window.location.reload();
+              });
             } else {
-              Swal.fire(
-                "Bir hata oluştu",
-                "Detaylar konsola yazdırılıyor",
-                "error"
-              );
+              Swal.fire({
+                title: "Bir hata oluştu",
+                text: "Detaylar konsola yazdırılıyor",
+                icon: "error",
+                confirmButtonText: "Tamam"
+              });
             }
           });
         } else {
-          Swal.fire("İptal Edildi", "Post hala güvende :)", "error");
+          Swal.fire({
+            title: "İptal Edildi",
+            text: "Post hala güvende :)",
+            icon: "error",
+            confirmButtonText: "Tamam"
+          });
         }
       });
     };
@@ -169,7 +183,7 @@ class PostsList extends Component {
                       style={{ cursor: "pointer" }}
                       className="readmore"
                       onClick={() => {
-                        deletePost(post.slug)
+                        deletePost(post.slug);
                       }}
                     >
                       Sil

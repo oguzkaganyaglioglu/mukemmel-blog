@@ -89,7 +89,7 @@ export class Home extends Component {
           <LikeSlider veri={posts} />
 
           <div className="bettertext" style={{ padding: "80px 0px 20px 0px" }}>
-            <svg width="780" height="100%" viewBox="0 0 1291.766 129.377">
+            <svg width="100%" height="100%" viewBox="0 0 1291.766 129.377">
               <defs>
                 <linearGradient
                   id="linear-gradient"
@@ -160,7 +160,8 @@ Home.getInitialProps = async ({ req, query }) => {
     events: {
       unauthorized: query.unauthorized,
       refresh: query.refresh,
-      unknown: query.unknown_error
+      unknown: query.unknown_error,
+      invalid_reset_link: query.invalid_reset_link
     }
   };
 };
