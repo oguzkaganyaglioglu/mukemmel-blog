@@ -8,6 +8,7 @@ import "../../style/admin.scss";
 import "../../style/main.scss";
 import AOS from "aos";
 import AdminLayout from "../../Layout/admin";
+import ReactResizeDetector from "react-resize-detector";
 import { Search } from "react-feather";
 
 export class Draft extends Component {
@@ -96,6 +97,7 @@ export class Draft extends Component {
 
     return (
       <div>
+      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>Admin</title>
