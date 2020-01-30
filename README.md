@@ -1,5 +1,6 @@
 # Merhaba
 Bu blog [Selman Kahya'nın "Mükemmel Blog" yarışması](https://www.youtube.com/watch?v=cHUh0FmPd3A) için kodlanmıştır 
+
 Kodladığım bloğun web sitesine [buradan](https://perfectwithme.herokuapp.com/) ulaşabilirsiniz: [https://perfectwithme.herokuapp.com/](https://perfectwithme.herokuapp.com/)
 
 # Özellikleri
