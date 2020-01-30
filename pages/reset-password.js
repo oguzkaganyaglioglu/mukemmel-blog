@@ -24,6 +24,7 @@ export class ResetPass extends Component {
               document.getElementById("password").value,
               document.getElementById("repassword").value
             ];
+          } else {
           }
         }
       }).then(result => {
@@ -66,9 +67,11 @@ export class ResetPass extends Component {
                     text: "Giriş Sayfasına yönlendiriliyorsunuz",
                     allowOutsideClick: false,
                     timerProgressBar: true,
-                    showConfirmButton:false,
+                    showConfirmButton: false,
                     timer: 3000
-                  }).then(() => {window.location.assign("/log-reg")});
+                  }).then(() => {
+                    window.location.assign("/log-reg");
+                  });
                 } else {
                   switch (result.message) {
                     case "invalid link":
@@ -78,11 +81,13 @@ export class ResetPass extends Component {
                         text: "Lütfen yeniden şifremi unuttum işlemi başlatın",
                         allowOutsideClick: false,
                         timerProgressBar: true,
-                        showConfirmButton:false,
+                        showConfirmButton: false,
                         timer: 3000
-                      }).then(() => {window.location.assign("/log-reg")});
+                      }).then(() => {
+                        window.location.assign("/log-reg");
+                      });
                       break;
-                  
+
                     default:
                       Swal.fire({
                         icon: "error",
@@ -90,15 +95,26 @@ export class ResetPass extends Component {
                         text: "Lütfen daha sonra yeniden deneyiniz",
                         allowOutsideClick: false,
                         timerProgressBar: true,
-                        showConfirmButton:false,
+                        showConfirmButton: false,
                         timer: 3000
-                      }).then(() => {window.location.assign("/")});
+                      }).then(() => {
+                        window.location.assign("/");
+                      });
                       break;
                   }
                 }
               }
             });
           }
+        } else {
+          Swal.fire({
+              icon: "error",
+              title: "Girdiğiniz şifreler eşleşmiyor",
+              allowOutsideClick: false,
+              confirmButtonText: "Tamam"
+            }).then(res => {
+              this.resetPass();
+            });
         }
       });
     } else {
