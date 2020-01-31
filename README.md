@@ -33,6 +33,7 @@ Kodladığım bloğun web sitesine [buradan](https://perfectwithme.herokuapp.com
 - Blog gönderisi arama
 - Hakkında sayfası
 - İletişim formu (hakkında sayfasının içinde)
+- Pagination (5 ve daha az gönderi varsa gizlenir)
 - Ve daha fazlası ...
 # ENV değişkenleri
 | Env Değişkeni | Değeri | |
