@@ -96,7 +96,19 @@ export class index extends Component {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <AdminLayout>
-
+          <div class="text-center create-new-post">
+            <h3 class="create-new-post-title-text">Dashboard</h3>
+            <hr />
+            <a
+              class="btn btn-primary btn-lg"
+              role="button"
+              href="https://analytics.google.com/"
+              target="_blank"
+            >
+              <span style={{textDecoration: "underline"}}>Google Analytics</span>
+              <br />
+            </a>
+          </div>
         </AdminLayout>
       </div>
     );
