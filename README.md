@@ -31,6 +31,8 @@ Kodladığım bloğun web sitesine [buradan](https://perfectwithme.herokuapp.com
 - Veri tabanı entegrasyonu
 - Slug düzeltme
 - Blog gönderisi arama
+- Hakkında sayfası
+- İletişim formu (hakkında sayfasının içinde)
 - Ve daha fazlası ...
 # ENV değişkenleri
 | Env Değişkeni | Değeri | |
@@ -50,6 +52,17 @@ Kodladığım bloğun web sitesine [buradan](https://perfectwithme.herokuapp.com
 | SMTP_USER | Mail servisi kullanıcı adı | Google için mail adresinizdir|
 | SMTP_FROM | Mailin hangi adresten gönderileceği | Google için mail adresinizdir|
 | MESSAGE_TO | Hakkında sayfasındaki formdan gönderilen mesajları almak istediğiniz mail adresi | 
+
+# Mail Templateleri
+
+## Şifremi Unuttum Maili
+
+![Şifremi Unuttum maili](https://i.hizliresim.com/bvOlZV.png)
+
+## Kullanıcıdan gelen mesaj maili (hakkında sayfasındaki formdan)
+
+![Kullanıcıdan gelen mesaj maili](https://i.hizliresim.com/JV5nYo.png)
+
 
 # Admin Paneli Resimleri
 
