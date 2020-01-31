@@ -48,7 +48,8 @@ Kodladığım bloğun web sitesine [buradan](https://perfectwithme.herokuapp.com
 | SMTP_HOST | Mail gönderim servisi | Eğer google kullanacaksanız " smtp.gmail.com " |
 | SMTP_PORT | Mail gönderim servisi portu | Google için TLS/SSL => 587/465 ikisinden birini girmelisiniz|
 | SMTP_USER | Mail servisi kullanıcı adı | Google için mail adresinizdir|
-| SMTP_FROM | Mailin hangi adresten gönderileceği | Google için mail adresinizdir
+| SMTP_FROM | Mailin hangi adresten gönderileceği | Google için mail adresinizdir|
+| MESSAGE_TO | Hakkında sayfasındaki formdan gönderilen mesajları almak istediğiniz mail adresi | 
 
 # Admin Paneli Resimleri
 
