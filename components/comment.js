@@ -50,7 +50,7 @@ export class CommentSystem extends Component {
 
   onResize = () => {
     AOS.refresh();
-  }
+  };
 
   edit = (text, id, token) => {
     Swal.fire({
@@ -93,8 +93,8 @@ export class CommentSystem extends Component {
                   icon: "success",
                   title: "İşlem başarıyla gerçekleşti",
                   timer: 1000,
-                  onClose:() => {
-                    window.location.reload()
+                  onClose: () => {
+                    window.location.reload();
                   }
                 });
               } else {
@@ -110,14 +110,14 @@ export class CommentSystem extends Component {
         });
       }
     });
-  }
+  };
 
   operation = (type, id, token) => {
     Http.post(
       "comment/setComments",
       {
         commentId: id,
-        operation: type,
+        operation: type
       },
       {
         userToken: token
@@ -129,8 +129,8 @@ export class CommentSystem extends Component {
           icon: "success",
           title: "İşlem başarıyla gerçekleşti",
           timer: 1000,
-          onClose:() => {
-            window.location.reload()
+          onClose: () => {
+            window.location.reload();
           }
         });
       } else {
@@ -146,72 +146,72 @@ export class CommentSystem extends Component {
 
     const handleSendComment = (text, modify) => {
       if (verify()) {
-      if (!modify) {
-        text = "";
-      }
-      Swal.fire({
-        input: "textarea",
-        inputValue: text,
-        inputPlaceholder: "Lütfen yorumunuzu buraya yazınız...",
-        inputAttributes: {
-          "aria-label": "Lütfen yorumunuzu buraya yazınız"
-        },
-        showCancelButton: true,
-        confirmButtonText: "Gönder",
-        cancelButtonText: "İptal et"
-      }).then(result => {
-        if (result.value) {
-          const comment = result.value;
-          Swal.fire({
-            showCancelButton: true,
-            title: "Yorumunuzu onaylıyor musunuz?",
-            html: `
+        if (!modify) {
+          text = "";
+        }
+        Swal.fire({
+          input: "textarea",
+          inputValue: text,
+          inputPlaceholder: "Lütfen yorumunuzu buraya yazınız...",
+          inputAttributes: {
+            "aria-label": "Lütfen yorumunuzu buraya yazınız"
+          },
+          showCancelButton: true,
+          confirmButtonText: "Gönder",
+          cancelButtonText: "İptal et"
+        }).then(result => {
+          if (result.value) {
+            const comment = result.value;
+            Swal.fire({
+              showCancelButton: true,
+              title: "Yorumunuzu onaylıyor musunuz?",
+              html: `
                 <pre><p>${comment}</p></pre>
               `,
-            confirmButtonText: "Gönder",
-            cancelButtonText: "Düzenle"
-          }).then(result => {
-            if (result.value) {
-              //console.log("sended");
-              Http.post(
-                "comment/addComment",
-                {
-                  comment: comment,
-                  postSlug: slug
-                },
-                {
-                  userToken: token
-                }
-              ).then(res => {
-                //console.log(res.status);
-                if (res.status) {
-                  Toast.fire({
-                    icon: "success",
-                    title: "İşlem başarıyla gerçekleşti",
-                    timer: 1000,
-                    onClose:() => {
-                      window.location.reload()
-                    }
-                  });
-                } else {
-                  Toast.fire({
-                    icon: "error",
-                    title: "İşlem başarısız oldu"
-                  });
-                }
-              });
-            } else {
-              handleSendComment(comment, true);
-            }
-          });
-        }
-      });
-    } else {
-      Toast.fire({
-        icon: "error",
-        title: "Yorum bırakmak için üye girişi yapmalısınız"
-      });
-    }
+              confirmButtonText: "Gönder",
+              cancelButtonText: "Düzenle"
+            }).then(result => {
+              if (result.value) {
+                //console.log("sended");
+                Http.post(
+                  "comment/addComment",
+                  {
+                    comment: comment,
+                    postSlug: slug
+                  },
+                  {
+                    userToken: token
+                  }
+                ).then(res => {
+                  //console.log(res.status);
+                  if (res.status) {
+                    Toast.fire({
+                      icon: "success",
+                      title: "İşlem başarıyla gerçekleşti",
+                      timer: 1000,
+                      onClose: () => {
+                        window.location.reload();
+                      }
+                    });
+                  } else {
+                    Toast.fire({
+                      icon: "error",
+                      title: "İşlem başarısız oldu"
+                    });
+                  }
+                });
+              } else {
+                handleSendComment(comment, true);
+              }
+            });
+          }
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Yorum bırakmak için üye girişi yapmalısınız"
+        });
+      }
     };
 
     const verify = () => {
@@ -227,7 +227,6 @@ export class CommentSystem extends Component {
     };
 
     const verifyRoute = comment => {
-      
       if (verify() != false) {
         if (verify().admin) {
           return (
@@ -328,21 +327,21 @@ export class CommentSystem extends Component {
             </h4>
           );
         } else {
-        return (
-          <h4
-            className="text-truncate"
-            style={{
-              color: "rgb(255,255,255)",
-              marginTop: "15px",
-              marginBottom: "13px",
-              marginBottom: "8px",
-              paddingBottom: "5px"
-            }}
-          >
-            {comment.userName}
-          </h4>
-        );
-      }
+          return (
+            <h4
+              className="text-truncate"
+              style={{
+                color: "rgb(255,255,255)",
+                marginTop: "15px",
+                marginBottom: "13px",
+                marginBottom: "8px",
+                paddingBottom: "5px"
+              }}
+            >
+              {comment.userName}
+            </h4>
+          );
+        }
       } else {
         return (
           <h4
@@ -362,36 +361,82 @@ export class CommentSystem extends Component {
     };
 
     const commentTime = comment => {
-      if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30 * 12) > 1)) { // date / (1000 * 3600 * 24 * 30 * 12) ay cinsinden
+      if (
+        (new Date() - new Date(comment.dateModified)) /
+          (1000 * 3600 * 24 * 30 * 12) >
+        1
+      ) {
+        // date / (1000 * 3600 * 24 * 30 * 12) ay cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30 * 12)) + " yıl önce");
-    
-      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30) > 1)) { // date / (1000 * 3600 * 24 * 30) ay cinsinden
+        return (
+          Math.ceil(
+            (new Date() - new Date(comment.dateModified)) /
+              (1000 * 3600 * 24 * 30 * 12)
+          ) + " yıl önce"
+        );
+      } else if (
+        (new Date() - new Date(comment.dateModified)) /
+          (1000 * 3600 * 24 * 30) >
+        1
+      ) {
+        // date / (1000 * 3600 * 24 * 30) ay cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24 * 30)) + " ay önce")
-        
-      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24) > 1)) { // date / (1000 * 3600 * 24) gün cinsinden
+        return (
+          Math.ceil(
+            (new Date() - new Date(comment.dateModified)) /
+              (1000 * 3600 * 24 * 30)
+          ) + " ay önce"
+        );
+      } else if (
+        (new Date() - new Date(comment.dateModified)) / (1000 * 3600 * 24) >
+        1
+      ) {
+        // date / (1000 * 3600 * 24) gün cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600 * 24)) + " gün önce")
-  
-      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 3600) > 1)) { // date / (1000 * 3600) saat cinsinden
+        return (
+          Math.ceil(
+            (new Date() - new Date(comment.dateModified)) / (1000 * 3600 * 24)
+          ) + " gün önce"
+        );
+      } else if (
+        (new Date() - new Date(comment.dateModified)) / (1000 * 3600) >
+        1
+      ) {
+        // date / (1000 * 3600) saat cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 3600)) + " saat önce")
+        return (
+          Math.ceil(
+            (new Date() - new Date(comment.dateModified)) / (1000 * 3600)
+          ) + " saat önce"
+        );
+      } else if (
+        (new Date() - new Date(comment.dateModified)) / (1000 * 60) >
+        1
+      ) {
+        // date / (1000) dk cinsinden
 
-      } else if (((new Date - new Date(comment.dateModified)) / (1000 * 60) > 1)) { // date / (1000) dk cinsinden
+        return (
+          Math.ceil(
+            (new Date() - new Date(comment.dateModified)) / (1000 * 60)
+          ) + " dakika önce"
+        );
+      } else if ((new Date() - new Date(comment.dateCreated)) / 1000 > 1) {
+        // date / (1000) sn cinsinden
 
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000 * 60)) + " dakika önce")
-
-      } else if (((new Date - new Date(comment.dateCreated)) / (1000) > 1)) { // date / (1000) sn cinsinden
-
-        return (Math.ceil((new Date - new Date(comment.dateModified)) / (1000)) + " saniye önce")
-
+        return (
+          Math.ceil((new Date() - new Date(comment.dateModified)) / 1000) +
+          " saniye önce"
+        );
       }
-    }
+    };
 
     return (
       <div>
-      <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
+        <ReactResizeDetector
+          handleWidth
+          handleHeight
+          onResize={this.onResize}
+        />
         <h2
           style={{
             margin: "50px 0 40px",
@@ -434,11 +479,27 @@ export class CommentSystem extends Component {
                         className="comment-icons"
                         size={"18px"}
                         style={{ margin: "0 7px" }}
+                        onClick={() => {
+                          Toast.fire({
+                            icon: "info",
+                            title: "Bu özellik henüz geliştirme aşamasındadır",
+                            text:
+                              "En kısa zamanda aktif edilecektir. Anlayışınız için teşekkür ederim"
+                          });
+                        }}
                       />
                       <ThumbsDown
                         className="comment-icons"
                         size={"18px"}
                         style={{ margin: "0 7px" }}
+                        onClick={() => {
+                          Toast.fire({
+                            icon: "info",
+                            title: "Bu özellik henüz geliştirme aşamasındadır",
+                            text:
+                              "En kısa zamanda aktif edilecektir. Anlayışınız için teşekkür ederim"
+                          });
+                        }}
                       />
                       {/* 15dk önce  //TODO: zaman eklenecek */}
                       {commentTime(comment)}
