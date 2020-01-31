@@ -56,7 +56,7 @@ export class Home extends Component {
               http-equiv="Content-Type"
               content="text/html; charset=utf-8"
             />
-            <title>Home</title>
+            <title>Ana Sayfa</title>
             <link
               href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
               rel="stylesheet"

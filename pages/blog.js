@@ -41,7 +41,7 @@ export class Home extends Component {
       <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-          <title>Home</title>
+          <title>Blog</title>
           <link
             href="https://fonts.googleapis.com/css?family=Orbitron&display=swap"
             rel="stylesheet"

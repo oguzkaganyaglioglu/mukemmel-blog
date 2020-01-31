@@ -237,7 +237,7 @@ class Account extends Component {
         <GoogleAnalytics />
         <Head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-          <title>Home</title>
+          <title>Hoşgeldin</title>
           <link
             href="https://fonts.googleapis.com/css?family=Orbitron&display=swap"
             rel="stylesheet"

@@ -17,7 +17,7 @@ export class BlogPost extends Component {
         <GoogleAnalytics />
         <Head>
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-          <title>Home</title>
+          <title>{post.title}</title>
           <link
             href="https://fonts.googleapis.com/css?family=Orbitron&display=swap"
             rel="stylesheet"

@@ -1,0 +1,28 @@
+.form-elements {
+    background: transparent;
+    outline: none;
+    color: #726659;
+    border: solid 1px #b3aca7;
+    border-bottom: none;
+    border-radius: 0px;
+  }
+  
+  #submitbutton {
+    border: solid 1px #b3aca7;
+  }
+  
+  .form-elements:hover {
+    background-color: rgba(0,0,0,0.05);
+  }
+  
+  #message {
+    min-height: 170px;
+  }
+  
+  #form {
+    margin: auto;
+    max-width: 700px;
+    width: 100%;
+  }
+  
+  
