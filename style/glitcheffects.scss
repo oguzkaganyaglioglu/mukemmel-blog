@@ -32,11 +32,11 @@
     &::after {
       left: 2px;
       text-shadow: -1px 0 $highlightColor1;
-      animation: #{$name}-anim-1 2s infinite linear alternate-reverse;
+      animation: #{$name}-anim-1 4s infinite linear alternate-reverse;
     }
     &::before {
       left: -2px;
       text-shadow: 2px 0 $highlightColor2; 
-      animation: #{$name}-anim-2 3s infinite linear alternate-reverse;
+      animation: #{$name}-anim-2 6s infinite linear alternate-reverse;
     }
   }
