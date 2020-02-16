@@ -19,7 +19,7 @@ export class FooterCopyright extends Component {
               <div className="col-md-6 col-lg-8 mx-auto">
                 <ul className="list-inline text-center">
                   <li className="list-inline-item">
-                    <a href="https://twitter.com/oguzkagan05/with_replies">
+                    <a href="https://twitter.com/oguzkagan05/with_replies" target="_blank">
                       <span className="fa-stack fa-lg">
                         <i className="fa fa-circle fa-stack-2x"></i>
                         <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -27,7 +27,7 @@ export class FooterCopyright extends Component {
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a href="https://www.instagram.com/oguz_kagan05/">
+                    <a href="https://www.instagram.com/oguz_kagan05/" target="_blank">
                       <span className="fa-stack fa-lg">
                         <i className="fa fa-circle fa-stack-2x"></i>
                         <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
@@ -35,7 +35,7 @@ export class FooterCopyright extends Component {
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a href="https://github.com/oguzkaganyaglioglu">
+                    <a href="https://github.com/oguzkaganyaglioglu" target="_blank">
                       <span className="fa-stack fa-lg">
                         <i className="fa fa-circle fa-stack-2x"></i>
                         <i className="fa fa-github fa-stack-1x fa-inverse"></i>
